@@ -14,6 +14,7 @@ class UsersController < ApplicationController
             if @user.save
                 #UserMailer.welcome_email(@user).deliver_now
                 flash[:notice] = "Welcome #{params[:user][:first_name]}! Thanks for signing up!"
+                redirect_to new_user_path
             else
                 flash[:notice] = "Sorry, something went wrong. Please try again"
                 redirect_to new_user_path

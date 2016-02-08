@@ -1,2 +1,26 @@
 class UsersController < ApplicationController
+    def user_params
+        params.require(:user).permit(:email, :user_id, :password, :first_name, :last_name, :gender)
+    end
+    
+    def new
+    #render new template
+    end
+    
+    def create
+        if(!User.find_by_user_id(params[:user][:user_id]))
+            params_hash = {:first_name => params[:user][:first_name], :last_name => params[:user][:last_name], :gender => params[:user][:gender], :email => params[:user][:email], :user_id => params[:user][:user_id], :role => "user", :password => params[:user][:password]} 
+            @user = User.new(params_hash)
+            if @user.save
+                #UserMailer.welcome_email(@user).deliver_now
+                flash[:notice] = "Welcome #{params[:user][:first_name]}! Thanks for signing up!"
+            else
+                flash[:notice] = "Sorry, something went wrong. Please try again"
+                redirect_to new_user_path
+            end
+        else
+            flash[:notice] = "Sorry, but that user id is already taken"
+            redirect_to new_user_path
+        end
+    end
 end

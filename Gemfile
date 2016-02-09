@@ -38,6 +38,15 @@ gem 'gmaps4rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'simplecov', :require => false
+end
+
+group :test do
+  gem 'rspec-expectations'
+  gem 'cucumber-rails', :require => false
 end
 
 group :development do

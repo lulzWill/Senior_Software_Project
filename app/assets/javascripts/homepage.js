@@ -1,62 +1,39 @@
 var results;
 var map;
+var location;
 
+function initAutocomplete() 
+{
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 14
+  });
+  var infoWindow = new google.maps.InfoWindow({map: map});
 
-window.onload = function() {
-  results = document.getElementById("results");
-  var mapOptions = {
-    zoom: 13,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById("mapSurface"), mapOptions);
-
-
+  // Try HTML5 geolocation.
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      geolocationSuccess, geolocationFailure
-    );
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
-    results.innerHTML = "The search has begun.";
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Location found.');
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
   } else {
-    results.innerHTML = "This browser doesn't support geolocation.";
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
   }
-}
 
-function geolocationSuccess(position) {
-
-      var location = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-      map.setCenter(location);
-
-var infowindow = new google.maps.InfoWindow();
-
-      infowindow.setContent("You are here, or somewhere thereabouts.");
-      infowindow.setPosition(location);
-      infowindow.open(map);
-
- results.innerHTML = "Now you're on the map.";
-}
-
-function geolocationFailure(positionError) {
-  if (positionError.code == 1) {
-    results.innerHTML = 
-     "You decided not to share, but that's OK. We won't ask again.";
-  }
-  else if (positionError.code == 2) {
-    results.innerHTML =
-     "The network is down or the positioning service can't be reached.";
-  }
-  else if (positionError.code == 3) {
-    results.innerHTML =
-     "The attempt timed out before it could get the location data.";
-  }
-  else {
-    results.innerHTML =
-     "This the mystery error. Something else happened, but we don't know what.";
-  }
-}
+  // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+  //map.setCenter(location);
 
   // Bias the SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
@@ -109,4 +86,12 @@ function geolocationFailure(positionError) {
     map.fitBounds(bounds);
   });
   // [END region_getplaces]
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+}
 

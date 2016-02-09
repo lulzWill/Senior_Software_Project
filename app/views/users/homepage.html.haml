@@ -2,34 +2,75 @@
 %script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js", type: "text/javascript"}
 %script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js", :type => "text/javascript"}
 / only if you need custom infoboxes
-
-!!!
-%html{:lang => "en"}
-  %head
-    %meta{:charset => "utf-8"}
-      %title Geolocation Map
-      :css
-        #mapSurface {
-          border-radius: 25px;
-          border-width: 2px;
-          width: 600px;
-          height: 400px;
-          border: solid 1px black;
-        }
-        #pac-input {
-          background-color: #fff;
-          font-family: Roboto;
-          font-size: 15px;
-          font-weight: 300;
-          margin-left: 12px;
-          padding: 0 11px 0 13px;
-          text-overflow: ellipsis;
-          width: 300px;
-        }
-        
-  %body
-    %p#results Where do you live?
-    #pac-input 
-      %input#pac-input.controls{:placeholder => "Search Box", :type => "text"}
-    #mapSurface
+%script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBc1-JTVRz67J6tR5l5SUcla54SPxpIfqs&libraries=places&callback=initAutocomplete"} 
     
+
+%html
+  %head
+    %meta{:content => "initial-scale=1.0, user-scalable=no", :name => "viewport"}
+      %meta{:charset => "utf-8"}
+        :css
+          html, body 
+          {
+            height: 300px;
+            margin: 0;
+            padding: 0;
+            width: 70%;
+            align: center;
+          }
+          #map 
+          {
+            height: 300px;
+            border: 1px solid black;
+          }
+          .controls {
+            margin-top: 10px;
+            border: 1px solid black;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+          }
+        
+          #pac-input {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 300px;
+          }
+        
+          #pac-input:focus {
+            border-color: #4d90fe;
+          }
+        
+          .pac-container {
+            font-family: Roboto;
+          }
+        
+          #type-selector {
+            color: #fff;
+            background-color: #4d90fe;
+            padding: 5px 11px 0px 11px;
+          }
+        
+          #type-selector label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+          }
+
+            %title Places Searchbox
+        :css
+          #target {
+            width: 345px;
+          }
+      %body
+        %input#pac-input.controls{:placeholder => "Search Box", :type => "text"}
+        #map
+      

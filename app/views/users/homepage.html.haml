@@ -18,9 +18,16 @@
             width: 100%;
             display: flex;
           }
+          #search
+          {
+            width: 100%;
+            display: flex;
+          }
           #map 
           {
-            height: 500px;
+            border-radius: 25px;
+            border-width: 2px;
+            height: 450px;
             border: 1px solid black;
           }
           .controls {
@@ -52,7 +59,11 @@
           .pac-container {
             font-family: Roboto;
           }
-        
+          #side-div{
+            border-radius: 25px;
+            height: 500px;
+            border: 1px solid black;
+          }
           #type-selector {
             color: #fff;
             background-color: #4d90fe;
@@ -72,12 +83,22 @@
           }
       %body
         
-        %div{:float => "left",:style => "width: 15%;"}
+        #side-div{:float => "left",:style => "width: 15%"}
           %h1 Link div 
         
         %div{:float => "center",:style => "width: 60%;"}
           %input#pac-input.controls{:placeholder => "Search Box", :type => "text"}
           #map
-        %div{:float => "right",:style => "width: 30%;"}
+          #search
+            %div{:style => "width: 50%; text-align: center;"}
+              %form  
+                %input{:placeholder => "Search Box", :type => "text"}
+                %input{:value =>"Search", :type => "button"}
+             
+            %div{:style => "width: 50%; text-align: center;"}
+              %form  
+                %input{:placeholder => "Search Box", :type => "text"}
+                %input{:value =>"Search", :type => "button"}
+        #side-div{:float => "right",:style => "width: 30%;"}
           %h1 Chat div
       

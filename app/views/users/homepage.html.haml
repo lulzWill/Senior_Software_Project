@@ -9,85 +9,13 @@
   %head
     %meta{:content => "initial-scale=1.0, user-scalable=no", :name => "viewport"}
       %meta{:charset => "utf-8"}
-        :css
-          html, body 
-          {
-            height: 300px;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            display: flex;
-          }
-          #search
-          {
-            width: 100%;
-            display: flex;
-          }
-          #map 
-          {
-            border-radius: 2%;
-            border-width: 2px;
-            height: 450px;
-            border: 1px solid black;
-          }
-          .controls {
-            margin-top: 10px;
-            border: 1px solid black;
-            border-radius: 2px 0 0 2px;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            height: 32px;
-            outline: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-          }
-        
-          #pac-input {
-            background-color: #fff;
-            font-family: Roboto;
-            font-size: 15px;
-            font-weight: 300;
-            margin-left: 12px;
-            padding: 0 11px 0 13px;
-            text-overflow: ellipsis;
-            width: 300px;
-          }
-        
-          #pac-input:focus {
-            border-color: #4d90fe;
-          }
-        
-          .pac-container {
-            font-family: Roboto;
-          }
-          #side-div{
-            border-radius: 25px;
-            height: 500px;
-            border: 1px solid black;
-          }
-          #type-selector {
-            color: #fff;
-            background-color: #4d90fe;
-            padding: 5px 11px 0px 11px;
-          }
-        
-          #type-selector label {
-            font-family: Roboto;
-            font-size: 13px;
-            font-weight: 300;
-          }
-
-            %title Places Searchbox
-        :css
-          #target {
-            width: 345px;
-          }
       
       %body
         %div{:style => "width: 100%;"}
           %div{:style => "margin: 0 auto; width: 60%;"}
-            %input#pac-input.controls{:placeholder => "Search Box", :type => "text"}
-            #map
-            #search
+            %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 6%;"}
+            #map{:style => "border-radius: 2%;border-width: 2px;height: 450px; border: 1px solid black;"}
+            #search{:style =>"width: 100%;display: flex;"}
               %div{:style => "width: 50%; text-align: center;"}
                 %form  
                   %input{:placeholder => "Search Box", :type => "text"}

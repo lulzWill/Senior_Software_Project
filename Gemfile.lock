@@ -207,13 +207,9 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.1.0)
-<<<<<<< HEAD
   cucumber-rails
   database_cleaner
-  gmaps4rails
-=======
   gmaps4rails!
->>>>>>> geomap
   haml
   jbuilder (~> 2.0)
   jquery-rails

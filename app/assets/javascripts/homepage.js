@@ -6,7 +6,21 @@ function initAutocomplete()
 {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -34.397, lng: 150.644},
-    zoom: 14
+    zoom: 14,
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.VERTICAL_BAR,
+        position: google.maps.ControlPosition.TOP_CENTER
+    },
+    zoomControl: true,
+    zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_CENTER
+    },
+    scaleControl: true,
+    streetViewControl: true,
+    streetViewControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_CENTER
+    }
   });
   var infoWindow = new google.maps.InfoWindow({map: map});
 
@@ -19,7 +33,7 @@ function initAutocomplete()
       };
 
       infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found.');
+      infoWindow.setContent('You Are Here!!');
       map.setCenter(pos);
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
@@ -27,12 +41,13 @@ function initAutocomplete()
   } else {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
+    infoWindow.setContent('We could not find you!!');
   }
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
   //map.setCenter(location);
 
   // Bias the SearchBox results towards current map's viewport.

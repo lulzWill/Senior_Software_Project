@@ -10,6 +10,11 @@ $(document).ready(function(){
         
         document.getElementById("errors").innerHTML = ""
         
+        if($('#signup_id').val() === "") {
+            document.getElementById("errors").innerHTML += "ERROR: You must have a user id! </br>"
+            flag = 1;
+        }
+        
         if (pass != pass_conf) {
             document.getElementById("errors").innerHTML += "ERROR: Passwords do not match </br>"
             flag = 1;

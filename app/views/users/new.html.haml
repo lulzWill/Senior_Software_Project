@@ -1,31 +1,37 @@
+= stylesheet_link_tag    'new_user'
 = javascript_include_tag 'signup_scripts'
 %div.container
-  %div.row
+  %div.row{:style => 'margin-top: 5%;'}
     %div.panel.panel-default
       %div.panel-body{:style => 'height: 40%;'}
-        %div.col-sm-6
-          %h1 Sign-Up
-          = form_tag users_path, :id => 'signup_form' do
-            %div.form-group.row
-              = label :user, :user_id, 'User-ID', :class => 'col-sm-2'
-              = text_field :user, 'user_id', :id => 'signup_id', :class => 'col-sm-9'
-            %div.form-group.row
-              = label :user, :email, 'Email', :class => 'col-sm-2'
-              = text_field :user, 'email', :id => 'signup_email', :class => 'col-sm-9'
-            %div.form-group.row
-              = label :user, :password, 'Password', :class => 'col-sm-2'
-              = password_field :user, 'password', :id => 'signup_pass', :class => 'col-sm-9'
-            %div.form-group.row
-              = label :user, :password_conf, 'Confirm Password', :class => 'col-sm-2'
-              = password_field :user, 'password_conf', :id => 'signup_pass_conf', :class => 'col-sm-9'
-            %div.form-group.row
-              = label :user, :first_name, 'First Name', :class => 'col-sm-2'
-              = text_field :user, 'first_name', :id => 'first_name', :class => 'col-sm-9'
-            %div.form-group.row
-              = label :user, :last_name, 'Last Name', :class => 'col-sm-2'
-              = text_field :user, 'last_name', :id => 'last_name', :class => 'col-sm-9'
-            %div.form-group.row
-              = label :user, :gender, 'Gender', :class => 'col-sm-2'
-              = text_field :user, 'gender', :id => 'gender', :class => 'col-sm-9'
-            = submit_tag 'Create My Account', :id => 'signup_submit', :class => 'btn btn-default'
+        = form_tag users_path, :id => 'signup_form' do
+          %div.row
+            %h1{:style => 'margin-left: 2%;'} Sign-Up
+          %div.row
+            %div.col-sm-6
+              %div.form-group.row
+                = label :user, :user_id, 'User-ID', :class => 'col-sm-2'
+                = text_field :user, 'user_id', :id => 'signup_id', :class => 'col-sm-9'
+              %div.form-group.row
+                = label :user, :email, 'Email', :class => 'col-sm-2'
+                = text_field :user, 'email', :id => 'signup_email', :class => 'col-sm-9'
+              %div.form-group.row
+                = label :user, :password, 'Password', :class => 'col-sm-2'
+                = password_field :user, 'password', :id => 'signup_pass', :class => 'col-sm-9'
+              %div.form-group.row
+                = label :user, :password_conf, 'Confirm Password', :class => 'col-sm-2'
+                = password_field :user, 'password_conf', :id => 'signup_pass_conf', :class => 'col-sm-9'
+              %div.form-group.row
+                = label :user, :first_name, 'First Name', :class => 'col-sm-2'
+                = text_field :user, 'first_name', :id => 'first_name', :class => 'col-sm-9'
+              %div.form-group.row
+                = label :user, :last_name, 'Last Name', :class => 'col-sm-2'
+                = text_field :user, 'last_name', :id => 'last_name', :class => 'col-sm-9'
+              %div.form-group.row
+                = label :user, :gender, 'Gender', :class => 'col-sm-2'
+                = text_field :user, 'gender', :id => 'gender', :class => 'col-sm-9'
+            %div.col-sm-6
+              =image_tag "full_staff.png", :class => "img-responsive img-rounded signup-img"
+          %div.row{:style => "margin-left: 2%;"}     
+            = submit_tag 'Create My Account', :id => 'signup_submit', :class => 'btn btn-success'
       #errors.alert.alert-danger

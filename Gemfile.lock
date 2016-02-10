@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/fiedl/Google-Maps-for-Rails.git
+  revision: 7a647944046cf8fb03e98b4df34ecee80112ffd1
+  specs:
+    gmaps4rails (2.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -83,7 +89,6 @@ GEM
     gherkin (3.2.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    gmaps4rails (2.1.2)
     haml (4.0.7)
       tilt
     i18n (0.7.0)
@@ -202,9 +207,13 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.1.0)
+<<<<<<< HEAD
   cucumber-rails
   database_cleaner
   gmaps4rails
+=======
+  gmaps4rails!
+>>>>>>> geomap
   haml
   jbuilder (~> 2.0)
   jquery-rails

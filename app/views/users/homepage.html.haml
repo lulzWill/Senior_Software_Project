@@ -5,44 +5,43 @@
 %script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBc1-JTVRz67J6tR5l5SUcla54SPxpIfqs&libraries=places&callback=initAutocomplete"} 
     
 
-%html
+%html{:style => "height: 100%;"}
   %head
     %meta{:content => "initial-scale=1.0, user-scalable=no", :name => "viewport"}
       %meta{:charset => "utf-8"}
       
-      %body
-        
-        %div{:style => "width: 100%;display: flex;"}
-        
-          .container
-            %button.btn.btn-success{:onclick => "collapseYelp()", :type => "button"}
+  %body{:style => "height: 100%;"}
+    
+    %div{:style => "width: 100%;height: 100%;display: flex;position: relative;"}
+    
+      .container{:style => "height: 100%;position: absolute; top: 10px; left: 10px; z-index: 99;"}
+        %button.btn.btn-success{:onclick => "collapseYelp()", :type => "button"}
+          %span.glyphicon.glyphicon-collapse-down
+          Yelp
+        #demo.collapse{:style => "border: 2px black;display: none;"}
+          %h1 Yelp Results
+          %form  
+            %input{:placeholder => "Search Box", :type => "text"}
+            %button.btn-warning{:value =>"Search", :type => "button"}
               %span.glyphicon.glyphicon-collapse-down
-              Yelp
-            #demo.collapse{:style => "display: none;"}
-              %h1 Yelp Results
-              %form  
-                %input{:placeholder => "Search Box", :type => "text"}
-                %button.btn-warning{:value =>"Search", :type => "button"}
-                  %span.glyphicon.glyphicon-collapse-down
-                  Search Yelp
-                %h1 
-                
-            .container
-              %button.btn.btn-success{:onclick => "collapseKayak()", :type => "button"}
-                %span.glyphicon.glyphicon-collapse-down
-                Kayak
-              #demo2.collapse{:style => "display: none;"}
-                %h1 Kayak Results
-                %form  
-                  %input{:placeholder => "Search Box", :type => "text"}
-                  %button.btn-warning{:value =>"Search", :type => "button"}
-                    %span.glyphicon.glyphicon-collapse-down
-                    Search Kayak
-        
-          %div{:style => " width: 100%;height:100%;"}
-            %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 6%;"}
-            #map{:style => "border-radius: 2%;border-width: 2px;height: 450px; border: 1px solid black;"}
+              Search Yelp
             
-                
+      .container{:style => "height: 100%;position: absolute; top: 10px; right: 10px; z-index: 99;"}
+        %button.btn.btn-success.pull-right{:onclick => "collapseKayak()", :type => "button", :style=>"align:right;"}
+          %span.glyphicon.glyphicon-collapse-down
+          Kayak
+        #demo2.collapse{:style => "display: none;"}
+          %h1 Kayak Results
+          %form  
+            %input{:placeholder => "Search Box", :type => "text"}
+            %button.btn-warning{:value =>"Search", :type => "button"}
+              %span.glyphicon.glyphicon-collapse-down
+              Search Kayak
+    
+      %div{:style => "width: 100%;height:100%;"}
+        %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
+        #map{:style => "border-radius: 2%;border-width: 2px; border: 1px solid black;height: 98%;"}
         
-      
+            
+    
+  

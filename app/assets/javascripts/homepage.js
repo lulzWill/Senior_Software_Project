@@ -1,3 +1,12 @@
+
+function collapseYelp()
+{
+  $("#demo").toggle();
+}
+function collapseKayak()
+{
+  $("#demo2").toggle();
+}
 var results;
 var map;
 var location;
@@ -54,7 +63,6 @@ function initAutocomplete()
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
   });
-
   var markers = [];
   // [START region_getplaces]
   // Listen for the event fired when the user selects a prediction and retrieve
@@ -90,7 +98,6 @@ function initAutocomplete()
         title: place.name,
         position: place.geometry.location
       }));
-
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
         bounds.union(place.geometry.viewport);
@@ -109,4 +116,5 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: The Geolocation service failed.' :
                         'Error: Your browser doesn\'t support geolocation.');
 }
+
 

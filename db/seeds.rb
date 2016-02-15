@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Location.create(name: 'University of Iowa', latitude: 10, longitude: 10)
+Review.create(user_id:1, location_id:1, rating:4, comment: 'test comment', flags:0, allowed:true)

@@ -5,4 +5,8 @@ class LocationsController < ApplicationController
         @location = Location.find(id)
     end
     
+    def new
+        
+    end
+    
 end

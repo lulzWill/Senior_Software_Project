@@ -7,5 +7,8 @@
 
   = label :review, :comment, 'Comment'
   = text_field :review, :comment, :value => @review.comment
+  
+  = label :review, :date, 'Visited On'
+  = date_select :review, :date
 
   = submit_tag 'Update Review'

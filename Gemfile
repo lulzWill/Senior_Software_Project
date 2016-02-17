@@ -23,6 +23,11 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'haml'
+gem 'mailgun-ruby', '~>1.0.2', require: 'mailgun'
+gem 'mailgun_rails'
+
+gem 'gmaps4rails'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -31,7 +36,6 @@ gem 'haml'
 gem 'carrierwave'
 # Use Unicorn as the app server
 # gem 'unicorn'
-gem 'simplecov', :require => false
 gem 'selenium-webdriver'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -39,11 +43,15 @@ gem 'selenium-webdriver'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'sqlite3'
-  gem 'database_cleaner'
   gem 'capybara'
-  gem 'launchy'
+  gem 'database_cleaner'
   gem 'rspec-rails'
+  gem 'simplecov', :require => false
+end
+
+group :test do
+  gem 'sqlite3'
+  gem 'launchy'
   gem 'rspec-expectations'
   gem 'cucumber-rails', :require=>false
 end

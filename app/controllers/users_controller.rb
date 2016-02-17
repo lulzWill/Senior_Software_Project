@@ -9,7 +9,11 @@ class UsersController < ApplicationController
     def index
         
     end
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 1fcb9fabcf7c58e3ca04dc0cd3846cc4ed4b82be
     def user_params
         params.require(:user).permit(:email, :user_id, :password, :first_name, :last_name, :gender)
     end

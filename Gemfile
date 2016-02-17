@@ -27,7 +27,11 @@ gem 'haml'
 gem 'mailgun-ruby', '~>1.0.2', require: 'mailgun'
 gem 'mailgun_rails'
 
-gem 'gmaps4rails'
+gem 'geocoder'
+
+gem 'yelp', require: 'yelp'
+
+gem 'gmaps4rails', git: 'https://github.com/fiedl/Google-Maps-for-Rails.git'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.2.0'

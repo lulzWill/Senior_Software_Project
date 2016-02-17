@@ -31,10 +31,12 @@ gem 'gmaps4rails'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.2.0'
-
+# Use Haml as the templating library
+gem 'haml'
+gem 'carrierwave'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem 'selenium-webdriver'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -48,8 +50,10 @@ group :development, :test do
 end
 
 group :test do
+  gem 'sqlite3'
+  gem 'launchy'
   gem 'rspec-expectations'
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', :require=>false
 end
 
 group :development do
@@ -60,3 +64,7 @@ group :development do
   gem 'spring'
 end
 
+group :production do
+  gem 'pg' # for Heroku deployment
+  gem 'rails_12factor'
+end

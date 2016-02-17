@@ -1,0 +1,19 @@
+body {
+    background-image: image-url("signup_background.jpeg"); 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: fixed;
+    background-repeat: none;
+}
+
+div.panel {
+    opacity: 0.9;
+}
+
+.signup-img {
+    height: 370px;
+    width: 300px;
+    margin-left: 20%;
+}

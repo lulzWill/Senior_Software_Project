@@ -9,12 +9,6 @@ class UsersController < ApplicationController
     def index
         
     end
-    
-    def create
-        
-    end
-    
-    def new
 
     def user_params
         params.require(:user).permit(:email, :user_id, :password, :first_name, :last_name, :gender)

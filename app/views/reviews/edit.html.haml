@@ -1,14 +1,15 @@
-%h1 Edit Review
-
-= form_tag review_path(@review), :method => :put do
-
-  = label :review, :rating, 'Rating'
-  = select :review, :rating, [1,2,3,4,5]
-
-  = label :review, :comment, 'Comment'
-  = text_field :review, :comment, :value => @review.comment
+.review.edit-review  
+  %h1 Edit Review
   
-  = label :review, :date, 'Visited On'
-  = date_select :review, :date
-
-  = submit_tag 'Update Review'
+  = form_tag review_path(@review), :method => :put do
+  
+    = label :review, :rating, 'Rating'
+    = select :review, :rating, [1,2,3,4,5]
+  
+    = label :review, :comment, 'Comment'
+    = text_field :review, :comment, :value => @review.comment
+    
+    -#= label :review, :date, 'Visited On'
+    -#= date_select :review, :date
+  
+    = submit_tag 'Update Review'

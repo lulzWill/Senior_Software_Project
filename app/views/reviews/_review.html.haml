@@ -1,3 +1,4 @@
-%h2 Review for location id: #{@review.location_id}, name: #{@location.name}
-%h2 by user #{@review.user_id}
-%p #{@review.comment}
+.review
+    %h3 Rating: #{@review.rating} by user #{@review.user_id}
+    Comment: #{@review.comment}
+    

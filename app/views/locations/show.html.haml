@@ -1,1 +1,10 @@
 =render :partial => 'location'
+
+%table.reviews
+    %tbody
+        - @reviews.each do |review|
+            %tr
+                %td
+                    -@review = review
+                    =render :partial => 'reviews/review'
+                %td= link_to "Expand review", review_path(review)

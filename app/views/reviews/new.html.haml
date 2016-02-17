@@ -1,14 +1,15 @@
-%h1 Create Review
+.review.new-review
+  %h1 Create Review
 
-= form_tag reviews_path do
-
-  = label :review, :rating, 'Rating'
-  = select :review, :rating, [1,2,3,4,5]
-
-  = label :review, :comment, 'Comments'
-  = text_field :review, :comment
+  = form_tag reviews_path do
   
-  = label :review, :date, 'Visited On'
-  = date_select :review, :date
-
-  = submit_tag 'Save Review'
+    = label :review, :rating, 'Rating'
+    = select :review, :rating, [1,2,3,4,5]
+  
+    = label :review, :comment, 'Comments'
+    = text_field :review, :comment
+    
+    = label :review, :date, 'Visited On'
+    = date_select :review, :date
+  
+    = submit_tag 'Save Review'

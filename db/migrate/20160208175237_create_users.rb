@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_name
       t.string :gender
       t.string :profile_pic
+      t.string :session_token
       
       t.timestamps null: false
     end

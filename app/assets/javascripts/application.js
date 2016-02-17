@@ -15,7 +15,5 @@
 //= require turbolinks
 //= require homepage.js
 //= require_tree .
-//= require gmaps/google
-//= require underscore
 //= require bootstrap-sprockets
 $('.dropdown-toggle').dropdown()

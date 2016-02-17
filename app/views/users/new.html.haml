@@ -1,7 +1,7 @@
 = stylesheet_link_tag    'new_user'
 = javascript_include_tag 'signup_scripts'
 %div.container
-  %div.row{:style => 'margin-top: 5%;'}
+  %div.row
     %div.panel.panel-default
       %div.panel-body{:style => 'height: 40%;'}
         = form_tag users_path, :id => 'signup_form', multipart: true do

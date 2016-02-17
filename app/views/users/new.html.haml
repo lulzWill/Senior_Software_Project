@@ -4,7 +4,7 @@
   %div.row{:style => 'margin-top: 5%;'}
     %div.panel.panel-default
       %div.panel-body{:style => 'height: 40%;'}
-        = form_tag users_path, :id => 'signup_form' do
+        = form_tag users_path, :id => 'signup_form', multipart: true do
           %div.row
             %h1{:style => 'margin-left: 2%;'} Sign-Up
           %div.row
@@ -30,8 +30,12 @@
               %div.form-group.row
                 = label :user, :gender, 'Gender', :class => 'col-sm-2'
                 = text_field :user, 'gender', :id => 'gender', :class => 'col-sm-9'
+              %div.form-group.row
+                = label :user, :profile_pic, 'Profile Picture', :class => 'col-sm-2'
+                = file_field_tag 'profile_pic', :id => 'profile_pic', accept: 'image/png,image/gif,image/jpeg', :onchange => "displayImage(this)" 
+                %img.img-responsive.img-rounded{:src => "", :id => "previewimage"} 
             %div.col-sm-6
-              =image_tag "full_staff.png", :class => "img-responsive img-rounded signup-img"
+              = image_tag "full_staff.png", :class => "img-responsive img-rounded signup-img"
           %div.row{:style => "margin-left: 2%;"}     
             = submit_tag 'Create My Account', :id => 'signup_submit', :class => 'btn btn-success'
       #errors.alert.alert-danger

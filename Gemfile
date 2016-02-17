@@ -28,15 +28,24 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.2.0'
 # Use Haml as the templating library
 gem 'haml'
+gem 'carrierwave'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem 'simplecov', :require => false
+gem 'selenium-webdriver'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'sqlite3'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'rspec-rails'
+  gem 'rspec-expectations'
+  gem 'cucumber-rails', :require=>false
 end
 
 group :development do
@@ -47,3 +56,7 @@ group :development do
   gem 'spring'
 end
 
+group :production do
+  gem 'pg' # for Heroku deployment
+  gem 'rails_12factor'
+end

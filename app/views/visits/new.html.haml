@@ -1,0 +1,16 @@
+.container  
+  = form_tag visits_path, :method => :post do
+    .panel.panel-default 
+      .panel-body
+        %h3 #{@location_hash.name}
+        .col-sm-6
+          .form-group.row
+            = label :visit, :start_date, 'I visited from'
+            %br
+            %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
+          .form-group.row
+            = label :visit, :end_date, 'to'
+            %br
+            %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+          .form-group.row
+            = submit_tag 'Create Visit', :id => 'visit_submit', :class => 'btn btn-success'

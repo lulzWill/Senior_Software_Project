@@ -6,10 +6,10 @@
         .col-sm-6
           .form-group.row
             = label :review, :rating, 'Rating'
-            = select :review, :rating, [1,2,3,4,5]
+            = select :review, :rating, [5,4,3,2,1], :id => 'rating'
           .form-group.row
             = label :review, :comment, 'Comment'
             %br
-            = text_area :review, :comment, :value => @review.comment
+            = text_area :review, :comment, :value => @review.comment, :id => 'comment'
           .row
-            = submit_tag 'Update Review', :id => 'edit_review_submit', :class => 'btn btn-success'
+            = submit_tag 'Update Review', :id => 'review_submit', :class => 'btn btn-success'

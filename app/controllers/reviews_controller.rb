@@ -42,8 +42,9 @@ class ReviewsController < ApplicationController
         @review = Review.find params[:id]
         @review.update_attributes!(review_params)
         #update date in corresponding visit table entry
-        @visit = Visit.find_by(user_id: @review.user_id, location_id: @review.location_id)
-        @visit.update(:start_date => params[:date])
+        #@visit = Visit.find_by(user_id: @review.user_id, location_id: @review.location_id)
+        #@visit.update(:start_date => params[:date])
+        flash[:notice] = "Review updated!"
         redirect_to review_path(@review)
     end
 end

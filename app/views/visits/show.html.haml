@@ -3,5 +3,8 @@
         =render :partial => 'visit'
         =link_to "Edit date", edit_visit_path(@visit)
     .panel-body
-        =render :partial => 'reviews/review'
-        =link_to "Edit review", edit_review_path(@review)
+        -if @review_exists
+            =render :partial => 'reviews/review'
+            =link_to "Edit review", edit_review_path(@review)
+        -else
+            =link_to "Add review", new_review_path(@visit)

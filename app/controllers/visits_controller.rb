@@ -4,15 +4,16 @@ class VisitsController < ApplicationController
     end
     
     def new
-    
+        #needs information sent from map on homepage
+        @location_hash = params[:location]
     end
     
     def create
         @current_user = User.find_by_session_token(cookies[:session_token])
         #create entry in location table if it doesn't exist
-        @location = Location.find_or_create_by(location_params)
-        #ignoring start/end dates for now
-        Visit.create!(user_id: @current_user.id, location_id: @location.id)
+        @location = Location.find_or_create_by!(location_params)
+        Visit.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[start_date], end_date: params[end_date])
+        flash[:notice] = "You marked the location!"
     end
     
     def edit
@@ -24,6 +25,7 @@ class VisitsController < ApplicationController
         #update date in corresponding visit table entry
         @visit = Visit.find(params[:id])
         @visit.update(start_date: params[:start_date], end_date: params[:end_date])
+        flash[:notice] = "Visit updated!"
         redirect_to visit_path(@visit)
     end
     
@@ -39,6 +41,10 @@ class VisitsController < ApplicationController
     def show
         @visit = Visit.find(params[:id])
         @review = Review.find_by(visit_id: params[:id])
+        @review_exists = true
+        if @review == nil
+            @review_exists = false
+        end
     end
     
 end

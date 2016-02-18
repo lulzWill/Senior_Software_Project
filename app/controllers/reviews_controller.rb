@@ -9,13 +9,15 @@ class ReviewsController < ApplicationController
     end
     
     def show
-        #@current_user = User.find_by_session_token(cookies[:session_token])
+        @current_user = User.find_by_session_token(cookies[:session_token])
         @review = Review.find(params[:id])
         @location = Location.find(@review.location_id)
+        #find out why this returns nil
+        @user = User.find(@review.user_id)
     end
     
     def new
-        #@current_user = User.find_by_session_token(cookies[:session_token])
+        @current_user = User.find_by_session_token(cookies[:session_token])
         
         #create location table entry if it does not yet exist
         #@location = Location.find_or_create_by(location_params)

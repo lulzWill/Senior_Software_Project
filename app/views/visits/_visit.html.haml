@@ -1,0 +1,4 @@
+
+%h3 
+    =link_to "#{Location.find(@visit.location_id).name} ", location_path(@visit.location_id)
+%p Visited on #{Visit.get_dates(@visit.id)}

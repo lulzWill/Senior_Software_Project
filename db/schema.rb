@@ -50,8 +50,9 @@ ActiveRecord::Schema.define(version: 20160212162250) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.string   "user_id"
-    t.string   "location_id"
+    t.integer  "user_id"
+    t.integer  "location_id"
+    t.string   "visit_id"
     t.integer  "rating"
     t.string   "comment"
     t.integer  "flags"
@@ -61,7 +62,6 @@ ActiveRecord::Schema.define(version: 20160212162250) do
   end
 
   create_table "users", force: :cascade do |t|
-<<<<<<< HEAD
     t.string   "email"
     t.string   "user_id"
     t.string   "password_digest"
@@ -73,10 +73,6 @@ ActiveRecord::Schema.define(version: 20160212162250) do
     t.string   "session_token"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-=======
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
->>>>>>> 1fcb9fabcf7c58e3ca04dc0cd3846cc4ed4b82be
   end
 
   create_table "visits", force: :cascade do |t|

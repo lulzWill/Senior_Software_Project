@@ -1,0 +1,17 @@
+.container  
+  = form_tag visit_path(@visit), :method => :put do
+    .panel.panel-default 
+      .panel-body
+        %h3 #{@location.name}: Edit Visit
+        .col-sm-6
+          .form-group.row
+            = label :visit, :start_date, 'Start date'
+            %br
+            %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :value => @visit.start_date}
+          .form-group.row
+            = label :visit, :end_date, 'End date'
+            %br
+            %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :value => @visit.end_date}
+          .form-group.row
+            = submit_tag 'Update Review', :id => 'edit_visit_submit', :class => 'btn btn-success'
+

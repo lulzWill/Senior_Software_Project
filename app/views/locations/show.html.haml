@@ -1,10 +1,13 @@
-=render :partial => 'location'
-
-%table.reviews
-    %tbody
+.container.panel.panel-default  
+    .panel-heading
+        =render :partial => 'location'
+    .panel-body
         - @reviews.each do |review|
-            %tr
-                %td
-                    -@review = review
-                    =render :partial => 'reviews/review'
-                %td= link_to "Expand review", review_path(review)
+            .panel.panel-default   
+                -@review = review
+                =render :partial => 'reviews/review'
+                .panel-footer
+                    = link_to "Expand review", review_path(review)
+                    -if @current_user.id == review.user_id
+                        %br
+                        =link_to "Edit Review", edit_review_path(review)

@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
+    before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete']
+    
     def homepage
+    
     end
     
     def show
@@ -16,7 +19,10 @@ class UsersController < ApplicationController
     end
     
     def new
-    #render new template
+        if cookies[:session_token]
+            flash[:notice]="You are already logged in"
+            redirect_to users_homepage_path
+        end
     end
     
     def create

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :sessions
   
   resources :reviews
-  
+  resources :visits
   resources :locations
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -4,7 +4,9 @@ class VisitsController < ApplicationController
     end
     
     def new
-    
+        @name = params[:name]
+        @longitude = params[:longitude]
+        @latitude = params[:latitude]
     end
     
     def create

@@ -10,6 +10,9 @@ function collapseKayak()
 
 var map;
 var location;
+var title;
+var longitude;
+var latitude;
 
 function initAutocomplete() 
 {
@@ -111,7 +114,17 @@ function initAutocomplete()
       {
         google.maps.event.addListener(marker, 'click', function() 
         {
-          infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"+marker.address+"</div><br/>Rating of "+marker.review+"/5");
+          title = marker.title;
+          longitude = marker.longitude;
+          latitude = marker. latitude;
+          infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"
+            +marker.address+"</div><br/>Rating of "+marker.review+"/5<br/><br/>"
+            +"<a id=\"visted\" href = \"../visits/new/?name="+marker.title+"&latitude="+marker.latitude
+            +"&longitude="+marker.longitude+"\"  >Mark As Visited</a><br/><br/>"+"<a id=\"visted\" href = \"../locations/show/?name="
+            +marker.title+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"\"  >View Location</a><br/><br/>"
+            +"<a id=\"visted\" href = \"../reviews/new/?name="+marker.title+"&latitude="+marker.latitude+"&longitude="
+            +marker.longitude+"\"  >Write a Review</a>"
+            );
           infoWindow.open(map,marker);
         });
       });
@@ -142,9 +155,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function searchLoader()
 {
-  //alert("GOT to function");
-  var title = document.getElementById("title").innerHTML;
-  var address = document.getElementById("address").innerHTML;
-  //alert(title);
-  //alert(address);
+  //alert(title);  
+  //alert(latitude);  
+  //alert(longitude); 
 }

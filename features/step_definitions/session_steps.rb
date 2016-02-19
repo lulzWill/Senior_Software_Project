@@ -14,3 +14,9 @@ end
 Then /^I should be shown "(.*?)"$/ do |message|
    expect(page.text).to match(/#{message}/) 
 end
+
+When /^I navigate to the "(.*?)" page$/ do |page|
+   if page == "My Visits"
+       click_link "My Visits"
+   end
+end

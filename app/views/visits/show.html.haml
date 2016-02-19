@@ -7,4 +7,4 @@
             =render :partial => 'reviews/review'
             =link_to "Edit review", edit_review_path(@review)
         -else
-            =link_to "Add review", new_review_path(@visit)
+            =link_to "Add review", new_review_path(visit_id: @visit.id, location_id: @visit.location_id)

@@ -4,13 +4,13 @@ Scenario: Edit a review
     Given the following users are in the database:
     | email                   | user_id       |password   |
     | a@b.com                 | fake_user     |fakepass   |
-    Given the following locations are in the database:
+    And the following locations are in the database:
     | name                  |     
     | University of Iowa    |
-    Given the following visits are in the database:
+    And the following visits are in the database:
     | user_id   | location_id   | 
     | 1         | 1             | 
-    Given the following reviews are in the database:
+    And the following reviews are in the database:
     | user_id   | location_id   | visit_id  | rating    | comment   |
     | 1         | 1             | 1         | 4         | good      |
     And I have logged in

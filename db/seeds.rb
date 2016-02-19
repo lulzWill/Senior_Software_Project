@@ -11,3 +11,4 @@ Visit.create(user_id:1, location_id:1, start_date: Date.new(2015,2,3), end_date:
 Review.create(user_id:1, location_id:1, visit_id:1, rating:4, comment: 'test comment', flags:0, allowed:true)
 Visit.create(user_id:1, location_id:1, start_date: Date.new(2015,2,13), end_date: Date.new(2015,2,20))
 Review.create(user_id:1, location_id:1, visit_id:2, rating:1, comment: 'another test', flags:0, allowed:true)
+Visit.create(user_id:1, location_id:1, start_date: Date.new(1999,2,13), end_date: Date.new(1999,2,20))

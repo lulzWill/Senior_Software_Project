@@ -6,6 +6,6 @@ end
 
 When /^I have filled out the form with rating "(.*?)" and comment "(.*?)"$/ do |rating, comment|
     select rating, :from => 'review_rating'
-    fill_in 'comment', :with => comment
+    fill_in 'review_comment', :with => comment
     click_button 'review_submit' 
 end

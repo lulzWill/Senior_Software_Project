@@ -1,15 +1,15 @@
-.review.new-review
-  %h1 Create Review
-
-  = form_tag reviews_path do
-  
-    = label :review, :rating, 'Rating'
-    = select :review, :rating, [1,2,3,4,5]
-  
-    = label :review, :comment, 'Comments'
-    = text_field :review, :comment
-    
-    = label :review, :date, 'Visited On'
-    = date_select :review, :date
-  
-    = submit_tag 'Save Review'
+.container  
+  = form_tag reviews_path(:visit_id => @visit_id), :method => :post do
+    .panel.panel-default 
+      .panel-body
+        %h3 #{@location.name}: Edit Review
+        .col-sm-6
+          .form-group.row
+            = label :review, :rating, 'Rating'
+            = select :review, :rating, [5,4,3,2,1]
+          .form-group.row
+            = label :review, :comment, 'Comment'
+            %br
+            = text_area :review, :comment
+          .row
+            = submit_tag 'Save Review', :id => 'review_submit', :class => 'btn btn-success'

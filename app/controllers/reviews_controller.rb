@@ -8,6 +8,10 @@ class ReviewsController < ApplicationController
         params.require(:location).permit(:name, :latitude, :longitude)
     end
     
+    def visit_params
+        params.require(:visit).permit(:user_id, :location_id)
+    end
+    
     def show
         @current_user = User.find_by_session_token(cookies[:session_token])
         @review = Review.find(params[:id])
@@ -22,13 +26,14 @@ class ReviewsController < ApplicationController
         #create location table entry if it does not yet exist
         #@location = Location.find_or_create_by(location_params)
         @location = Location.find(params[:location_id])
-        
+        @visit_id = params[:visit_id]
         #also create visit table entry if it does not yet exist
         #Visit.find_or_create_by(:user_id => @current_user.id, :location_id => @location.id)
     end
     
     def create
-        Review.create!(user_id: params[:user_id], location_id: params[:location_id], rating: params[:rating], comment: params[:comment], flags:0, allowed:true)
+        Review.create!(user_id: params[:user_id], visit_id: params[:visit_id], location_id: params[:location_id], rating: params[:rating], comment: params[:comment], flags:0, allowed:true)
+        flash[:notice] = "Review added!"
         redirect_to users_homepage_path
     end
 

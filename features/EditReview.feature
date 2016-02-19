@@ -5,11 +5,11 @@ Scenario: Edit a review
     | email                   | user_id       |password   |
     | a@b.com                 | fake_user     |fakepass   |
     And the following locations are in the database:
-    | name                  |     
+    | name                  |
     | University of Iowa    |
     And the following visits are in the database:
-    | user_id   | location_id   | 
-    | 1         | 1             | 
+    | user_id   | location_id   |
+    | 1         | 1             |
     And the following reviews are in the database:
     | user_id   | location_id   | visit_id  | rating    | comment   |
     | 1         | 1             | 1         | 4         | good      |

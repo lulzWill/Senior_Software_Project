@@ -4,8 +4,10 @@ class VisitsController < ApplicationController
     end
     
     def new
-        #needs information sent from map on homepage
-        @location_hash = params[:location]
+        #@location_hash = params[:location]
+        @name = params[:name]
+        @longitude = params[:longitude]
+        @latitude = params[:latitude]
     end
     
     def create

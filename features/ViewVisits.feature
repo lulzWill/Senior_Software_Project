@@ -1,6 +1,6 @@
 Feature: Allow a user to view locations they have visited
   
-Scenario: View visited locations
+Scenario: View visited locations as a user
     Given the following users are in the database:
     | email                   | user_id       |password   |
     | a@b.com                 | fake_user     |fakepass   |

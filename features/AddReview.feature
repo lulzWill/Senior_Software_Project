@@ -18,4 +18,8 @@ Scenario: Add a new review to a visit that dosen't have a review yet
     
     
 Scenario: Add a new review from map search
-    
+    Given the following users are in the database:
+    | email                   | user_id       |password   |
+    | a@b.com                 | fake_user     |fakepass   |
+    And I have logged in
+    #search map and click add review

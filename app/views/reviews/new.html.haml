@@ -1,8 +1,8 @@
-.container  
-  = form_tag reviews_path(:visit_id => @visit_id), :method => :post do
-    .panel.panel-default 
+.container
+  = form_tag reviews_path(:visit_id => @visit.id), :method => :post do
+    .panel.panel-default
       .panel-body
-        %h3 #{@location.name}: Edit Review
+        %h3 #{@location.name}: New Review
         .col-sm-6
           .form-group.row
             = label :review, :rating, 'Rating'

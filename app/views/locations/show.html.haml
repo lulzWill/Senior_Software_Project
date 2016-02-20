@@ -1,9 +1,9 @@
-.container.panel.panel-default  
+.container.panel.panel-default
     .panel-heading
         =render :partial => 'location'
     .panel-body
         - @reviews.each do |review|
-            .panel.panel-default   
+            .panel.panel-default
                 -@review = review
                 =render :partial => 'reviews/review'
                 .panel-footer
@@ -11,3 +11,5 @@
                     -if @current_user.id == review.user_id
                         %br
                         =link_to "Edit Review", edit_review_path(review)
+    .panel-footer
+        =link_to "I've been here", new_visit_path(name: @location.name, latitude: @location.latitude, longitude: @location.longitude)

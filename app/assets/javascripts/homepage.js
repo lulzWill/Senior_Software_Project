@@ -123,7 +123,7 @@ function initAutocomplete()
             +"&longitude="+marker.longitude+"\"  >Mark As Visited</a><br/><br/>"+"<a id=\"visted\" href = \"../locations/show/?name="
             +marker.title+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"\"  >View Location</a><br/><br/>"
             +"<a id=\"visted\" href = \"../reviews/new/?name="+marker.title+"&latitude="+marker.latitude+"&longitude="
-            +marker.longitude+"\"  >Write a Review</a>"
+            +marker.longitude+"\"  >Write a Review</a><br/><br/>"+"<a onclick=\"yelpSearch()\" href = \"#\" >Yelp details</a>"
             );
           infoWindow.open(map,marker);
         });
@@ -153,9 +153,31 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: Your browser doesn\'t support geolocation.');
 }
 
-function searchLoader()
+//clicking on vendor link - Reused code
+
+function yelpSearch()
 {
-  //alert(title);  
-  //alert(latitude);  
-  //alert(longitude); 
+  $.ajax({
+    type: "GET",
+    url: "/users/_yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude,
+    success: function(result) {
+      alert("got success condition");
+      var oneFourth = Math.ceil($(window).width()/4);
+      $("#individual").html(result).
+      css({'left': oneFourth, 'top': "100px", 'width': oneFourth*2, 'position': 'absolute'}).
+      show();
+      $('#close_individual').click(function() {
+        $("#individual").hide();
+      })
+    }
+  }); 
 }
+$(document).mouseup(function (e)
+{
+    var container = $("#individual");
+    if (!container.is(e.target) // if the target of the click isn't the container...
+        && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+        container.hide();
+    }
+});

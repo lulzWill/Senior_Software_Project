@@ -1,0 +1,10 @@
+.container
+    .row
+        .panel.panel-default
+            .panel-body
+                = form_for(:session, :url => sessions_path, html: { class: "form-inline" }) do |f|
+                    .form-group
+                        = f.text_field :user_id, :placeholder => "User-ID", :id => "login_user_id", class: "form-control"
+                    .form-group
+                        = f.password_field :password, :placeholder => "Password", :id => "login_password", class: "form-control"
+                    = f.submit 'Login', class: "btn btn-default", :id => 'login_button'

@@ -1,5 +1,6 @@
 Feature: Allow a user to add a visit
   
+@javascript
 Scenario: Add a visit
   Given the following users are in the database:
     | email                   | user_id       |password   |

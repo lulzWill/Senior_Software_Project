@@ -21,4 +21,8 @@ class SessionsController < ApplicationController
         flash[:notice] = "You have logged out"
         redirect_to new_user_path
     end
+    
+    def new
+        
+    end
 end

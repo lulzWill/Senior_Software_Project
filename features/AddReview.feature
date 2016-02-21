@@ -1,5 +1,16 @@
 Feature: Allow a user to create a review for a visit
 
+@javascript
+Scenario: Add a new review from map search
+    Given the following users are in the database:
+    | email                   | user_id       |password   |
+    | a@b.com                 | fake_user     |fakepass   |
+    And I have logged in
+    When I choose to "Write a Review" for "The University of Iowa" from the map
+    And I have filled out the form with rating "2" and comment "just ok"
+    Then I should be shown "Review added!"
+
+
 Scenario: Add a new review to a visit that doesn't have a review yet
     Given the following users are in the database:
     | email                   | user_id       |password   |
@@ -16,10 +27,4 @@ Scenario: Add a new review to a visit that doesn't have a review yet
     Then I should be shown "Review added!"
 
 
-@javascript
-Scenario: Add a new review from map search
-    Given the following users are in the database:
-    | email                   | user_id       |password   |
-    | a@b.com                 | fake_user     |fakepass   |
-    And I have logged in
-    When I choose to "Write a Review" for "The University of Iowa" from the map
+

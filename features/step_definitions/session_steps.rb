@@ -5,10 +5,10 @@ Given /the following users are in the database:/ do |users_table|
 end
 
 Given /^I have logged in$/ do
-    visit new_user_path
-    fill_in 'user_id_nav', :with => "fake_user"
-    fill_in 'password_nav', :with => "fakepass"
-    click_button 'Login'
+    visit new_session_path
+    fill_in 'login_user_id', :with => "fake_user"
+    fill_in 'login_password', :with => "fakepass"
+    click_button 'login_button'
 end
 
 Then /^I should be shown "(.*?)"$/ do |message|

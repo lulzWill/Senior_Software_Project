@@ -18,7 +18,7 @@ class Visit < ActiveRecord::Base
         else
             visits.each do |visit|
                 if (start_date>=visit.start_date.to_s && start_date<=visit.end_date.to_s) ||
-                   (end_date>=visit.start_date.to_s && end_date<=visit.end_date.to_s)
+                   (visit.start_date.to_s>=start_date && visit.start_date.to_s<=end_date)
                     return true
                 end
             end

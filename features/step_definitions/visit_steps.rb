@@ -4,12 +4,6 @@ Given /the following visits are in the database:/ do |visits_table|
     end
 end
 
-When /^I search the map for "(.*?)" and click "(.*?)"$/ do |location, button|
-    visit homepage_user_path
-    fill_in 'Search Box', :with => location
-    click_button button
-end
-
 When /^I have filled out the form with "(.*?)" to "(.*?)"$/ do |start_date, end_date|
     fill_in 'start_date', :with => start_date
     fill_in 'end_date', :with => end_date

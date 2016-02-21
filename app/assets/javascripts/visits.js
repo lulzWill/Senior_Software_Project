@@ -1,20 +1,22 @@
 $(document).ready(function(){
 
+    //hide errors div
     $('#errors').hide();
 
+    //called when submitting a date form
     $('#date_form').on('submit', function(e){
         e.preventDefault();
 
         var flag = 0;
-      //val not returning value, but a bunch of javascript
-        var start_date = $('#start_date').val;
-        var end_date = $('#end_date').val;
+        //get value of start date box
+        var start_date = document.getElementById("start_date").value;
+        //get value of end date box
+        var end_date = document.getElementById("end_date").value;
 
         document.getElementById("errors").innerHTML = "";
 
-
+        //compare dates
         if (start_date > end_date) {
-          alert("flag");
             document.getElementById("errors").innerHTML += "ERROR: Invalid dates";
             flag = 1;
         }

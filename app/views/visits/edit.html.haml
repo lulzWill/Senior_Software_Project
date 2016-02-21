@@ -1,3 +1,4 @@
+= javascript_include_tag 'visits'
 .container  
   = form_tag visit_path(@visit), :method => :put do
     .panel.panel-default 
@@ -14,4 +15,5 @@
             %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :value => @visit.end_date, :required => true}
           .form-group.row
             = submit_tag 'Update Visit', :id => 'visit_submit', :class => 'btn btn-success'
+      #errors.alert.alert-danger
 

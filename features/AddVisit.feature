@@ -6,7 +6,7 @@ Scenario: Add a visit
     | a@b.com                 | fake_user     |fakepass   |
   And I have logged in
   #needs map data to complete
-  When I search the map for "University of Iowa" and click "Mark as visited"
+  When I choose to "Mark as Visited" for "The University of Iowa" from the map
   And I have filled out the form with "10/10/2015" to "11/11/2015"
   Then I should be shown "You marked the location!"
   

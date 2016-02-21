@@ -45,11 +45,7 @@ class VisitsController < ApplicationController
 
     def index
         @current_user = User.find_by_session_token(cookies[:session_token])
-        if @current_user == nil
-            redirect_to new_user_path
-        else
-            @visits = Visit.where(user_id: @current_user.id)
-        end
+        @visits = Visit.where(user_id: @current_user.id)
     end
 
     def show

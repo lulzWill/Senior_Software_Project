@@ -4,18 +4,11 @@ class ReviewsController < ApplicationController
         params.require(:review).permit(:user_id, :location_id, :rating, :comment)
     end
 
-    def location_params
-        params.require(:location).permit(:name, :latitude, :longitude)
-    end
-
-    def visit_params
-        params.require(:visit).permit(:user_id, :location_id)
-    end
-
     def show
         @current_user = User.find_by_session_token(cookies[:session_token])
         @review = Review.find(params[:id])
         @location = Location.find(@review.location_id)
+        #get user info of reviewer
         @user = User.find(@review.user_id)
     end
 

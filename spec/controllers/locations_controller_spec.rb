@@ -3,11 +3,9 @@ require 'spec_helper'
 
 RSpec.describe LocationsController, type: :controller do
     
-    describe "view a location info page" do
+    describe "GET show" do
         before :each do
-            Location = double(Location)
             @fake_location_results = double('location1')
-            Review = double(Review)
             allow(Location).to receive(:find_or_create_by!).and_return(@fake_location_results)
             allow(@fake_location_results).to receive(:id)
             allow(Review).to receive(:where)

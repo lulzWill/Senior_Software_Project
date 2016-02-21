@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   #
   get 'users/homepage'
-  get 'users/_yelp_results'
+  get 'users/yelp_results'
   resources :users
   resources :sessions
   

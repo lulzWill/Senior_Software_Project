@@ -13,6 +13,8 @@ var location;
 var title;
 var longitude;
 var latitude;
+var searchTerm;
+
 
 function initAutocomplete() 
 {
@@ -114,6 +116,7 @@ function initAutocomplete()
       {
         google.maps.event.addListener(marker, 'click', function() 
         {
+          searchTerm = document.getElementById("pac-input").value;
           title = marker.title;
           longitude = marker.longitude;
           latitude = marker. latitude;
@@ -123,7 +126,7 @@ function initAutocomplete()
             +"&longitude="+marker.longitude+"\"  >Mark As Visited</a><br/><br/>"+"<a id=\"visted\" href = \"../locations/show/?name="
             +marker.title+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"\"  >View Location</a><br/><br/>"
             +"<a id=\"visted\" href = \"../reviews/new/?name="+marker.title+"&latitude="+marker.latitude+"&longitude="
-            +marker.longitude+"\"  >Write a Review</a><br/><br/>"+"<a onclick=\"yelpSearch()\" href = \"#\" >Yelp details</a>"
+            +marker.longitude+"\"  >Write a Review</a><br/><br/>"+"<a href = \"../users/yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude+"&term="+searchTerm+"\" >Yelp details</a>"
             );
           infoWindow.open(map,marker);
         });
@@ -159,7 +162,7 @@ function yelpSearch()
 {
   $.ajax({
     type: "GET",
-    url: "/users/_yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude,
+    url: "/users/_yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude+"&term="+searchTerm,
     success: function(result) {
       alert("got success condition");
       var oneFourth = Math.ceil($(window).width()/4);

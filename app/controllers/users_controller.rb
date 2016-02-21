@@ -5,18 +5,24 @@ class UsersController < ApplicationController
     
     def yelp_search
         require 'yelp'
-        @client = Yelp::Client.new({ consumer_key: 'qFgM8s-8qX8S9rLPQzyUww',
-                            consumer_secret: 'CAhKkIHV80-vvye3adW6n9elIc8',
-                            token: 'rY_h4iOL723V7fgaRiODf2lERRWaAb-u',
-                            token_secret: 'RiABUM7_ORCKm_FBGH1s0mUUiNo'
+        
+        @client = Yelp::Client.new({ consumer_key: "qFgM8s-8qX8S9rLPQzyUww",
+                            consumer_secret: "CAhKkIHV80-vvye3adW6n9elIc8",
+                            token: "rY_h4iOL723V7fgaRiODf2lERRWaAb-u",
+                            token_secret: "RiABUM7_ORCKm_FBGH1s0mUUiNo"
                           })
-        @name = params[:name]
+                          
+        @name = Parameters["name"]
+        @searchTerm = params[:term]
         @longitude = params[:longitude]
         @latitude = params[:latitude]
-        @response = @client.search(‘San Francisco’, { term: ‘restaurants’ })
-        render :partial=>'yelp_results', :object => @response and return if request.xhr?
-    end
+        @tester = "I LIKE BEANS"
+        @coords = {latitude: @latitude,longitude: @longitude}
         
+        @results = @client.search_by_coordinates(@coords, { term: @name,limit:1,readius_filter:1 })
+    
+    end
+    
     def show
         
     end

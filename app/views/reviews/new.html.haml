@@ -1,9 +1,18 @@
+= javascript_include_tag 'visit'
 .container
-  = form_tag reviews_path(:visit_id => @visit.id), :method => :post do
+  = form_tag reviews_path, :id => 'date_form', :method => :post do
     .panel.panel-default
       .panel-body
-        %h3 #{@location.name}: New Review
+        %h3 Review #{@name}
         .col-sm-6
+          .form-group.row
+            = label :visit, :start_date, 'I visited from'
+            %br
+            %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
+          .form-group.row
+            = label :visit, :end_date, 'to'
+            %br
+            %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
           .form-group.row
             = label :review, :rating, 'Rating'
             = select :review, :rating, [5,4,3,2,1]
@@ -11,5 +20,25 @@
             = label :review, :comment, 'Comment'
             %br
             = text_area :review, :comment
+            = hidden_field_tag :name, @name
+            = hidden_field_tag :latitude, @latitude
+            = hidden_field_tag :longitude, @longitude
+            = hidden_field_tag :user_id, @current_user.id
           .row
             = submit_tag 'Save Review', :id => 'review_submit', :class => 'btn btn-success'
+      #errors.alert.alert-danger
+
+%script{:src => "js/bootstrap-datepicker.js"}
+:javascript
+  // When the document is ready
+  $(document).ready(function () {
+      
+      $('#start_date').datepicker({
+          format: "dd/mm/yyyy"
+      }); 
+      $('#end_date').datepicker({
+          format: "dd/mm/yyyy"
+      });
+  
+  });
+

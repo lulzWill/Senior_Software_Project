@@ -22,15 +22,24 @@ class ReviewsController < ApplicationController
 
     def new
         @current_user = User.find_by_session_token(cookies[:session_token])
+        @name = params[:name]
+        @longitude = params[:longitude]
+        @latitude = params[:latitude]
         #create location table entry if it does not yet exist
-        @location = Location.find_or_create_by!(name: params[:name], latitude: params[:latitude], longitude: params[:longitude])
+        #@location = Location.find_or_create_by!(name: params[:name], latitude: params[:latitude], longitude: params[:longitude])
         #also create visit table entry if it does not yet exist
-        @visit = Visit.find_or_create_by!(:user_id => @current_user.id, :location_id => @location.id)
+        #@visits = Visit.where(:user_id => @current_user.id, :location_id => @location.id)
     end
 
     def create
-        Review.create!(user_id: params[:user_id], visit_id: params[:visit_id], location_id: params[:location_id], rating: params[:rating], comment: params[:comment], flags:0, allowed:true)
-        flash[:notice] = "Review added!"
+        location = Location.find_or_create_by!(name: params[:name], latitude: params[:latitude], longitude: params[:longitude])
+        if !Visit.overlap?(params[:user_id], location.id, params[:start_date], params[:end_date])
+            visit = Visit.create!(user_id: params[:user_id], location_id: location.id, start_date: params[:start_date], end_date: params[:end_date])
+            Review.create!(user_id: params[:user_id], visit_id: visit.id, location_id: location.id, rating: params[:review][:rating], comment: params[:review][:comment], flags:0, allowed:true)
+            flash[:notice] = "Review added!"
+        else
+            flash[:notice] = "You've already visited " + params[:name] + " on those dates."
+        end
         redirect_to users_homepage_path
     end
 

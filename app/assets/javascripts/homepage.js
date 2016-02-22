@@ -104,6 +104,7 @@ function initAutocomplete()
       markers.push(new google.maps.Marker({
         map: map,
         title: places[i].name,
+        id: places[i].name,
         icon: icon,
         address: address,
         review: places[i].rating,
@@ -114,7 +115,6 @@ function initAutocomplete()
       var markerCount = 0;
       markers.forEach(function(marker) 
       {
-        marker.metadata = {type: "point",id: 1234567890};
         google.maps.event.addListener(marker, 'click', function() 
         {
           searchTerm = document.getElementById("pac-input").value;
@@ -169,7 +169,7 @@ function yelpSearch()
       //alert("got success condition");
       var oneFourth = Math.ceil($(window).width()/4);
       $("#individual").html(result).
-      css({'left': oneFourth, 'top': "100px", 'width': oneFourth, 'position': 'absolute'}).
+      css({'left': "100px", 'top': "100px", 'width': oneFourth, 'position': 'absolute'}).
       show();
       $('#close_individual').click(function() {
         $("#individual").hide();

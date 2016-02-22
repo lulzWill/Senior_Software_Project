@@ -19,7 +19,7 @@ class UsersController < ApplicationController
         
         @coords = {latitude: @latitude,longitude: @longitude}
         
-        @results = @client.search_by_coordinates(@coords, { term: @name,limit:1,readius_filter:1 })
+        @results = @client.search_by_coordinates(@coords, { term: @name,limit:1})
         @street = @results.businesses[0].location.address
         @street = @street.inspect
         @street[0]=""

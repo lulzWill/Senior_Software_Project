@@ -10,6 +10,11 @@ function collapseKayak()
 
 var map;
 var location;
+var title;
+var longitude;
+var latitude;
+var searchTerm;
+
 
 function initAutocomplete() 
 {
@@ -99,6 +104,7 @@ function initAutocomplete()
       markers.push(new google.maps.Marker({
         map: map,
         title: places[i].name,
+        id: places[i].name,
         icon: icon,
         address: address,
         review: places[i].rating,
@@ -106,14 +112,26 @@ function initAutocomplete()
         latitude: places[i].geometry.location.lat(),
         longitude: places[i].geometry.location.lng()
       }));
-      
+      var markerCount = 0;
       markers.forEach(function(marker) 
       {
         google.maps.event.addListener(marker, 'click', function() 
         {
-          infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"+marker.address+"</div><br/>Rating of "+marker.review+"/5");
+          searchTerm = document.getElementById("pac-input").value;
+          title = marker.title;
+          longitude = marker.longitude;
+          latitude = marker. latitude;
+          infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"
+            +marker.address+"</div><br/>Rating of "+marker.review+"/5<br/><br/>"
+            +"<a id=\"visted\" href = \"../visits/new/?name="+marker.title+"&latitude="+marker.latitude
+            +"&longitude="+marker.longitude+"\"  >Mark As Visited</a><br/><br/>"+"<a id=\"visted\" href = \"../locations/show/?name="
+            +marker.title+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"\"  >View Location</a><br/><br/>"
+            +"<a id=\"visted\" href = \"../reviews/new/?name="+marker.title+"&latitude="+marker.latitude+"&longitude="
+            +marker.longitude+"\"  >Write a Review</a><br/><br/>"+"<a onclick = \"yelpSearch()\"href = \"#\" >Yelp details</a>"
+            );
           infoWindow.open(map,marker);
         });
+        markerCount++;
       });
       
       
@@ -140,11 +158,31 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: Your browser doesn\'t support geolocation.');
 }
 
-function searchLoader()
+//clicking on vendor link - Reused code
+
+function yelpSearch()
 {
-  //alert("GOT to function");
-  var title = document.getElementById("title").innerHTML;
-  var address = document.getElementById("address").innerHTML;
-  //alert(title);
-  //alert(address);
+  $.ajax({
+    type: "GET",
+    url: "/users/_yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude+"&term="+searchTerm,
+    success: function(result) {
+      //alert("got success condition");
+      var oneFourth = Math.ceil($(window).width()/4);
+      $("#individual").html(result).
+      css({'left': "100px", 'top': "100px", 'width': oneFourth, 'position': 'absolute'}).
+      show();
+      $('#close_individual').click(function() {
+        $("#individual").hide();
+      })
+    }
+  }); 
 }
+$(document).mouseup(function (e)
+{
+    var container = $("#individual");
+    if (!container.is(e.target) // if the target of the click isn't the container...
+        && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+        container.hide();
+    }
+});

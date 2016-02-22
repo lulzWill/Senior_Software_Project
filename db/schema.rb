@@ -50,8 +50,9 @@ ActiveRecord::Schema.define(version: 20160212162250) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.string   "user_id"
-    t.string   "location_id"
+    t.integer  "user_id"
+    t.integer  "location_id"
+    t.string   "visit_id"
     t.integer  "rating"
     t.string   "comment"
     t.integer  "flags"

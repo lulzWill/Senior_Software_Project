@@ -1,8 +1,35 @@
 class UsersController < ApplicationController
     before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete']
+
     
     def homepage
     
+    end
+    
+    def _yelp_results
+        require 'yelp'
+        
+        @client = Yelp::Client.new({ consumer_key: "qFgM8s-8qX8S9rLPQzyUww",
+                            consumer_secret: "CAhKkIHV80-vvye3adW6n9elIc8",
+                            token: "rY_h4iOL723V7fgaRiODf2lERRWaAb-u",
+                            token_secret: "RiABUM7_ORCKm_FBGH1s0mUUiNo"
+                          })
+                          
+        @name = params["name"]
+        @searchTerm = params[:term]
+        @longitude = params[:longitude]
+        @latitude = params[:latitude]
+        
+        @coords = {latitude: @latitude,longitude: @longitude}
+        
+        @results = @client.search_by_coordinates(@coords, { term: @name,limit:1})
+        @street = @results.businesses[0].location.address
+        @street = @street.inspect
+        @street[0]=""
+        @street[0]=""
+        @street.chop!
+        @street.chop!
+        render :partial =>'yelp_results', :object =>@results and return if request.xhr?
     end
     
     def show
@@ -12,7 +39,6 @@ class UsersController < ApplicationController
     def index
         
     end
-    
 
     def user_params
         params.require(:user).permit(:email, :user_id, :password, :first_name, :last_name, :gender)

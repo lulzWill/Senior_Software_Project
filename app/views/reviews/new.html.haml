@@ -1,15 +1,33 @@
-.review.new-review
-  %h1 Create Review
+= javascript_include_tag 'visits'
+.container
+  = form_tag reviews_path, :id => 'date_form', :method => :post do
+    .panel.panel-default
+      .panel-body
+        %h3 Review #{@name}
+        .col-sm-6
+          .form-group.row
+            = label :visit, :start_date, 'I visited from'
+            %br
+            %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
+          .form-group.row
+            = label :visit, :end_date, 'to'
+            %br
+            %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+          .form-group.row
+            = label :review, :rating, 'Rating'
+            = select :review, :rating, [5,4,3,2,1]
+          .form-group.row
+            = label :review, :comment, 'Comment'
+            %br
+            = text_area :review, :comment
+            = hidden_field_tag :name, @name
+            = hidden_field_tag :latitude, @latitude
+            = hidden_field_tag :longitude, @longitude
+            = hidden_field_tag :user_id, @current_user.id
+          .row
+            = submit_tag 'Save Review', :id => 'review_submit', :class => 'btn btn-success'
+      #errors.alert.alert-danger
 
-  = form_tag reviews_path do
-  
-    = label :review, :rating, 'Rating'
-    = select :review, :rating, [1,2,3,4,5]
-  
-    = label :review, :comment, 'Comments'
-    = text_field :review, :comment
-    
-    = label :review, :date, 'Visited On'
-    = date_select :review, :date
-  
-    = submit_tag 'Save Review'
+
+
+

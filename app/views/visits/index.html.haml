@@ -1,0 +1,10 @@
+.container.panel.panel-default
+    -if @visits != nil
+        - @visits.each do |visit|
+            .panel.panel-default
+                -@visit = visit
+                =render :partial => 'visits/visit'
+                = link_to "Visit Info", visit_path(visit)
+    -else
+        No visits to show
+            

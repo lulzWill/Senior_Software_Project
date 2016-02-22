@@ -1,1 +1,7 @@
-=render :partial => 'review'
+.container.panel.panel-default  
+    %h3 
+        =link_to "#{@location.name} ", location_path(@location.id)
+    =render :partial => 'review'
+    %p Rated by #{@user.user_id}
+    -if @current_user.id == @user.id
+        =link_to "Edit Review", edit_review_path(@review)

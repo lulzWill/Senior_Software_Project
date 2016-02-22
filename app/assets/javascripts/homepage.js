@@ -111,9 +111,10 @@ function initAutocomplete()
         latitude: places[i].geometry.location.lat(),
         longitude: places[i].geometry.location.lng()
       }));
-      
+      var markerCount = 0;
       markers.forEach(function(marker) 
       {
+        marker.metadata = {type: "point",id: 1234567890};
         google.maps.event.addListener(marker, 'click', function() 
         {
           searchTerm = document.getElementById("pac-input").value;
@@ -126,10 +127,11 @@ function initAutocomplete()
             +"&longitude="+marker.longitude+"\"  >Mark As Visited</a><br/><br/>"+"<a id=\"visted\" href = \"../locations/show/?name="
             +marker.title+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"\"  >View Location</a><br/><br/>"
             +"<a id=\"visted\" href = \"../reviews/new/?name="+marker.title+"&latitude="+marker.latitude+"&longitude="
-            +marker.longitude+"\"  >Write a Review</a><br/><br/>"+"<a href = \"../users/yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude+"&term="+searchTerm+"\" >Yelp details</a>"
+            +marker.longitude+"\"  >Write a Review</a><br/><br/>"+"<a onclick = \"yelpSearch()\"href = \"#\" >Yelp details</a>"
             );
           infoWindow.open(map,marker);
         });
+        markerCount++;
       });
       
       
@@ -164,10 +166,10 @@ function yelpSearch()
     type: "GET",
     url: "/users/_yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude+"&term="+searchTerm,
     success: function(result) {
-      alert("got success condition");
+      //alert("got success condition");
       var oneFourth = Math.ceil($(window).width()/4);
       $("#individual").html(result).
-      css({'left': oneFourth, 'top': "100px", 'width': oneFourth*2, 'position': 'absolute'}).
+      css({'left': oneFourth, 'top': "100px", 'width': oneFourth, 'position': 'absolute'}).
       show();
       $('#close_individual').click(function() {
         $("#individual").hide();

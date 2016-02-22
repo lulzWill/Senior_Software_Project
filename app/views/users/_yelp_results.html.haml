@@ -1,0 +1,10 @@
+%img{:align => "middle", :alt => "#{@results.businesses[0].name}",:src => "#{@results.businesses[0].image_url}",:style => "margin:0px auto;display:block"}
+%h1{:style => "text-align: center;"}  #{@results.businesses[0].name}
+-if(@results.businesses[0].is_closed)
+    %h4{:style => "text-align: center;"} Currently Closed
+-else
+    %h4{:style => "text-align: center;"} Currently Open
+%h4{:style => "text-align: center;"}  #{@results.businesses[0].display_phone}
+%img{:align => "top", :alt => "#{@results.businesses[0].name}", :src => "#{@results.businesses[0].rating_img_url_large}",:style => "margin:0px auto;display:block"}
+%p{:style => "text-align: center;"}  of #{@results.businesses[0].review_count} Reviews
+%h4{:style => "text-align: center;"}#{@street} #{@results.businesses[0].location.city},#{@results.businesses[0].location.state_code} #{@results.businesses[0].location.country_code} #{@results.businesses[0].location.postal_code} 

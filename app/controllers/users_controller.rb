@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     def homepage
     end
     
-    def yelp_search
+    def _yelp_results
         require 'yelp'
         
         @client = Yelp::Client.new({ consumer_key: "qFgM8s-8qX8S9rLPQzyUww",
@@ -12,15 +12,21 @@ class UsersController < ApplicationController
                             token_secret: "RiABUM7_ORCKm_FBGH1s0mUUiNo"
                           })
                           
-        @name = Parameters["name"]
+        @name = params["name"]
         @searchTerm = params[:term]
         @longitude = params[:longitude]
         @latitude = params[:latitude]
-        @tester = "I LIKE BEANS"
+        
         @coords = {latitude: @latitude,longitude: @longitude}
         
         @results = @client.search_by_coordinates(@coords, { term: @name,limit:1,readius_filter:1 })
-    
+        @street = @results.businesses[0].location.address
+        @street = @street.inspect
+        @street[0]=""
+        @street[0]=""
+        @street.chop!
+        @street.chop!
+        render :partial =>'yelp_results', :object =>@results and return if request.xhr?
     end
     
     def show

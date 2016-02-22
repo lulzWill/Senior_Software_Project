@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   #
   get 'users/homepage'
   resources :users
-  resources :sessions
+  resources :sessions, only: [:create, :destroy]
+  match '/logout', to: 'sessions#destroy', via: :delete
   
   resources :reviews
   

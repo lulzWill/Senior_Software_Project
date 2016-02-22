@@ -39,4 +39,12 @@ describe UsersController do
           expect(flash[:notice]).to eq("Sorry, but that user id is already taken")
         end
     end
+    
+    describe 'new' do
+      it 'should redirect_to if logged in' do
+        @current_user = FactoryGirl.create(:user, user_id:'student', email:'student@student.com',password:'student',password_confirmation:'student',session_token: SecureRandom.urlsafe_base64)
+        cookies.permanent[:session_token] = @current_user.session_token
+        get :new
+      end
+  end
 end

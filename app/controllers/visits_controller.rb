@@ -20,7 +20,7 @@ class VisitsController < ApplicationController
             flash[:notice] = "You marked the location!"
             redirect_to visit_path(@visit)
         else
-            flash[:notice] = "You've already visited " + params[:name] + " on those dates."
+            flash[:notice] = "You've already visited " + params[:name].to_s + " on those dates."
             redirect_to users_homepage_path
         end
     end
@@ -38,7 +38,7 @@ class VisitsController < ApplicationController
             flash[:notice] = "Visit updated!"
             redirect_to visit_path(@visit)
         else
-            flash[:notice] = "You've already visited " + params[:name] + " on those dates."
+            flash[:notice] = "You've already visited " + params[:name].to_s + " on those dates."
             redirect_to users_homepage_path
         end
     end

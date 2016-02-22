@@ -26,7 +26,7 @@ class ReviewsController < ApplicationController
             Review.create!(user_id: params[:user_id], visit_id: visit.id, location_id: location.id, rating: params[:review][:rating], comment: params[:review][:comment], flags:0, allowed:true)
             flash[:notice] = "Review added!"
         else
-            flash[:notice] = "You've already visited " + params[:name] + " on those dates."
+            flash[:notice] = "You've already visited " + params[:name].to_s + " on those dates."
         end
         redirect_to users_homepage_path
     end

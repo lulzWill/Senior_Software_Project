@@ -3,3 +3,7 @@ Given /the following locations are in the database:/ do |locations_table|
         Location.create(location)
     end
 end
+
+When /^I select "(.*?)"$/ do |link|
+    click_link link
+end

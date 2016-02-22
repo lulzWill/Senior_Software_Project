@@ -1,6 +1,6 @@
 = javascript_include_tag 'visits'
 .container  
-  = form_tag visit_path(@visit), :method => :put do
+  = form_tag visit_path(@visit), :id => 'date_form', :method => :put do
     .panel.panel-default 
       .panel-body
         %h3 #{@location.name}

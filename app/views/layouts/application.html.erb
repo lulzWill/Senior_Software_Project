@@ -26,6 +26,15 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <% if @current_user %>
           <ul class="nav navbar-nav navbar-right">
+            <li>
+              
+              <form class="form-search form-inline">
+                <div class="form-group">
+                  <input type="text" class="form-control search-query" placeholder="Search..." />
+                </div>
+              </form>
+              
+            </li>
             <li><%= button_to 'Log Out', session_path(@current_user), :method => 'delete', class: "btn btn-default navbar-btn"%></li>
           </ul>
           <% else %>

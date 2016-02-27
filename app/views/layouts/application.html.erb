@@ -27,10 +27,16 @@
           <% if @current_user %>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              
+              <!--
               <form class="form-search form-inline">
                 <div class="form-group">
                   <input type="text" class="form-control search-query" placeholder="Search..." />
+                </div>
+              </form>-->
+              
+              <form class="form-search form-inline">
+                <div class="form-group">
+                  <%= autocomplete_field_tag :search, params[:search], autocomplete_user_user_id_users_path, {class: "form-control search-query", placeholder: "Search for friends!", type: "search"} %>  
                 </div>
               </form>
               

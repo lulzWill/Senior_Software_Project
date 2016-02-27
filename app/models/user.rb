@@ -11,4 +11,6 @@ class User < ActiveRecord::Base
     has_many :friendships
     has_many :photos
     has_many :albums
+
+    
 end

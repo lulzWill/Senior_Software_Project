@@ -1,6 +1,32 @@
 class UsersController < ApplicationController
     before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete']
 
+    def edit
+    end
+    
+    def update
+        if @current_user.first_name != params[:user][:first_name]
+            @current_user.first_name = params[:user][:first_name]
+        end
+        if @current_user.last_name != params[:user][:last_name]
+            @current_user.last_name = params[:user][:last_name]
+        end
+        if @current_user.gender != params[:user][:gender]
+            @current_user.gender = params[:user][:gender]
+        end
+        if params[:profile_pic] != ""
+            @current_user.profile_pic = params[:profile_pic]
+        end
+        
+        if @current_user.save!
+            flash[:notice] = "Successfully update profile!"
+            redirect_to '/users/homepage'
+        else
+            flash[:notice] = "Unable to update profile, please try again later!"
+            redirect_to '/users/homepage'
+        end
+        
+    end
     
     def homepage
     
@@ -47,7 +73,7 @@ class UsersController < ApplicationController
     def new
         if cookies[:session_token]
             flash[:notice]="You are already logged in"
-            redirect_to users_homepage_path
+            redirect_to '/users/homepage'
         end
     end
     

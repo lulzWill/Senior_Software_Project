@@ -36,6 +36,7 @@
                 <%= f.password_field :password, :placeholder => "Password", :id => "password_nav", class: "form-control" %>
               </div>
               <%= f.submit 'Login', class: "btn btn-default" %>
+              <%= link_to 'Guest Login', guestlogin_path, :method => 'post' %>
             <% end %>
           <% end %>
         </div><!-- /.navbar-collapse -->

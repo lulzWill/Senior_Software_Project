@@ -15,6 +15,19 @@ class SessionsController < ApplicationController
         end
     end
     
+    def guest
+        user = User.find_by_user_id("guest")
+        if user && user.authenticate("guest1")
+            user.session_token = SecureRandom.urlsafe_base64
+            user.save!
+            cookies.permanent[:session_token]=user.session_token
+            flash[:notice] = "You have successfully logged in as a Guest"
+            redirect_to "/users/homepage"
+        else
+            redirect_to new_user_path
+        end
+    end
+    
     def destroy
         cookies.delete(:session_token)
         @current_user=nil

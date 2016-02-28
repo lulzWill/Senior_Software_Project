@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions, only: [:create, :destroy]
   match '/logout', to: 'sessions#destroy', via: :delete
+  match '/guestlogin', to: 'sessions#guest', via: :post
   
   resources :reviews
   

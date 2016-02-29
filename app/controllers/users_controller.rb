@@ -59,7 +59,12 @@ class UsersController < ApplicationController
     end
     
     def show
-        
+        if User.find_by_user_id(params[:id])
+            @user_view = User.find_by_user_id(params[:id])
+        else
+            flash[:notice] = "User Not Found"
+            redirect_to users_homepage_path
+        end
     end
     
     def index

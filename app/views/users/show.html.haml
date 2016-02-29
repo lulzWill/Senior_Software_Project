@@ -1,1 +1,23 @@
-%h1 test show.html
+%div.container
+    %div.row
+        %div.panel.panel-default
+            %div.panel-body{:style => 'height: 40%;'}
+                %div.row
+                    %div.col-sm-12
+                        %h1 #{@user_view.user_id}
+                        -if @current_user.friends.find_by_user_id(@user_view.user_id) && !@user_view.friends.find_by_user_id(@current_user.user_id)
+                            %button.btn Friendship Pending
+                        -elsif @current_user.friends.find_by_user_id(@user_view.user_id) && @user_view.friends.find_by_user_id(@current_user.user_id)
+                            %h5 Friends since #{@user_view.friendships.find_by_friend_id(@current_user.id).created_at}
+                        -elsif (@user_view.user_id != @current_user.user_id)
+                            = form_tag friendships_path, :id => 'add_friend' do
+                                = text_field :friend, 'user_id', :id => 'user_id', :hidden => true, :value => @user_view.id
+                                = submit_tag 'Add Friend', :id => 'add_friend_submit', :class => 'btn btn-success'
+                            
+                %div.row
+                    %div.col-sm-12
+                        %br
+                        %img.img-rounded{:src => @user_view.profile_pic, :id => "profile_picture", :height => "250px", :width => "250px"}
+                        %h5 Name: #{@user_view.first_name} #{@user_view.last_name}
+                        %h5 Gender: #{@user_view.gender}
+                        %h5 Email: #{@user_view.email}

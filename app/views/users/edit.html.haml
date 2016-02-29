@@ -21,6 +21,6 @@
               %div.form-group.row
                 = label :user, :profile_pic, 'Profile Picture', :class => 'col-sm-2'
                 = file_field_tag 'profile_pic', :id => 'profile_pic', accept: 'image/png,image/gif,image/jpeg', :onchange => "displayImage(this)" 
-                %img.img-responsive.img-rounded{:src => @current_user.profile_pic, :id => "previewimage", :width => 250, :height => 250} 
+                %img.img-rounded{:src => @current_user.profile_pic, :id => "previewimage", :width => "250px", :height => "250px"} 
           %div.row{:style => "margin-left: 2%;"}     
             = submit_tag 'Update My Account', :id => 'edit_submit', :class => 'btn btn-success'

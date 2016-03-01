@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
     before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete']
-
-    autocomplete :user, :user_id
     
     def homepage
     
@@ -38,7 +36,12 @@ class UsersController < ApplicationController
     end
     
     def index
-
+        #@users = User.find(:all,:conditions => ['user_id LIKE ?', "#{params[:term]}%"])
+        @users = User.where("user_id LIKE :q", { q: "#{params[:term]}%"})
+        respond_to do |format|
+            format.json{ render :json => @users.as_json(:only => [:first_name,:last_name,:user_id,:id,:profile_pic]) }
+            format.html
+        end
     end
 
     def user_params
@@ -70,12 +73,8 @@ class UsersController < ApplicationController
         end
     end
     
-    def list
-        @users = User.where("user_name LIKE :q", { q: "#{params[:term]}%"})
-    
-        respond_to do |format|
-            format.json { render json: @users.as_json(only: [:first_name, :last_name, :user_id]) }
-        end
+    def autocomplete
+        
     end
     
 end

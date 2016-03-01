@@ -8,10 +8,8 @@ Rails.application.routes.draw do
   #
   get 'users/homepage'
   get 'users/_yelp_results'
-  get 'users/list'
-  resources :users do
-      get :autocomplete_user_user_id, :on => :collection
-  end
+  get 'users/autocomplete'
+  resources :users 
   resources :sessions
   resources :reviews
   resources :locations

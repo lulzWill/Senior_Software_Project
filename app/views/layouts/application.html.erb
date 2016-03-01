@@ -3,6 +3,7 @@
   <head>
     <title>SeltProject</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'autocomplete'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
@@ -27,18 +28,13 @@
           <% if @current_user %>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <!--
-              <form class="form-search form-inline">
-                <div class="form-group">
-                  <input type="text" class="form-control search-query" placeholder="Search..." />
-                </div>
-              </form>-->
               
-              <form class="form-search form-inline">
-                <div class="form-group">
-                  <%= autocomplete_field_tag :search, params[:search], autocomplete_user_user_id_users_path, {class: "form-control search-query", placeholder: "Search for friends!", type: "search"} %>  
-                </div>
-              </form>
+              <div class="ui-widget">
+                <form class="navbar-form navbar-right form-search" method="GET" action="/users">
+                  <input type="text" class="form-control search-query" placeholder="Search for friends!" id="search" autocomplete = 'on'/>
+                  <input id="link_origin_id" name="link[origin_id]" type="hidden"/>
+                </form>
+              </div>
               
             </li>
             <li><%= button_to 'Log Out', session_path(@current_user), :method => 'delete', class: "btn btn-default navbar-btn"%></li>

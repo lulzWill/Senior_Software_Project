@@ -1,4 +1,5 @@
 class LocationsController < ApplicationController
+    before_filter :set_current_user, :only => ['show']
 
     def show
         @current_user = User.find_by_session_token(cookies[:session_token])

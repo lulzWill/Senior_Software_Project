@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+$(document).on('ready page:load', function(event) {
     $('#search').autocomplete({
         minLength: 1,
         source: "/users.json",

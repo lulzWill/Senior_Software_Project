@@ -5,7 +5,11 @@
                 %div.row
                     %div.col-sm-12
                         %h1 #{@user_view.user_id}
-                        -if @current_user.friends.find_by_user_id(@user_view.user_id) && !@user_view.friends.find_by_user_id(@current_user.user_id)
+                        -if !@current_user.friends.find_by_user_id(@user_view.user_id) && @user_view.friends.find_by_user_id(@current_user.user_id)
+                            = form_tag friendships_path, :id => 'add_friend' do
+                                = text_field :friend, 'user_id', :id => 'user_id', :hidden => true, :value => @user_view.id
+                                = submit_tag 'Accept Request', :id => 'add_friend_submit', :class => 'btn btn-success'
+                        -elsif @current_user.friends.find_by_user_id(@user_view.user_id) && !@user_view.friends.find_by_user_id(@current_user.user_id)
                             %button.btn Friendship Pending
                         -elsif @current_user.friends.find_by_user_id(@user_view.user_id) && @user_view.friends.find_by_user_id(@current_user.user_id)
                             %h5 Friends since #{@user_view.friendships.find_by_friend_id(@current_user.id).created_at}

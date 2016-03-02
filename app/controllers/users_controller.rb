@@ -2,6 +2,10 @@ class UsersController < ApplicationController
     before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete']
 
     def edit
+        if(params[:id] != @current_user.user_id)
+            flash[:notice] = "You cannot edit someone else's profile!"
+            redirect_to users_homepage_path
+        end
     end
     
     def update

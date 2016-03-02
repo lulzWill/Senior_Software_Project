@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   resources :reviews
   resources :locations
   resources :visits
+  
+  resources :conversations do
+    resources :messages
+  end
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

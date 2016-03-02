@@ -41,6 +41,8 @@ gem 'carrierwave'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'selenium-webdriver'
+gem 'private_pub'
+gem 'thin'
 # Use Capistrano for deploymt
 # gem 'capistrano-rails', group: :development
 

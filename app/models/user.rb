@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
     has_many :friendships
     has_many :photos
     has_many :albums
+    has_many :conversations, :foreign_key => :sender_id
 end

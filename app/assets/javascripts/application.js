@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require chat
 //= require turbolinks
 //= require homepage.js
 //= require_tree .
 //= require bootstrap-sprockets
+//= require private_pub
 $('.dropdown-toggle').dropdown()

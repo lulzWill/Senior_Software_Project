@@ -51,3 +51,14 @@ end
 Then /^I should be shown a "(.*?)" error message$/ do |error_type|
   expect(page.text).to match(/ERROR:.*#{error_type}/)
 end
+
+When /^I search for "(.*?)"$/ do |search_term|
+  page.find('.navbar-toggle').click
+  fill_in 'search', :with => search_term
+  find_field('search').native.send_key(:enter)
+end
+
+When /^I search for "(.*?)" using autocomplete$/ do |search_term|
+  page.find('.navbar-toggle').click
+  fill_in 'search', :with => search_term
+end

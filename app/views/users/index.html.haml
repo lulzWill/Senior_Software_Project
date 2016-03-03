@@ -3,7 +3,7 @@
         - @users.each do |user|
             .panel.panel-default
                 =link_to user_path(user) do
-                    =image_tag user.profile_pic
+                    =image_tag user.profile_pic, onerror: "imgError(this);"
                     =user.user_id
     -else
         No users match that name

@@ -36,7 +36,6 @@ class UsersController < ApplicationController
     end
     
     def index
-        #@users = User.find(:all,:conditions => ['user_id LIKE ?', "#{params[:term]}%"])
         @users = User.where("user_id LIKE :q", { q: "#{params[:term]}%"})
         respond_to do |format|
             format.json{ render :json => @users.as_json(:only => [:first_name,:last_name,:user_id,:id,:profile_pic]) }

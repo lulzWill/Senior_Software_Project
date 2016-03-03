@@ -5,6 +5,8 @@ RSpec.describe LocationsController, type: :controller do
     
     describe "GET show" do
         before :each do
+            @fake_user = double('user')
+            allow(User).to receive(:find_by_session_token).and_return(@fake_user)
             @fake_location_results = double('location1')
             allow(Location).to receive(:find_or_create_by!).and_return(@fake_location_results)
             allow(@fake_location_results).to receive(:id)

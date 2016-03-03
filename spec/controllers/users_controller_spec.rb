@@ -39,4 +39,9 @@ describe UsersController do
           expect(flash[:notice]).to eq("Sorry, but that user id is already taken")
         end
     end
+    
+    describe 'searching for users' do
+      it 'should call'
+    end
 end
+

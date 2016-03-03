@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe ReviewsController, type: :controller do
-
+    before :each do
+        @fake_user = double('user')
+        allow(User).to receive(:find_by_session_token).and_return(@fake_user) 
+    end
     describe "GET show" do
         before :each do
             @fake_review = double('review')
             @fake_location = double('location')
-            @fake_user = double('user')
-            allow(User).to receive(:find_by_session_token)
             allow(Review).to receive(:find).and_return(@fake_review)
             allow(Location).to receive(:find).and_return(@fake_location)
             allow(User).to receive(:find).and_return(@fake_user)
@@ -27,7 +28,6 @@ RSpec.describe ReviewsController, type: :controller do
     
     describe "GET new" do
         before :each do
-            allow(User).to receive(:find_by_session_token)
             get :new, :id => 1, :name => "a", :longitude => 10, :latitude => 11
         end
         it "should provide data to template" do

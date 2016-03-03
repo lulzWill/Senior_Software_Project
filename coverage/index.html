@@ -14,18 +14,18 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-03-03T16:48:37+00:00">2016-03-03T16:48:37+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-03-03T17:13:28+00:00">2016-03-03T17:13:28+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">85.88%</span></span>
+    (<span class="covered_percent"><span class="yellow">88.24%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.43
+         1.5
        </span>
     </span> hits/line)
   </h2>
@@ -33,8 +33,8 @@
   <div>
     <b>18</b> files in total.
     <b>170</b> relevant lines. 
-    <span class="green"><b>146</b> lines covered</span> and
-    <span class="red"><b>24</b> lines missed </span>
+    <span class="green"><b>150</b> lines covered</span> and
+    <span class="red"><b>20</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -57,7 +57,7 @@
         <td>5</td>
         <td>5</td>
         <td>0</td>
-        <td>7.0</td>
+        <td>7.8</td>
       </tr>
       
       <tr>
@@ -82,12 +82,12 @@
       
       <tr>
         <td class="strong"><a href="#3a28b12c3c7a18c9521e3dc805365a19d8be35d8" class="src_link" title="app/controllers/users_controller.rb">app/controllers/users_controller.rb</a></td>
-        <td class="red strong">46.51 %</td>
+        <td class="red strong">55.81 %</td>
         <td>80</td>
         <td>43</td>
-        <td>20</td>
-        <td>23</td>
-        <td>0.6</td>
+        <td>24</td>
+        <td>19</td>
+        <td>0.8</td>
       </tr>
       
       <tr>
@@ -239,11 +239,11 @@
           <div class="file_list_container" id="Controllers">
   <h2>
     <span class="group_name">Controllers</span>
-    (<span class="covered_percent"><span class="yellow">80.67%</span></span>
+    (<span class="covered_percent"><span class="yellow">84.03%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.51
+         1.61
        </span>
     </span> hits/line)
   </h2>
@@ -251,8 +251,8 @@
   <div>
     <b>5</b> files in total.
     <b>119</b> relevant lines. 
-    <span class="green"><b>96</b> lines covered</span> and
-    <span class="red"><b>23</b> lines missed </span>
+    <span class="green"><b>100</b> lines covered</span> and
+    <span class="red"><b>19</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -275,7 +275,7 @@
         <td>5</td>
         <td>5</td>
         <td>0</td>
-        <td>7.0</td>
+        <td>7.8</td>
       </tr>
       
       <tr>
@@ -300,12 +300,12 @@
       
       <tr>
         <td class="strong"><a href="#3a28b12c3c7a18c9521e3dc805365a19d8be35d8" class="src_link" title="app/controllers/users_controller.rb">app/controllers/users_controller.rb</a></td>
-        <td class="red strong">46.51 %</td>
+        <td class="red strong">55.81 %</td>
         <td>80</td>
         <td>43</td>
-        <td>20</td>
-        <td>23</td>
-        <td>0.6</td>
+        <td>24</td>
+        <td>19</td>
+        <td>0.8</td>
       </tr>
       
       <tr>
@@ -698,14 +698,14 @@
           <code class="ruby">  def set_current_user</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="7">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="18" data-linenumber="7">
+          <span class="hits">18</span>
           
           <code class="ruby">      @current_user ||= User.find_by_session_token(cookies[:session_token])</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="8">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="18" data-linenumber="8">
+          <span class="hits">18</span>
           
           <code class="ruby">      redirect_to new_user_path unless @current_user</code>
         </li>
@@ -1101,11 +1101,11 @@
         <div class="source_table" id="3a28b12c3c7a18c9521e3dc805365a19d8be35d8">
   <div class="header">
     <h3>app/controllers/users_controller.rb</h3>
-    <h4><span class="red">46.51 %</span> covered</h4>
+    <h4><span class="red">55.81 %</span> covered</h4>
     <div>
       <b>43</b> relevant lines. 
-      <span class="green"><b>20</b> lines covered</span> and
-      <span class="red"><b>23</b> lines missed.</span>
+      <span class="green"><b>24</b> lines covered</span> and
+      <span class="red"><b>19</b> lines missed.</span>
     </div>
   </div>
   
@@ -1340,26 +1340,26 @@
           <code class="ruby">    def index</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="39">
-          
+        <li class="covered" data-hits="2" data-linenumber="39">
+          <span class="hits">2</span>
           
           <code class="ruby">        @users = User.where(&quot;user_id LIKE :q&quot;, { q: &quot;#{params[:term]}%&quot;})</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="40">
-          
+        <li class="covered" data-hits="2" data-linenumber="40">
+          <span class="hits">2</span>
           
           <code class="ruby">        respond_to do |format|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="41">
-          
+        <li class="covered" data-hits="3" data-linenumber="41">
+          <span class="hits">3</span>
           
           <code class="ruby">            format.json{ render :json =&gt; @users.as_json(:only =&gt; [:first_name,:last_name,:user_id,:id,:profile_pic]) }</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="42">
-          
+        <li class="covered" data-hits="2" data-linenumber="42">
+          <span class="hits">2</span>
           
           <code class="ruby">            format.html</code>
         </li>

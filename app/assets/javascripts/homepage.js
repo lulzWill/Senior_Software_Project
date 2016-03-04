@@ -116,10 +116,10 @@ function initAutocomplete()
           address = marker.address;
           infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"
             +marker.address+"</div><br/>Rating of "+marker.review+"/5<br/><br/>"
-            +"<a id=\"visted\" href = \"../visits/new/?name="+marker.title+"&latitude="+marker.latitude
+            +"<a id=\"visted\" href = \"../visits/new/?name="+escapeChars(marker.title)+"&latitude="+marker.latitude
             +"&longitude="+marker.longitude+"\"  >Mark As Visited</a><br/><br/>"+"<a id=\"visted\" href = \"../locations/show/?name="
-            +marker.title+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"\"  >View Location</a><br/><br/>"
-            +"<a id=\"visted\" href = \"../reviews/new/?name="+marker.title+"&latitude="+marker.latitude+"&longitude="
+            +escapeChars(marker.title)+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"\"  >View Location</a><br/><br/>"
+            +"<a id=\"visted\" href = \"../reviews/new/?name="+escapeChars(marker.title)+"&latitude="+marker.latitude+"&longitude="
             +marker.longitude+"\"  >Write a Review</a><br/><br/>"+"<a onclick = \"yelpSearch()\"href = \"#\" >Yelp details</a>"
             );
           infoWindow.open(map,marker);
@@ -149,6 +149,19 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setContent(browserHasGeolocation ?
                         'Error: The Geolocation service failed.' :
                         'Error: Your browser doesn\'t support geolocation.');
+}
+
+//adds escape characters to location names containing chars like '&'
+function escapeChars(str) {
+    alert(str);
+    str = str.replace(/&/g, '%26');
+    str = str.replace(/\?/g, '%3F');
+    str = str.replace(/\\/g, '%5C');
+    str = str.replace(/\"/g, '%22');
+    str = str.replace(/\=/g, '%3D');
+    str = str.replace(/\//g, '%2F');
+    alert(str);
+    return str;                
 }
 
 //clicking on vendor link - Reused code

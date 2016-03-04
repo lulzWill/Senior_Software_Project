@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   #
   get 'users/homepage'
   get 'users/_yelp_results'
-  resources :users
+  get 'users/autocomplete'
+  resources :users 
   resources :sessions
   resources :reviews
   resources :locations

@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe VisitsController, type: :controller do
-
+    before :each do
+        @fake_user = double('user')
+        allow(User).to receive(:find_by_session_token).and_return(@fake_user) 
+    end
     describe "GET show" do
         before :each do
             @fake_visit = double('visit')
@@ -44,10 +47,8 @@ RSpec.describe VisitsController, type: :controller do
     
     describe "POST create" do
         before :each do
-            @fake_user = double('user')
             @fake_location = double('location')
             @fake_visit = double('visit')
-            allow(User).to receive(:find_by_session_token).and_return(@fake_user)
             allow(Location).to receive(:find_or_create_by).and_return(@fake_location)
             allow(@fake_user).to receive(:id)
             allow(@fake_location).to receive(:id)
@@ -87,9 +88,7 @@ RSpec.describe VisitsController, type: :controller do
     
     describe "PUT update" do
         before :each do
-            @fake_user = double('user')
             @fake_visit = double('visit') 
-            allow(User).to receive(:find_by_session_token).and_return(@fake_user)
             allow(Visit).to receive(:find).and_return(@fake_visit)
             allow(@fake_user).to receive(:id)
             allow(@fake_visit).to receive(:location_id)
@@ -111,9 +110,7 @@ RSpec.describe VisitsController, type: :controller do
     
     describe "GET index" do
         it "should supply info about visits to template" do
-            @fake_user = double('user')
             @fake_visit = double('visit')
-            allow(User).to receive(:find_by_session_token).and_return(@fake_user)
             allow(@fake_user).to receive(:id)
             allow(Visit).to receive(:where).and_return(@fake_visit)
             get :index

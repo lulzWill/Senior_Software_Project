@@ -39,4 +39,24 @@ describe UsersController do
           expect(flash[:notice]).to eq("Sorry, but that user id is already taken")
         end
     end
+    
+    describe 'searching for users: ' do
+      before :each do
+        @fake_user = double('user')
+        allow(User).to receive(:find_by_session_token).and_return(@fake_user)
+      end
+      it 'autocomplete should return user info' do
+        get :index, {:format => :json, :term => 'abc'}
+        response.should be_success
+      end
+      it "should supply results to template" do
+        @fake_user_result = double('user_result')
+        allow(User).to receive(:where).and_return(@fake_user_result)
+        get :index
+        expect(assigns(:users)).to eq(@fake_user_result)
+        expect(response).to render_template("index")
+      end
+    end
+        
 end
+

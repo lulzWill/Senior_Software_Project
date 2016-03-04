@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
     before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete']
-
     
     def homepage
     
@@ -38,7 +37,11 @@ class UsersController < ApplicationController
     end
     
     def index
-        
+        @users = User.where("user_id LIKE :q", { q: "#{params[:term]}%"})
+        respond_to do |format|
+            format.json{ render :json => @users.as_json(:only => [:first_name,:last_name,:user_id,:id,:profile_pic]) }
+            format.html
+        end
     end
 
     def user_params
@@ -71,5 +74,10 @@ class UsersController < ApplicationController
             redirect_to new_user_path
         end
     end
+    
+    def autocomplete
+        
+    end
+    
 end
 

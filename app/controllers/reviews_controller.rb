@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+    before_filter :set_current_user, :only => ['show', 'new', 'edit']
 
     def review_params
         params.require(:review).permit(:user_id, :location_id, :rating, :comment)

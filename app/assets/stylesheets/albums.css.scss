@@ -1,0 +1,10 @@
+// Place all the styles related to the albums controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.photo_resize{
+    display: inline;
+}
+.photo_resize img {
+    max-width: 200px;
+    max-height: 200px;
+}

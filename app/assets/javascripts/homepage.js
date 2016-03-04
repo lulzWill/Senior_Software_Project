@@ -1,19 +1,11 @@
 
-function collapseYelp()
-{
-  $("#demo").toggle();
-}
-function collapseKayak()
-{
-  $("#demo2").toggle();
-}
-
 var map;
 var location;
 var title;
 var longitude;
 var latitude;
 var searchTerm;
+var address;
 
 
 function initAutocomplete() 
@@ -120,7 +112,8 @@ function initAutocomplete()
           searchTerm = document.getElementById("pac-input").value;
           title = marker.title;
           longitude = marker.longitude;
-          latitude = marker. latitude;
+          latitude = marker.latitude;
+          address = marker.address;
           infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"
             +marker.address+"</div><br/>Rating of "+marker.review+"/5<br/><br/>"
             +"<a id=\"visted\" href = \"../visits/new/?name="+marker.title+"&latitude="+marker.latitude
@@ -164,7 +157,7 @@ function yelpSearch()
 {
   $.ajax({
     type: "GET",
-    url: "/users/_yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude+"&term="+searchTerm,
+    url: "/users/_yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude+"&term="+searchTerm+"&address="+address,
     success: function(result) {
       //alert("got success condition");
       var oneFourth = Math.ceil($(window).width()/4);

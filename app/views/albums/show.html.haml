@@ -1,0 +1,22 @@
+.container{:style => "background-color: white;"}
+
+    .photo_resize
+        = image_tag Photo.find(@album.cover).data
+    %br
+    = @album.title
+    %br
+    = @album.description
+    %br
+    = link_to "Edit Album", edit_album_path(@album.id)
+    %br
+    = link_to "Add Photos", new_photo_path(:album_id => @album.id)
+    %br
+    = link_to 'Delete Album', album_path(@album.id), :method => :delete, data: {confirm: "Are you sure?"}
+    %br
+    = link_to "Albums Homepage", albums_path
+    %br
+    
+    - if !(@photos.nil?)
+        - @photos.each do |photo|
+            .photo_resize
+                =image_tag photo.data

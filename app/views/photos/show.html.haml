@@ -1,0 +1,10 @@
+.container{:style => "background-color: white;"}
+    = image_tag @photo.data
+    %br
+    = @photo.title
+    %br
+    = @photo.description
+    %br
+    = link_to 'Edit photo info', edit_photo_path(@photo.id)
+    = link_to 'Delete photo', photo_path(@photo.id), method: :delete, data: {confirm: "Are you sure?"}
+                        

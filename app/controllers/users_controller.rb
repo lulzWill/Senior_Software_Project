@@ -15,14 +15,15 @@ class UsersController < ApplicationController
                             token_secret: "RiABUM7_ORCKm_FBGH1s0mUUiNo"
                           })
                           
-        @name = params["name"]
+        @name = params[:name]
         @searchTerm = params[:term]
         @longitude = params[:longitude]
         @latitude = params[:latitude]
+        @address = params[:address]
         
         @coords = {latitude: @latitude,longitude: @longitude}
         
-        @results = @client.search_by_coordinates(@coords, { term: @name,limit:1})
+        @results = @client.search_by_coordinates(@coords, {term: @name,limit:1,radius_filter:100})
         @street = @results.businesses[0].location.address
         @street = @street.inspect
         @street[0]=""
@@ -56,6 +57,8 @@ class UsersController < ApplicationController
             params_hash = {:first_name => params[:user][:first_name], :last_name => params[:user][:last_name], :gender => params[:user][:gender], :email => params[:user][:email], :user_id => params[:user][:user_id], :role => "user", :password => params[:user][:password], :profile_pic => params[:profile_pic]} 
             @user = User.new(params_hash)
             if @user.save
+                #create default album
+                #Album.create!(user_id: @user.id, title: 'User pics', description:'',)
                 #UserMailer.welcome_email(@user).deliver_now
                 flash[:notice] = "Welcome #{params[:user][:first_name]}! You have successfully signed up as a User of Backpack Traveler!"
                 redirect_to new_user_path

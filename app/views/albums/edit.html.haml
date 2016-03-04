@@ -1,0 +1,14 @@
+.container{:style => "background-color: white;"}    
+    = form_tag albums_path, :id => 'album_form' do
+        %div.form-group.row
+            = label :album, :title, 'Title', :class => 'col-sm-2'
+            = text_field :album, 'title', :id => 'title', :class => 'col-sm-9'
+        %div.form-group.row
+            = label :album, :description, 'Description', :class => 'col-sm-2'
+            = text_field :album, 'description', :id => 'description', :class => 'col-sm-9'
+        %div.form-group.row
+            = label :album, :pic, 'New Album Cover', :class => 'col-sm-2'
+            = file_field_tag 'pic', :id => 'pic', accept: 'image/png,image/gif,image/jpeg', :onchange => "displayImage(this)" 
+            %img.img-responsive.img-rounded{:src => "", :id => "previewimage"} 
+        %div.row{:style => "margin-left: 2%;"}     
+            = submit_tag 'Update Album', :id => 'album_submit', :class => 'btn btn-success'

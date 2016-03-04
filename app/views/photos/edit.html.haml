@@ -1,0 +1,11 @@
+= form_tag  photo_path(@photo.id), :method => :put, :id => 'photo_form' do
+    %div.form-group.row    
+        = image_tag @photo.data
+    %div.form-group.row
+        = label :photo, :title, 'Title', :class => 'col-sm-2'
+        = text_field :photo, 'title', :id => 'title', :class => 'col-sm-9', :value => @photo.title
+    %div.form-group.row
+        = label :photo, :description, 'Description', :class => 'col-sm-2'
+        = text_field :photo, 'description', :id => 'description', :class => 'col-sm-9', :value => @photo.description
+    %div.row{:style => "margin-left: 2%;"}     
+        = submit_tag 'Update Picture', :id => 'picture_submit', :class => 'btn btn-success'

@@ -23,7 +23,7 @@ class UsersController < ApplicationController
         end
         
         if @current_user.save!
-            flash[:notice] = "Successfully update profile!"
+            flash[:notice] = "Successfully updated profile!"
             redirect_to '/users/homepage'
         else
             flash[:notice] = "Unable to update profile, please try again later!"

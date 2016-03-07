@@ -1,6 +1,36 @@
 class UsersController < ApplicationController
     before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete']
 
+    def edit
+        if(params[:id] != @current_user.user_id)
+            flash[:notice] = "You cannot edit someone else's profile!"
+            redirect_to users_homepage_path
+        end
+    end
+    
+    def update
+        if @current_user.first_name != params[:user][:first_name]
+            @current_user.first_name = params[:user][:first_name]
+        end
+        if @current_user.last_name != params[:user][:last_name]
+            @current_user.last_name = params[:user][:last_name]
+        end
+        if @current_user.gender != params[:user][:gender]
+            @current_user.gender = params[:user][:gender]
+        end
+        if params[:profile_pic] != ""
+            @current_user.profile_pic = params[:profile_pic]
+        end
+        
+        if @current_user.save!
+            flash[:notice] = "Successfully updated profile!"
+            redirect_to '/users/homepage'
+        else
+            flash[:notice] = "Unable to update profile, please try again later!"
+            redirect_to '/users/homepage'
+        end
+        
+    end
     
     def homepage
     
@@ -33,7 +63,12 @@ class UsersController < ApplicationController
     end
     
     def show
-        
+        if User.find_by_user_id(params[:id])
+            @user_view = User.find_by_user_id(params[:id])
+        else
+            flash[:notice] = "User Not Found"
+            redirect_to users_homepage_path
+        end
     end
     
     def index
@@ -47,7 +82,7 @@ class UsersController < ApplicationController
     def new
         if cookies[:session_token]
             flash[:notice]="You are already logged in"
-            redirect_to users_homepage_path
+            redirect_to '/users/homepage'
         end
     end
     

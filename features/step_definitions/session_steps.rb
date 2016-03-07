@@ -16,5 +16,5 @@ Then /^I should be shown "(.*?)"$/ do |message|
 end
 
 When /^I navigate to the "(.*?)" page$/ do |page|
-   click_link "My Visits"
+   click_link page
 end

@@ -19,7 +19,7 @@ When /^I delete an album with title "(.*?)"$/ do |title|
     page.driver.browser.switch_to.alert.accept
 end
 
-When /^I view the "(.*?)" page $/ do |page|
+When /^I view the "(.*?)" page$/ do |page|
     if page == 'my albums'
         visit albums_path
     end

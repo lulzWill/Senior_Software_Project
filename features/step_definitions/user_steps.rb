@@ -61,6 +61,8 @@ end
 When /^I search for "(.*?)" using autocomplete$/ do |search_term|
   page.find('.navbar-toggle').click
   fill_in 'search', :with => search_term
+end
+
 Then /^I should see "(.*?)" and "(.*?)"$/ do |arg1, arg2|
   expect(page.text).to match(/#{arg1}.*#{arg2}/)
 end

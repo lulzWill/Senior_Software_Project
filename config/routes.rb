@@ -6,16 +6,20 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   #
+  root 'users#homepage'
   get 'users/homepage'
   get 'users/_yelp_results'
   get 'users/autocomplete'
   resources :users 
+  match '/users/:user_id/update', to: 'users#update', via: :post
+  resources :users
   resources :sessions
   resources :reviews
   resources :locations
   resources :visits
   resources :albums
   resources :photos
+  resources :friendships
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

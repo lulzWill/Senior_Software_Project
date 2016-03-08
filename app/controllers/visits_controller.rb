@@ -1,5 +1,5 @@
 class VisitsController < ApplicationController
-    before_filter :set_current_user, :only => ['index', 'show', 'new', 'edit']
+    before_filter :set_current_user
     #def location_params
      #   params.require(:location).permit(:name, :latitude, :longitude)
     #end

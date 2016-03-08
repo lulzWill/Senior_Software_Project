@@ -27,4 +27,5 @@ end
 
 When /^I view the "(.*?)" page with title "(.*?)"$/ do |page,title|
     visit albums_path 
+   click_link page
 end

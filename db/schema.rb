@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20160212162250) do
   end
 
   create_table "friendships", force: :cascade do |t|
-    t.integer  "user1_id"
-    t.integer  "user2_id"
+    t.integer  "user_id"
+    t.integer  "friend_id"
     t.boolean  "accepted"
     t.boolean  "follow"
     t.datetime "created_at", null: false

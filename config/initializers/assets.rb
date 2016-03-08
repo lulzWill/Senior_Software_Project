@@ -7,6 +7,7 @@ Rails.application.config.assets.precompile += %w( new_user.css )
 Rails.application.config.assets.precompile += %w( full_staff.png )
 Rails.application.config.assets.precompile += %w( visits.js )
 Rails.application.config.assets.precompile += %w( autocomplete.css )
+Rails.application.config.assets.precompile += %w( edit_scripts.js )
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 

@@ -14,4 +14,4 @@ Scenario: User adds a photo to an album
     | a@b.com                 | fake_user     |fakepass   |
     And I have logged in
     When I add a new photo with title "a title" and description "a description" from "album" page
-    Then I should be shown "Photo added!"
+    Then I should be shown "Photo added to album!"

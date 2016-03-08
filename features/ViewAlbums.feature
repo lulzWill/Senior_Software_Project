@@ -10,5 +10,5 @@ Scenario: View albums added as a user
     | test                    | fake_user        |1          |
     And I have logged in
     When I add a new album with title "test" and description "a description" from "new album" page
-    And I view the "my albums" page with title "test"
+    And I view the "my albums" page
     Then I should be shown "test"

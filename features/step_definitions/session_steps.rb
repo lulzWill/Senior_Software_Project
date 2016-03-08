@@ -4,6 +4,12 @@ Given /the following users are in the database:/ do |users_table|
     end
 end
 
+Given /the following albums are in the database:/ do |albums_table|
+    albums_table.hashes.each do |album|
+        Album.create(album)
+    end
+end
+
 Given /^I have logged in$/ do
     visit new_session_path
     fill_in 'login_user_id', :with => "fake_user"
@@ -17,4 +23,8 @@ end
 
 When /^I navigate to the "(.*?)" page$/ do |page|
    click_link "My Visits"
+end
+
+When /^I view the "(.*?)" page with title "(.*?)"$/ do |page,title|
+    visit albums_path 
 end

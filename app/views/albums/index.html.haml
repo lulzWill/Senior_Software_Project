@@ -1,12 +1,15 @@
+
 .container{:style => "background-color: white;"}    
     - if !(@photoalbums.nil?)    
         - @photoalbums.each do |album|
-            .container
-                =link_to album_path(album.id) do
-                    =image_tag Photo.find(album.cover).data
+            .photo_resize
+                = link_to album_path(album.id) do
+                    - if !(album.cover.nil?)
+                        = image_tag Photo.find(album.cover).data
                     %br
-                    =album.title
+                    = album.title
                     %br
-                    =album.description
+                    = album.description
                     %br
-    =link_to "Add Album", new_album_path
+    = link_to "Add Album", new_album_path
+    

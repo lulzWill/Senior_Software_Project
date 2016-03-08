@@ -3,8 +3,17 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .photo_resize{
     display: inline;
+    float:left;
 }
 .photo_resize img {
     max-width: 200px;
     max-height: 200px;
+}
+.photo_resize a{
+    text-decoration: none;
+    color: black;
+}
+.photo_resize a:hover {
+    text-decoration: none;
+    color: black;
 }

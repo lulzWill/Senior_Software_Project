@@ -31,7 +31,7 @@
               
               <div class="ui-widget">
                 <form class="navbar-form navbar-right form-search" method="GET" action="/users">
-                  <input type="text" class="form-control search-query" placeholder="Search for friends!" id="search" autocomplete = 'on'/>
+                  <input type="text" class="form-control search-query" placeholder="Search for friends!" oninput= "searching()" id="search" autocomplete = 'on'/>
                   <input id="link_origin_id" name="link[origin_id]" type="hidden"/>
                 </form>
               </div>

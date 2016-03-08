@@ -50,13 +50,24 @@ describe UsersController do
         response.should be_success
       end
       it "should supply results to template" do
-        @fake_user_result = double('user_result')
+        @fake_user_result = double(['user_result'])
         allow(User).to receive(:where).and_return(@fake_user_result)
-        get :index
+        get :index, {:link => {:origin_id => 1}}
         expect(assigns(:users)).to eq(@fake_user_result)
         expect(response).to render_template("index")
       end
     end
-        
+    describe 'searching for yelp results ' do
+      before :each do
+        @fake_user = double('user')
+        allow(User).to receive(:find_by_session_token).and_return(@fake_user)
+      end
+      it "should supply results to template" do
+        get :_yelp_results,:term => "hotel",:latitude => "41.669088",:longitude => "-91.563481",:address => "87 2nd St, Coralville, IA 52241",:name =>"heartland inn"
+        expect(assigns(:results).businesses[0].name).to eq("Heartland Inn")
+        expect(assigns(:street)).to eq("87 2nd St")
+        expect(response).to render_template(:partial => '_yelp_results')
+      end
+    end
 end
 

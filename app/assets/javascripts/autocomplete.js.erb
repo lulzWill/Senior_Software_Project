@@ -30,3 +30,10 @@ function imgError(image) {
     image.src = "<%= asset_path 'missing.png' %>";
     return true;
 }
+
+function searching() {
+    //var tester = document.getElementById("search").value;
+    //alert(tester);
+    document.getElementById("link_origin_id").value = document.getElementById("search").value;
+    //$('#link_origin_id').val($('#search').val);
+}

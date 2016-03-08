@@ -18,20 +18,26 @@ class AlbumsController < ApplicationController
         @photo = Photo.create!(user_id: @current_user.id, description: params[:album][:description], title: params[:album][:title], data: params[:pic])
         @album = Album.create!(user_id: @current_user.id, description: params[:album][:description], title: params[:album][:title], cover: @photo.id)
         @photo.update(album_id: @album.id)
+        flash[:notice] = "Album Added"
         redirect_to album_path(@album.id)
     end
     
     def edit
         @album = Album.find(params[:id])
+        @photo = Photo.find(@album.cover)
     end
     
     def update
-        @album = Album.update(user_id: @current_user.id, description: params[:album][:description], title: params[:album][:title], cover: params[:pic])
+        @album = Album.find(params[:id])
+        @photo = Photo.create!(user_id: @current_user.id,album_id: @album.id, description: params[:album][:description], title: params[:album][:title], data: params[:pic])
+        @album.update(user_id: @current_user.id, description: params[:album][:description], title: params[:album][:title], cover: @photo.id)
+        flash[:notice] = "Album Updated"
         redirect_to album_path(@album.id)
     end
     
     def destroy
         Album.find(params[:id]).destroy!
+        flash[:notice] = "Album Deleted"
         redirect_to albums_path
     end
     

@@ -1,5 +1,6 @@
 .container{:style => "background-color: white;"}
-    = image_tag @photo.data
+    .photo_resize    
+        = image_tag @photo.data
     %br
     = @photo.title
     %br

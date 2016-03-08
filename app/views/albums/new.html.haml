@@ -9,6 +9,7 @@
         %div.form-group.row
             = label :album, :pic, 'New Album Cover', :class => 'col-sm-2'
             = file_field_tag 'pic', :id => 'pic', accept: 'image/png,image/gif,image/jpeg', :onchange => "displayImage(this)" 
-            %img.img-responsive.img-rounded{:src => "", :id => "previewimage"} 
+            .photo_resize
+                %img.photo_resize{:src => "", :id => "previewimage"} 
         %div.row{:style => "margin-left: 2%;"}     
             = submit_tag 'Add Album', :id => 'album_submit', :class => 'btn btn-success'

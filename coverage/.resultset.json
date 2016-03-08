@@ -1,27 +1,90 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/application_helper.rb": [
+      "/home/ubuntu/workspace/app/helpers/albums_helper.rb": [
         1,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/locations_helper.rb": [
+      "/home/ubuntu/workspace/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/reviews_helper.rb": [
+      "/home/ubuntu/workspace/app/helpers/locations_helper.rb": [
         1,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/users_helper.rb": [
+      "/home/ubuntu/workspace/app/helpers/photos_helper.rb": [
         1,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/visits_helper.rb": [
+      "/home/ubuntu/workspace/app/helpers/reviews_helper.rb": [
         1,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/locations_controller.rb": [
+      "/home/ubuntu/workspace/app/helpers/users_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/app/helpers/visits_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/app/controllers/albums_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        3,
+        3,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        2,
+        2,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/home/ubuntu/workspace/app/controllers/application_controller.rb": [
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        37,
+        37,
+        null,
+        null
+      ],
+      "/home/ubuntu/workspace/app/controllers/locations_controller.rb": [
         1,
         1,
         null,
@@ -32,19 +95,51 @@
         null,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/application_controller.rb": [
+      "/home/ubuntu/workspace/app/controllers/photos_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
         1,
         null,
         null,
         1,
+        2,
+        2,
+        1,
+        1,
+        1,
         null,
         1,
-        18,
-        18,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
         null,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/reviews_controller.rb": [
+      "/home/ubuntu/workspace/app/controllers/reviews_controller.rb": [
         1,
         1,
         null,
@@ -93,7 +188,7 @@
         null,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/users_controller.rb": [
+      "/home/ubuntu/workspace/app/controllers/users_controller.rb": [
         1,
         1,
         null,
@@ -102,29 +197,30 @@
         null,
         null,
         1,
-        0,
+        1,
         null,
-        0,
-        null,
-        null,
+        1,
         null,
         null,
         null,
-        0,
-        0,
-        0,
-        0,
         null,
-        0,
         null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         null,
         null,
         1,
@@ -133,6 +229,10 @@
         null,
         1,
         2,
+        1,
+        null,
+        1,
+        null,
         2,
         3,
         2,
@@ -156,6 +256,8 @@
         2,
         2,
         null,
+        null,
+        null,
         1,
         1,
         null,
@@ -175,7 +277,7 @@
         null,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/visits_controller.rb": [
+      "/home/ubuntu/workspace/app/controllers/visits_controller.rb": [
         1,
         1,
         null,
@@ -238,53 +340,32 @@
         null,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/models/album.rb": [
-        1,
-        1,
-        null
-      ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/models/friendship.rb": [
-        1,
-        1,
-        null
-      ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/models/location.rb": [
-        1,
+      "/home/ubuntu/workspace/app/models/album.rb": [
         1,
         1,
         1,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/models/photo.rb": [
+      "/home/ubuntu/workspace/app/models/friendship.rb": [
         1,
         1,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/models/review.rb": [
+      "/home/ubuntu/workspace/app/models/location.rb": [
+        1,
         1,
         1,
         1,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/models/user.rb": [
+      "/home/ubuntu/workspace/app/models/photo.rb": [
         1,
         1,
         1,
         1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/uploaders/profile_pic_uploader.rb": [
+      "/home/ubuntu/workspace/app/uploaders/profile_pic_uploader.rb": [
         null,
         null,
         1,
@@ -337,7 +418,31 @@
         null,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/models/visit.rb": [
+      "/home/ubuntu/workspace/app/models/review.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/app/models/user.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/home/ubuntu/workspace/app/models/visit.rb": [
         1,
         1,
         1,
@@ -369,6 +474,6 @@
         null
       ]
     },
-    "timestamp": 1457025208
+    "timestamp": 1457391040
   }
 }

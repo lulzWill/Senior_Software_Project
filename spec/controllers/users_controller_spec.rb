@@ -49,7 +49,7 @@ describe UsersController do
       end
       it 'autocomplete should return user info' do
         get :index, {:format => :json, :term => 'abc'}
-        response.should be_success
+        expect(response).to be_success
       end
       it "should supply results to template" do
         @fake_user_result = double(['user_result'])

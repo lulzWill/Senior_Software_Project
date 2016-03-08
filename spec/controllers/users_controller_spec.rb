@@ -44,6 +44,8 @@ describe UsersController do
       before :each do
         @fake_user = double('user')
         allow(User).to receive(:find_by_session_token).and_return(@fake_user)
+        allow(@fake_user).to receive(:user_id).and_return("testid")
+        allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
       end
       it 'autocomplete should return user info' do
         get :index, {:format => :json, :term => 'abc'}
@@ -57,6 +59,7 @@ describe UsersController do
         expect(response).to render_template("index")
       end
     end
+    
     describe 'searching for yelp results ' do
       before :each do
         @fake_user = double('user')
@@ -69,7 +72,7 @@ describe UsersController do
         expect(response).to render_template(:partial => '_yelp_results')
       end
     end
-end
+
 
     describe 'GET edit' do
       before :each do

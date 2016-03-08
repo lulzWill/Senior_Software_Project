@@ -153,14 +153,12 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 //adds escape characters to location names containing chars like '&'
 function escapeChars(str) {
-    alert(str);
     str = str.replace(/&/g, '%26');
     str = str.replace(/\?/g, '%3F');
     str = str.replace(/\\/g, '%5C');
     str = str.replace(/\"/g, '%22');
     str = str.replace(/\=/g, '%3D');
     str = str.replace(/\//g, '%2F');
-    alert(str);
     return str;                
 }
 

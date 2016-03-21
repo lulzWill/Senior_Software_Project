@@ -98,13 +98,26 @@ RSpec.describe ReviewsController, type: :controller do
             @fake_review = double('review') 
             allow(Review).to receive(:find).and_return(@fake_review)
             allow(@fake_review).to receive(:update_attributes!)
+            allow(@fake_review).to receive(:visit_id).and_return(1)
             put :update, :id => 1, :review => {:user_id => 1, :location_id => 1, :rating => 1, :comment => "fine"}
         end
         it "should flash 'Review updated'" do
             expect(flash[:notice]).to include("Review updated")
         end
         it "should redirect to the homepage" do
-            expect(response).to redirect_to(review_path(@fake_review))
+            expect(response).to redirect_to(visit_path(1))
+        end
+    end
+    
+    describe "GET index" do
+        it "should supply info about reviews to template" do
+            @fake_review = double('review')
+            allow(@fake_user).to receive(:id)
+            allow(Review).to receive(:where).and_return(@fake_review)
+            get :index
+            expect(assigns(:reviews)).to eq(@fake_review)
+            expect(assigns(:current_user)).to eq(@fake_user)
+            expect(response).to render_template("index")
         end
     end
 

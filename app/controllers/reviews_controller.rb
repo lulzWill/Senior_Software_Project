@@ -13,6 +13,10 @@ class ReviewsController < ApplicationController
         #get user info of reviewer
         @user = User.find(@review.user_id)
     end
+    
+    def index
+        @reviews = Review.where(user_id: @current_user.id)
+    end
 
     def new
         @current_user = User.find_by_session_token(cookies[:session_token])
@@ -43,6 +47,6 @@ class ReviewsController < ApplicationController
         @review = Review.find params[:id]
         @review.update_attributes!(review_params)
         flash[:notice] = "Review updated!"
-        redirect_to review_path(@review)
+        redirect_to visit_path(@review.visit_id)
     end
 end

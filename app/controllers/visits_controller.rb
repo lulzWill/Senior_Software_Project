@@ -45,7 +45,6 @@ class VisitsController < ApplicationController
     end
 
     def index
-        @current_user = User.find_by_session_token(cookies[:session_token])
         @visits = Visit.where(user_id: @current_user.id)
     end
 

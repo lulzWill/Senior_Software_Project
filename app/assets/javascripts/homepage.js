@@ -118,7 +118,7 @@ function initAutocomplete()
             +marker.address+"</div><br/>Rating of "+marker.review+"/5<br/><br/>"
             +"<a id=\"visted\" href = \"../visits/new/?name="+escapeChars(marker.title)+"&latitude="+marker.latitude
             +"&longitude="+marker.longitude+"\"  >Mark As Visited</a><br/><br/>"+"<a id=\"visted\" href = \"../locations/show/?name="
-            +escapeChars(marker.title)+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"\"  >View Location</a><br/><br/>"
+            +escapeChars(marker.title)+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"&from_map=1\"  >View Location</a><br/><br/>"
             +"<a id=\"visted\" href = \"../reviews/new/?name="+escapeChars(marker.title)+"&latitude="+marker.latitude+"&longitude="
             +marker.longitude+"\"  >Write a Review</a><br/><br/>"+"<a onclick = \"yelpSearch()\"href = \"#\" >Yelp details</a>"
             );

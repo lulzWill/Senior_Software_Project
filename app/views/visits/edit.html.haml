@@ -15,5 +15,6 @@
             %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :value => @visit.end_date, :required => true}
           .form-group.row
             = submit_tag 'Update Visit', :id => 'visit_submit', :class => 'btn btn-success'
+      = link_to "Back", visit_path(@visit)
       #errors.alert.alert-danger
 

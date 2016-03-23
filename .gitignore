@@ -17,5 +17,6 @@
 /tmp
 /public/uploads/tmp
 /public/uploads/user
+/public/uploads/photo
 
 /coverage

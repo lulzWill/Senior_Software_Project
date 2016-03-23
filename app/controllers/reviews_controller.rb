@@ -29,7 +29,9 @@ class ReviewsController < ApplicationController
         location = Location.find_or_create_by!(name: params[:name], latitude: params[:latitude], longitude: params[:longitude])
         if !Visit.overlap?(params[:user_id], location.id, params[:start_date], params[:end_date])
             visit = Visit.create!(user_id: params[:user_id], location_id: location.id, start_date: params[:start_date], end_date: params[:end_date])
-            Review.create!(user_id: params[:user_id], visit_id: visit.id, location_id: location.id, rating: params[:review][:rating], comment: params[:review][:comment], flags:0, allowed:true)
+            review = Review.create!(user_id: params[:user_id], visit_id: visit.id, location_id: location.id, rating: params[:review][:rating], comment: params[:review][:comment], flags:0, allowed:true)
+            data_hash = {review_id: review.id, rating: review.rating, location_id: location.id, location_name: location.name}
+            Activity.create!(user_id: @current_user.id, username: @current_user.user_id, activity_type: "review", data: data_hash)
             flash[:notice] = "Review added!"
         else
             flash[:notice] = "You've already visited " + params[:name].to_s + " on those dates."

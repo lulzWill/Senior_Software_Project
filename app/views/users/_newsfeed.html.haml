@@ -1,0 +1,26 @@
+.newsfeed
+    -if @activities.empty?
+        %h3 No news
+    -else
+        -@activities.each do |activity|
+            = link_to activity.username, '/users/' + activity.username
+            -if activity.activity_type == 'photo'
+                added a photo: 
+                = link_to '/photos/' + activity.data["photo_id"].to_s do
+                    = image_tag activity.data["url"], class:"img img-rounded", style:"max-height:200px;max-width:200px;"
+            -elsif activity.activity_type == 'album'
+                added an album:
+                = link_to '/albums/' + activity.data["album_id"].to_s do
+                    = activity.data["title"]
+                    = image_tag activity.data["url"], class:"img img-rounded", style:"max-height:200px;max-width:200px;"
+            -elsif activity.activity_type == 'visit'
+                visited 
+                = link_to activity.data["location_name"], '/locations/' + activity.data["location_id"].to_s
+            -elsif activity.activity_type == 'review'
+                added a 
+                = link_to 'review', '/reviews/' + activity.data["review_id"].to_s
+                of
+                = link_to activity.data["location_name"], '/locations/' + activity.data["location_id"].to_s
+                with rating:
+                = activity.data["rating"]
+            %hr

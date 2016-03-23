@@ -18,6 +18,8 @@ class AlbumsController < ApplicationController
         @photo = Photo.create!(user_id: @current_user.id, description: params[:album][:description], title: params[:album][:title], data: params[:pic])
         @album = Album.create!(user_id: @current_user.id, description: params[:album][:description], title: params[:album][:title], cover: @photo.id)
         @photo.update(album_id: @album.id)
+        data_hash = {url: @photo.data.url, title: @album.title, album_id: @album.id}
+        Activity.create!(user_id: @current_user.id, username: @current_user.user_id, activity_type: "album", data: data_hash)
         flash[:notice] = "Album Added"
         redirect_to album_path(@album.id)
     end

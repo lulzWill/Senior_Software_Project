@@ -36,7 +36,12 @@ class UsersController < ApplicationController
 
     
     def homepage
-    
+        @friendships = @current_user.friendships
+        @friend_ids = []
+        @friendships.each do |friendship|
+           @friend_ids << friendship.friend_id
+        end
+        @activities = Activity.where(user_id: @friend_ids)
     end
     
     def _yelp_results

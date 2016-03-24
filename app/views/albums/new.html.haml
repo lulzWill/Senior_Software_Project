@@ -1,4 +1,4 @@
-.container{:style => "background-color: white;"}    
+.container.album
     = form_tag albums_path, :id => 'album_form', multipart: true do
         %div.form-group.row
             = label :album, :title, 'Title', :class => 'col-sm-2'

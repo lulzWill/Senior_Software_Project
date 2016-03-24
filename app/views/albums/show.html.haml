@@ -1,17 +1,16 @@
-.container{:style => "background-color: white;"}
+.container.album
 
     %br
-    = @album.title
+    %h1
+        = @album.title
+    %h3
+        = @album.description
     %br
-    = @album.description
-    %br
-    = link_to "Edit Album", edit_album_path(@album.id)
-    %br
-    = link_to "Add Photos", new_photo_path(:album_id => @album.id)
-    %br
-    = link_to 'Delete Album', album_path(@album.id), :method => :delete, data: {confirm: "Are you sure?"}
-    %br
-    = link_to "Albums Homepage", albums_path
+    .buttons
+        = button_to "Edit Album", edit_album_path(@album.id),:method => "get", :class => 'btn btn-success'
+        = button_to "Add Photos", new_photo_path,:method => "get", :class => 'btn btn-success', params: {album_id: @album.id}
+        = button_to 'Delete Album', album_path(@album.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+        = button_to "Albums Homepage", albums_path,:method => "get", :class => 'btn btn-success'
     %br
     
     - if !(@photos.nil?)

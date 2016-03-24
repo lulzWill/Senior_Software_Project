@@ -18,7 +18,6 @@
 @import "bootstrap";
 
 #notice {
-    color: yellow;
     margin: 1em 0;
     padding-left: 10px;
 }
@@ -26,4 +25,11 @@
 #navbar-brand {
     color: white;
 }
+.navbar-center {
+    margin: auto;
+    display: inline-block;
+    float: none;
+    color: 	#5cb85c;
+}
+
 

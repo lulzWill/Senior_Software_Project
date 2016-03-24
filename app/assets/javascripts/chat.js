@@ -84,7 +84,7 @@ var ready = function () {
                 return;
             }
 
-            $("body").append('<div id="chatbox_' + conversation_id + '" class="chatbox"></div>')
+            $("body").append('<div id="chatbox_' + conversation_id + '" class="chatbox"></div>');
 
             $.get("conversations/" + conversation_id, function (data) {
                 $('#chatbox_' + conversation_id).html(data);
@@ -212,7 +212,7 @@ var ready = function () {
                     }
                 }
 
-                newCookie = newCookie.slice(0, -1)
+                newCookie = newCookie.slice(0, -1);
 
 
                 $.cookie('chatbox_minimized', newCookie);
@@ -237,8 +237,7 @@ var ready = function () {
 
 
 
-    }
-
+    };
 
     /**
      * Cookie plugin
@@ -293,7 +292,7 @@ var ready = function () {
     };
 
 
-}
+};
 
 $(document).ready(ready);
 $(document).on("page:load", ready);

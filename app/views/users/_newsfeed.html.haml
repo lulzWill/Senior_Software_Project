@@ -36,6 +36,10 @@
                         = link_to activity.data["location_name"], '/locations/' + activity.data["location_id"].to_s
                         with rating:
                         = activity.data["rating"]
+                %br
+                .news-time
+                    = time_ago_in_words(activity.created_at)
+                    ago
                 %hr
         = form_tag users_newsfeed_path, :class => 'newsfeed-form', :remote => true do
             = hidden_field_tag :offset, @offset

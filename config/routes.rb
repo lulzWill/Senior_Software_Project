@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   root 'users#homepage'
   get 'users/homepage'
   get 'users/_yelp_results'
+  post 'users/_past_results'
   get 'users/autocomplete'
   resources :users 
   match '/users/:user_id/update', to: 'users#update', via: :post

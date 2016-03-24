@@ -36,7 +36,25 @@ class UsersController < ApplicationController
 
     
     def homepage
+        @locations = []
+        @locations_id =[]
+        @visits_id =[]
+        @visits = Visit.where(user_id: @current_user.id) 
+        @visits.each do |visit|
+            @location = Location.find_by_id(visit.location_id)
+            @locations.push([@location.latitude, @location.longitude])
+            @locations_id.push([@location.id])
+            @visits_id.push([visit.id])
+        end
+    end  
     
+    
+    def _past_results
+        #get all past location details
+        @location = Location.find_by_id(params[:loc_id]) 
+        @visit = Visit.find_by_id( params[:visit_id] )
+        puts "in past controler!!!!!!!!!!!!!!!!!!!!!!!!!!" 
+        render :partial =>'past_results'# and return if request.xhr?
     end
     
     def _yelp_results
@@ -63,7 +81,7 @@ class UsersController < ApplicationController
         @street[0]=""
         @street.chop!
         @street.chop!
-        render :partial =>'yelp_results', :object =>@results and return if request.xhr?
+        render :partial =>'yelp_results', :object => @results and return if request.xhr?
     end
     
     def show

@@ -1,15 +1,15 @@
-
-.container{:style => "background-color: white;"}    
-    - if !(@photoalbums.nil?)    
-        - @photoalbums.each do |album|
-            .photo_resize
-                = link_to album_path(album.id) do
-                    - if !(album.cover.nil?)
-                        = image_tag Photo.find(album.cover).data
-                    %br
-                    = album.title
-                    %br
-                    = album.description
-                    %br
-    = link_to "Add Album", new_album_path
+.container.album    
+    %div    
+        - if !(@photoalbums.nil?)    
+            - @photoalbums.each do |album|
+                .photo_resize
+                    = link_to album_path(album.id) do
+                        - if !(album.cover.nil?)
+                            = image_tag Photo.find(album.cover).data
+                        %br
+                        = album.title
+                        %br
+                        = album.description
+                        %br
+        = button_to "Add Album", new_album_path,:method => "get", :class => 'btn btn-success'
     

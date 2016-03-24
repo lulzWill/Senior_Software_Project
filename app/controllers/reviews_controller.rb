@@ -56,6 +56,9 @@ class ReviewsController < ApplicationController
     def edit
         @review = Review.find(params[:id])
         @location = Location.find(@review.location_id)
+        if @current_user.id != @review.user_id
+            redirect_to users_homepage_path
+        end
     end
 
     def update

@@ -32,6 +32,9 @@ class VisitsController < ApplicationController
     def edit
         @visit = Visit.find(params[:id])
         @location = Location.find(@visit.location_id)
+        if @current_user.id != @visit.user_id
+            redirect_to users_homepage_path
+        end
     end
 
     def update
@@ -54,6 +57,9 @@ class VisitsController < ApplicationController
 
     def show
         @visit = Visit.find(params[:id])
+        if @current_user.id != @visit.user_id
+            redirect_to users_homepage_path
+        end
         @review = Review.find_by(visit_id: params[:id])
         @review_exists = true
         if @review == nil

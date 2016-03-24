@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160321164500) do
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "username"
+    t.string   "profile_pic"
     t.string   "activity_type"
     t.text     "data"
     t.datetime "created_at",    null: false

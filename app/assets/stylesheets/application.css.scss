@@ -32,6 +32,32 @@
     text-transform: uppercase;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//newsfeed styling
+////////////////////////////////////////////////////////////////////////////////
 .newsfeed {
     text-align: left;
+}
+.news {
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: -20px;
+}
+.news img {
+    margin:20px;
+    max-height:250px;
+    //max-width:250px;
+}
+.news-user {
+    width:150px;
+    display: inline-block;
+    vertical-align: top;
+}
+.news-user img {
+    max-height:150px;
+    max-width:150px;
+}
+.friend-activity {
+    margin-top:10px;
+    opacity: 1 !important;
 }

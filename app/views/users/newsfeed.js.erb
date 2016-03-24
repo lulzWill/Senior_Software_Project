@@ -1,0 +1,2 @@
+$(".newsfeed-form").hide();
+$("#newsfeed").append("<%= escape_javascript(render partial: 'newsfeed', locals: { offset: @offset } ) %>");

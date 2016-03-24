@@ -19,7 +19,7 @@ class VisitsController < ApplicationController
         if !Visit.overlap?(@current_user.id, @location.id, params[:start_date], params[:end_date])
             @visit = Visit.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[:start_date], end_date: params[:end_date])
             data_hash = {location_name: @location.name, location_id: @location.id}
-            Activity.create!(user_id: @current_user.id, username: @current_user.user_id, activity_type: "visit", data: data_hash)
+            Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic.url, activity_type: "visit", data: data_hash)
             flash[:notice] = "You marked the location!"
             redirect_to visit_path(@visit)
         else

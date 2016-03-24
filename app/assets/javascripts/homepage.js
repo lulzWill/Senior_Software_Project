@@ -222,6 +222,7 @@ function toggleMe()
   else
   {
     //alert("window found");
+    map.setCenter(loc_of_me);
     loc_me.close(map)
     togglemestate = 1;
   }

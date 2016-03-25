@@ -141,14 +141,23 @@ function initAutocomplete()
       };
       var address = places[i].formatted_address;
       // Create a marker for each place.
-      
+      if(places[i].rating)
+      {
+        var rating = places[i].rating;
+        //alert("rating there");
+      }
+      else
+      {
+        var rating = "-";
+        //alert("rating undefined");
+      }
       markers.push(new google.maps.Marker({
         map: map,
         title: places[i].name,
         id: places[i].name,
         icon: icon,
         address: address,
-        review: places[i].rating,
+        review: rating,
         position: places[i].geometry.location,
         latitude: places[i].geometry.location.lat(),
         longitude: places[i].geometry.location.lng()

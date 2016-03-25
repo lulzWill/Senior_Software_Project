@@ -1,0 +1,6 @@
+port: 4443
+ssl: true
+ssl_key_file: /server.key
+ssl_cert_file: /combined.crt
+environment: production
+rackup: private_pub.ru

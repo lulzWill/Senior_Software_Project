@@ -64,12 +64,53 @@ describe UsersController do
       before :each do
         @fake_user = double('user')
         allow(User).to receive(:find_by_session_token).and_return(@fake_user)
+        allow(@fake_user).to receive(:user_id).and_return("testid")
+        allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
       end
       it "should supply results to template" do
         get :_yelp_results,:term => "hotel",:latitude => "41.669088",:longitude => "-91.563481",:address => "87 2nd St, Coralville, IA 52241",:name =>"heartland inn"
         expect(assigns(:results).businesses[0].name).to eq("Heartland Inn")
         expect(assigns(:street)).to eq("87 2nd St")
         expect(response).to render_template(:partial => '_yelp_results')
+      end
+    end
+    
+    describe 'displaying user data on map' do
+      before :each do
+        @fake_user = double('user')
+        @fake_location = double('location')
+        @fake_locations = double('location')
+        @fake_visit = double('visit')
+        @fake_visits = [@fake_visit]
+        
+        allow(User).to receive(:find_by_session_token).and_return(@fake_user)
+        allow(@fake_user).to receive(:user_id).and_return("testid")
+        allow(@fake_user).to receive(:id)
+        allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
+        
+        allow(Visit).to receive(:find_by_id).and_return(@fake_visit)
+        allow(Location).to receive(:find_by_id).and_return(@fake_location)
+        allow(Visit).to receive(:where).and_return(@fake_visits)
+        
+        allow(@fake_visit).to receive(:id).and_return("test1")
+        allow(@fake_visit).to receive(:location_id).and_return("test2")
+        allow(@fake_location).to receive(:id).and_return("test3")
+        allow(@fake_location).to receive(:latitude).and_return("test4")
+        allow(@fake_location).to receive(:longitude).and_return("test5")
+        
+      end
+      it "should supply past locations to map for markers" do
+        get :_past_results,:loc_id => "1",:visit_id => "1"
+        expect(assigns(:location)).to eq(@fake_location)
+        expect(assigns(:visit)).to eq(@fake_visit)
+        expect(response).to render_template(:partial => '_past_results')
+      end
+      it "should supply past locations to homepage for heat map" do
+        get :homepage
+        expect(assigns(:locations)).to eq([["test4","test5"]])
+        expect(assigns(:visits)).to eq([@fake_visit])
+        expect(assigns(:visits_id)).to eq([["test1"]])
+        expect(assigns(:locations_id)).to eq([["test3"]])
       end
     end
 

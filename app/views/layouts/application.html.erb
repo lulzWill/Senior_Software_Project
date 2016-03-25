@@ -19,6 +19,16 @@
             <span class="icon-bar"></span>
           </button>
           <%= link_to "Backpack Traveler", users_homepage_path, method: :get, class: "navbar-brand", id: "logo"%>
+          
+          <% if flash[:notice] %>
+            <div class="nav navbar-center message" id="notice">
+              <%= flash[:notice] %>
+            </div>
+          <% elsif flash[:warning] %>
+            <div class="nav navbar-center message" id="warning">
+              <%= flash[:warning] %>
+            </div>
+          <% end %>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -32,7 +42,6 @@
                   <input id="link_origin_id" name="link[origin_id]" type="hidden"/>
                 </form>
               </div>
-              
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img alt="profile_pic" width="20px" height="20px" src=
                 <%= if @current_user.profile_pic.url == nil 
@@ -78,16 +87,7 @@
       </div><!-- /.container-fluid -->
     </nav>
     <div id="main">
-      <% if flash[:notice] %>
-        <div class="message" id="notice">
-          <%= flash[:notice] %>
-        </div>
-      <% elsif flash[:warning] %>
-        <div class="message" id="warning">
-          <%= flash[:warning] %>
-        </div>
-      <% end %>
-      <%= yield %>
+      <%= yield %> 
     </div>
   </body>
 </html>

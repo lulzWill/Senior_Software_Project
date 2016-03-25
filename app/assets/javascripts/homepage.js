@@ -1,6 +1,7 @@
 
 var map;
 var loc_of_me;
+var pic_of_me;
 var loc_me;
 var location;
 var title;
@@ -13,7 +14,6 @@ var datamap;
 var datahash;
 var heatstate;
 var paststate;
-var togglemestate;
 var pastmarkers;
 var datahash_id;
 var visitId;
@@ -38,7 +38,6 @@ function initAutocomplete()
 {
   heatstate = 0;
   paststate = 0;
-  togglemestate = 0;
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -34.397, lng: 150.644},
     zoom: 14,
@@ -64,19 +63,28 @@ function initAutocomplete()
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
+      var url = document.getElementById("profile_pic").value
+      //alert(url);
       var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
       loc_of_me = pos;
       loc_me = new google.maps.InfoWindow({map: map});
-      google.maps.event.addListener(loc_me, 'closeclick', function() 
-      {
-        //alert("window closed");
-        togglemestate = 1;
+      loc_me.close(map);
+      var person_icon = {
+        url: url,
+        size: new google.maps.Size(80, 80),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(30, 30)
+      };
+      
+      pic_of_me = new google.maps.Marker({
+        position: loc_of_me,
+        map: map,
+        icon: person_icon
       });
-      loc_me.setPosition(pos);
-      loc_me.setContent('You Are Here!!');
       map.setCenter(pos);
     }, function() {
       handleLocationError(true, loc_me, map.getCenter());
@@ -157,7 +165,7 @@ function initAutocomplete()
           latitude = marker.latitude;
           address = marker.address;
           infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"
-            +marker.address+"</div><br/>Rating of "+marker.review+"/5<br/><br/>"
+            +marker.address+"</div><br/>Rating of "+marker.review+"/5 from Google<br/><br/>"
             +"<a id=\"visted\" href = \"../visits/new/?name="+escapeChars(marker.title)+"&latitude="+marker.latitude
             +"&longitude="+marker.longitude+"\"  >Mark As Visited</a><br/><br/>"+"<a id=\"visted\" href = \"../locations/show/?name="
             +escapeChars(marker.title)+"&latitude="+marker.latitude+"&longitude="+marker.longitude+"\"  >View Location</a><br/><br/>"
@@ -209,23 +217,7 @@ function escapeChars(str)
 //reposition map and so icon for where you currently are
 function toggleMe()
 {
-  //alert("toggle me");
-  if(togglemestate == 1)
-  {
-    //alert("window not found");
-    loc_me.setPosition(loc_of_me);
-    loc_me.setContent('You Are Here!!');
-    loc_me.open(map);
-    map.setCenter(loc_of_me);
-    togglemestate = 0;
-  }
-  else
-  {
-    //alert("window found");
-    map.setCenter(loc_of_me);
-    loc_me.close(map)
-    togglemestate = 1;
-  }
+  map.setCenter(loc_of_me);
 }
 
 //toggel for past map locations button

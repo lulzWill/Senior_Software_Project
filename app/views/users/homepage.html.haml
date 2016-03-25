@@ -8,10 +8,18 @@
 .container.panel.panel-default
   .panel-heading
     %div{:style => "width:95%; height:60%;margin-right: auto; margin-left: auto;"}
-      %div{:id => "floating-panel"}
-        %button{:onclick => "toggleHeatmap(#{@locations})"} Heat Map
-        %button{:onclick => "togglePastmap(#{@locations},#{@locations_id},#{@visits_id})"} Past Locations
-        %button{:onclick => "toggleMe()"} Where am I?
+      .dropdown{:id => "floating-panel"}
+        %button.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+          Map Options
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            %a{:href => "#",:onclick => "toggleHeatmap(#{@locations})"} Heatmap
+          %li
+            %a{:href => "#",:onclick => "togglePastmap(#{@locations},#{@locations_id},#{@visits_id})"} Past Locations
+          %li
+            %a{:href => "#",:onclick => "toggleMe()"} Where am I?
+      
       %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
       #map{:style => "width: 100%;height: 500px;border-radius: 2%; border: 1px solid black;"}
   .panel-body

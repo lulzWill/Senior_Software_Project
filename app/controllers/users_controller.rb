@@ -53,7 +53,6 @@ class UsersController < ApplicationController
         #get all past location details
         @location = Location.find_by_id(params[:loc_id]) 
         @visit = Visit.find_by_id( params[:visit_id] )
-        puts "in past controler!!!!!!!!!!!!!!!!!!!!!!!!!!" 
         render :partial =>'past_results'# and return if request.xhr?
     end
     

@@ -39,3 +39,14 @@
                                             %a{:href=>"/users/#{friend.user_id}"}
                                                 %img.img-rounded{:src => friend.profile_pic, :id => "profile_picture", :height => "150px", :width => "150px"}
                                             %h5 #{friend.first_name} #{friend.last_name} (#{friend.user_id})
+            %div.panel.panel-default
+                %div.panel-body
+                    %div.row
+                        %div.col-sm-12
+                            %h1 Albums
+                            %div.row
+                                -@user_view.albums.each do |album|
+                                    %div.col-sm-4
+                                        %a{:href=>"/albums/#{album.id}"}
+                                            %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
+                                        %h5 #{album.title} (#{album.description})

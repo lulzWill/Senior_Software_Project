@@ -18,4 +18,3 @@
 //= require homepage.js
 //= require_tree .
 //= require bootstrap-sprockets
-$('.dropdown-toggle').dropdown()

@@ -17,4 +17,5 @@
 //= require turbolinks
 //= require homepage.js
 //= require_tree .
+//= require faye
 //= require bootstrap-sprockets

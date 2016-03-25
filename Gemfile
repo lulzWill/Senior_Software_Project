@@ -40,6 +40,7 @@ gem 'carrierwave'
 gem 'selenium-webdriver'
 gem 'private_pub'
 gem 'thin'
+gem 'faye'
 # Use Capistrano for deploymt
 # gem 'capistrano-rails', group: :development
 

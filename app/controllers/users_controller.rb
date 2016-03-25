@@ -43,6 +43,7 @@ class UsersController < ApplicationController
         end
         @activities = Activity.limit(10).order('created_at DESC').where(user_id: @friend_ids)
         @offset = 10
+        
         @locations = []
         @locations_id =[]
         @visits_id =[]

@@ -26,10 +26,12 @@
                             %br
                             = image_tag activity.data["url"], class:"img img-rounded"
                 -elsif activity.activity_type == 'visit'
-                    .news.news.news-visit
+                    .news.news-visit
                         = link_to activity.username
-                        visited 
-                        = link_to activity.data["location_name"], '/locations/' + activity.data["location_id"].to_s
+                        added a visit:
+                        .news-visit-location
+                            %h3
+                                = link_to activity.data["location_name"], '/locations/' + activity.data["location_id"].to_s
                 -elsif activity.activity_type == 'review'
                     .news.news-review
                         = link_to activity.username

@@ -38,6 +38,15 @@ RSpec.describe PhotosController, type: :controller do
             allow(@fake_user).to receive(:id)
             allow(@fake_photo).to receive(:id).and_return(1)
             allow(Photo).to receive(:create!).and_return(@fake_photo)
+            #activity creation
+            @fake_photo_data = double('photo_data')
+            allow(@fake_photo).to receive(:title)
+            allow(@fake_photo).to receive(:user_id)
+            allow(@fake_photo).to receive(:data).and_return(@fake_photo_data)
+            allow(@fake_photo_data).to receive(:url)
+            @fake_profile_pic = double('profile_pic')
+            allow(@fake_user).to receive(:profile_pic).and_return(@fake_profile_pic)
+            allow(@fake_profile_pic).to receive(:url)
         end
         it "should create a new photo and redirect to the show path for that album (when created from album)" do
             @fake_album = double('album')

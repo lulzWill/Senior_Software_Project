@@ -43,6 +43,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 .newsfeed {
     text-align: left;
+    a {
+        color:#5cb85c;
+        text-decoration: none;
+    }
 }
 .news {
     display: inline-block;
@@ -62,6 +66,10 @@
 .news-user img {
     max-height:150px;
     max-width:150px;
+}
+.news-visit-location {
+    margin-left:20px;
+    //font-style:italic;
 }
 .news-time {
     color: gray;

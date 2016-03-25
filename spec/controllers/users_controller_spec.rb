@@ -106,6 +106,10 @@ describe UsersController do
         expect(response).to render_template(:partial => '_past_results')
       end
       it "should supply past locations to homepage for heat map" do
+        @fake_friendship = double('friendship')
+        friendships = [@fake_friendship]
+        allow(@fake_user).to receive(:friendships).and_return(friendships)
+        allow(@fake_friendship).to receive(:friend_id)
         get :homepage
         expect(assigns(:locations)).to eq([["test4","test5"]])
         expect(assigns(:visits)).to eq([@fake_visit])
@@ -187,6 +191,26 @@ describe UsersController do
         get :show, :id => "test"
         expect(response).to redirect_to(users_homepage_path)
         expect(flash[:notice]).to eq("User Not Found")
+      end
+    end
+    
+    describe 'POST newsfeed' do
+      before :each do
+        @fake_current_user = double('current_user')
+        allow(User).to receive(:find_by_session_token).and_return(@fake_current_user)
+        allow(@fake_current_user).to receive(:user_id).and_return("testid")
+        allow(@fake_current_user).to receive(:inverse_friends).and_return(Array.new)
+      end
+      it "should make friend's activities available to newsfeed and render partial" do
+        @fake_friendship = double('friend')
+        @fake_activity = double('activity')
+        friendships = [@fake_friendship]
+        allow(@fake_current_user).to receive(:friendships).and_return(friendships)
+        allow(@fake_friendship).to receive(:friend_id)
+        allow(Activity).to receive(:where)
+        post :newsfeed, :format => 'js'
+        expect(assigns(:activities)).to eq([])
+        expect(response).to render_template('newsfeed')
       end
     end
 end

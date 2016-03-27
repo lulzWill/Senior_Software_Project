@@ -16,7 +16,7 @@ class VisitsController < ApplicationController
         #create entry in location table if it doesn't exist
         @location = Location.find_or_create_by!(name: params[:name], latitude: params[:latitude], longitude: params[:longitude])
         #call method to see if this visit would overlap with an already established visit
-        if !Visit.overlap?(@current_user.id, @location.id, params[:start_date], params[:end_date])
+        if !Visit.overlap?(@current_user.id, @location.id, params[:start_date])
             #@visit = Visit.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[:start_date], end_date: params[:end_date])
             @visit = Visit.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[:start_date])
             data_hash = {location_name: @location.name, location_id: @location.id}
@@ -38,15 +38,14 @@ class VisitsController < ApplicationController
     end
 
     def update
-        @current_user = User.find_by_session_token(cookies[:session_token])
         @visit = Visit.find(params[:id])
-        if !Visit.overlap?(@current_user.id, @visit.location_id, params[:start_date], params[:end_date])
+        if !Visit.overlap?(@current_user.id, @visit.location_id, params[:start_date])
             #@visit.update(start_date: params[:start_date], end_date: params[:end_date])
             @visit.update(start_date: params[:start_date])
             flash[:notice] = "Visit updated!"
             redirect_to visit_path(@visit)
         else
-            flash[:notice] = "You've already visited " + params[:name].to_s + " on that dates."
+            flash[:notice] = "You've already visited " + params[:name].to_s + " on that date."
             redirect_to users_homepage_path
         end
     end

@@ -22,10 +22,18 @@ Then /^I should be shown "(.*?)"$/ do |message|
 end
 
 When /^I navigate to the "(.*?)" page$/ do |page|
-   click_link "My Visits"
+    if page == "My Visits"
+        visit visits_path
+    else
+        click_link page
+    end
 end
 
 When /^I view the "(.*?)" page with title "(.*?)"$/ do |page,title|
     visit albums_path 
-   click_link page
+    click_link page
+end
+
+When /^I wait for "(.*?)" seconds?$/ do |n|
+    sleep(n.to_i)
 end

@@ -1,7 +1,7 @@
 .container
     -if @visits != []
         - @visits.each do |visit|
-            .panel.panel-default
+            .panel.panel-default.visit
                 -@visit = visit
                 .panel-body
                     =render :partial => 'visits/visit'

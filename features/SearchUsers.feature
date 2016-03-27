@@ -19,5 +19,6 @@ Scenario: Search from search bar (using autocomplete)
     | a@c.com               | fake_user2    |fakepass   |
     And I have logged in
     When I search for "fake" using autocomplete
+    And I wait for "2" seconds
     Then I should be shown "fake_user2"
     

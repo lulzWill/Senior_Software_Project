@@ -7,7 +7,7 @@ When /^I add a new photo with title "(.*?)" and description "(.*?)" from "(.*?)"
         fill_in 'title', :with => "title" 
         fill_in 'description', :with => "description" 
         click_button 'album_submit'
-        click_link 'Add Photos'
+        click_button 'Add Photos'
     end
     fill_in 'title', :with => title 
     fill_in 'description', :with => description 

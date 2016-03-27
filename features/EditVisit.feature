@@ -12,7 +12,7 @@ Scenario: Edit a visit
     | 1         | 1             | 
     And I have logged in
     When I view one of my visits and choose to "Edit date"
-    And I have filled out the form with "10/10/2015" to "11/11/2015"
+    And I have filled out the form with "10/10/2015"
     Then I should be shown "Visit updated!"
     
 Scenario: Attempt to edit a visit, overlaps previous visit
@@ -23,13 +23,16 @@ Scenario: Attempt to edit a visit, overlaps previous visit
     | name                  |     
     | University of Iowa    |
     And the following visits are in the database:
-    | user_id   | location_id   | start_date    | end_date  |
-    | 1         | 1             | "1999-1-1"    | "2001-1-1"|
+    | user_id   | location_id   | start_date    |
+    | 1         | 1             | "1998-1-1"    |
+    | 1         | 1             | "1999-1-1"    |
     And I have logged in
     When I view one of my visits and choose to "Edit date"
-    And I have filled out the form with "1000-11-11" to "3000-1-1"
+    And I have filled out the form with "1999-1-1"
     Then I should be shown "already visited"
-    
+
+#not needed with new views for only start_date
+@wip
 @javascript
 Scenario: Attempt to edit a visit, invalid dates
     Given the following users are in the database:
@@ -43,5 +46,5 @@ Scenario: Attempt to edit a visit, invalid dates
     | 1         | 1             | "1999-1-1"    | "1999-1-1"|
     And I have logged in
     When I view one of my visits and choose to "Edit date"
-    And I have filled out the form with "2000-11-11" to "2000-1-1"
+    And I have filled out the form with "2000-11-11" and "1999-1-1"
     Then I should be shown "Invalid dates"

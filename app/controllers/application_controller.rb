@@ -7,4 +7,5 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.find_by_session_token(cookies[:session_token])
       redirect_to new_user_path unless @current_user
   end
+  
 end

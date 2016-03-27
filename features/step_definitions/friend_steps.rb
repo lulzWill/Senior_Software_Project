@@ -1,3 +1,9 @@
+Given /the following friendships are in the database:/ do |friendships_table|
+    friendships_table.hashes.each do |friendship|
+        Friendship.create(friendship)
+    end
+end
+
 And /^I click the "(.*?)" button$/ do |button|
     click_button button
 end

@@ -46,7 +46,15 @@
                             %h1 Albums
                             %div.row
                                 -@user_view.albums.each do |album|
-                                    %div.col-sm-4
-                                        %a{:href=>"/albums/#{album.id}"}
-                                            %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
-                                        %h5 #{album.title} (#{album.description})
+                                    -if album.privacy == "Everyone" || (album.privacy == "Just Me" && @user_view.id == @current_user.id) || (album.privacy == "Friends" && @user_view.id == @current_user.id)
+                                        %div.col-sm-4
+                                            %a{:href=>"/albums/#{album.id}"}
+                                                %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
+                                            %h5 #{album.title} (#{album.description})
+                                    -if album.privacy == "Friends"
+                                        -@user_view.friends.each do |friend|
+                                            -if friend.user_id == @current_user.user_id
+                                                %div.col-sm-4
+                                                    %a{:href=>"/albums/#{album.id}"}
+                                                        %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
+                                                    %h5 #{album.title} (#{album.description})

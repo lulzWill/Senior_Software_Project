@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
 
     //hide errors div
     $('#errors').hide();
@@ -28,4 +28,4 @@ $(document).ready(function(){
         }
     });
 
-});
+});*/

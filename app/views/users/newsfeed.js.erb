@@ -1,0 +1,4 @@
+//hide previous more news button
+$(".newsfeed-form").hide();
+//append another _newsfeed partial
+$("#newsfeed").append("<%= escape_javascript(render partial: 'newsfeed', locals: { offset: @offset } ) %>");

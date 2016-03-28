@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete']
+    before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete', 'newsfeed']
 
 
 
@@ -36,6 +36,14 @@ class UsersController < ApplicationController
 
     
     def homepage
+        @friendships = @current_user.friendships
+        @friend_ids = []
+        @friendships.each do |friendship|
+           @friend_ids << friendship.friend_id
+        end
+        @activities = Activity.limit(10).order('created_at DESC').where(user_id: @friend_ids)
+        @offset = 10
+        
         @locations = []
         @locations_id =[]
         @visits_id =[]
@@ -137,6 +145,19 @@ class UsersController < ApplicationController
     
     def autocomplete
         
+    end
+    
+    def newsfeed
+        @friendships = @current_user.friendships
+        @friend_ids = []
+        @friendships.each do |friendship|
+           @friend_ids << friendship.friend_id
+        end
+        @activities = Activity.limit(10).order('created_at DESC').where(user_id: @friend_ids).offset(params[:offset])
+        @offset = params[:offset].to_i + 10
+        respond_to do |format|
+            format.js {}
+        end
     end
     
 end

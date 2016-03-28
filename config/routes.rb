@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'users/_yelp_results'
   post 'users/_past_results'
   get 'users/autocomplete'
+  post 'users/newsfeed'
   resources :users 
   match '/users/:user_id/update', to: 'users#update', via: :post
   resources :users

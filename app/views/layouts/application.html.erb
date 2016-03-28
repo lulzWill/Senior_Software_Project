@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SeltProject</title>
+    <title>Backpack Traveler</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= stylesheet_link_tag    'autocomplete'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -18,10 +18,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <%= link_to "Home", users_homepage_path, method: :get, class: "navbar-brand"%>
-          <%= link_to "My Visits", visits_path, class: "navbar-brand"%>
-          <%= link_to "Kayak", "https://www.kayak.com/", class: "navbar-brand"%>
-          <%= link_to "Yelp", "https://www.yelp.com", class: "navbar-brand"%>
+          <%= link_to "Backpack Traveler", users_homepage_path, method: :get, class: "navbar-brand", id: "logo"%>
+          
           <% if flash[:notice] %>
             <div class="nav navbar-center message" id="notice">
               <%= flash[:notice] %>
@@ -45,10 +43,19 @@
                 </form>
               </div>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img alt="profile_pic" width="20px" height="20px" src=<%= @current_user.profile_pic %>><%= @current_user.user_id %><span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img alt="profile_pic" width="20px" height="20px" src=
+                <%= if @current_user.profile_pic.url == nil 
+                      asset_path 'missing.png'
+                    else
+                      @current_user.profile_pic
+                    end %>>
+                <%= @current_user.user_id %><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="/users/<%= @current_user.user_id %>">View Profile</a></li>
                 <li><a href="/users/<%= @current_user.user_id %>/edit">Edit Profile</a></li>
+                <li><a href= <%=albums_path %> >Photos</a></li>
+                <li><a href= <%=visits_path %> >Visits</a></li>
+                <li><a href= <%=reviews_path %> > Reviews</a></li>
               </ul>
             </li>
             <li class="dropdown">

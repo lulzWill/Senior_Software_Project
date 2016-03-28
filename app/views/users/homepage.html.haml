@@ -3,28 +3,31 @@
 //%script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js", :type => "text/javascript"}
 // %script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBxnXZJRg6NIKFRtVR1YPzArruPdSzImsI&libraries=visualization"}
 / only if you need custom infoboxes
+
 %script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBxnXZJRg6NIKFRtVR1YPzArruPdSzImsI&libraries=places,visualization&callback=initAutocomplete"}
 
-.container.panel.panel-default
-  .panel-heading
-    %div{:style => "width:95%; height:60%;margin-right: auto; margin-left: auto;"}
-      .dropdown{:id => "floating-panel"}
-        %button.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
-          Map Options
-          %span.caret
-        %ul.dropdown-menu
-          %li
-            %a{:href => "#",:onclick => "toggleHeatmap(#{@locations})"} Heatmap
-          %li
-            %a{:href => "#",:onclick => "togglePastmap(#{@locations},#{@locations_id},#{@visits_id})"} Past Locations
-          %li
-            %a{:href => "#",:onclick => "toggleMe()"} Where am I?
-      
-      %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
-      #map{:style => "width: 100%;height: 500px;border-radius: 2%; border: 1px solid black;"}
-  .panel-body
-    %div{:style => "margin-right: auto; margin-left: auto;text-align:center"}
-      %h1 Newsfeed Placeholder
+.container
+  %div
+    .dropdown{:id => "floating-panel"}
+      %button.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+        Map Options
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#",:onclick => "toggleHeatmap(#{@locations})"} Heatmap
+        %li
+          %a{:href => "#",:onclick => "togglePastmap(#{@locations},#{@locations_id},#{@visits_id})"} Past Locations
+        %li
+          %a{:href => "#",:onclick => "toggleMe()"} Where am I?
+    %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
+    #map{:style => "width: 100%;height: 500px;border-radius: 1%; border: 1px #5cb85c;"}
+  .panel.panel-default.friend-activity
+    .panel-heading
+      %h3 Friend Activity
+    .panel-body
+      #newsfeed{:style => "margin-right: auto; margin-left: auto;text-align:center;"}
+        =render :partial => 'newsfeed'
+    
     
     
     #individual{:style=> "background-color: white; display: none;border-radius: 2%; border: 1px solid black;"}

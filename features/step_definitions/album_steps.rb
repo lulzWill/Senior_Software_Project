@@ -8,14 +8,14 @@ When /^I add a new album with title "(.*?)" and description "(.*?)" from "(.*?)"
 end
 
 When /^I edit the album with title "(.*?)" to have new title "(.*?)"$/ do |title, new_title|
-    click_link 'Edit Album'
+    click_button 'Edit Album'
     fill_in 'title', :with => new_title 
     click_button 'album_submit'
     
 end
 
 When /^I delete an album with title "(.*?)"$/ do |title|
-    click_link 'Delete Album'
+    click_button 'Delete Album'
     page.driver.browser.switch_to.alert.accept
 end
 

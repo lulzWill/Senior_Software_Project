@@ -11,8 +11,10 @@ RSpec.describe VisitsController, type: :controller do
         before :each do
             @fake_visit = double('visit')
             allow(Visit).to receive(:find).and_return(@fake_visit)
+            allow(@fake_user).to receive(:id).and_return(1)
         end
         it "should get info from model methods if a review is associated" do
+            allow(@fake_visit).to receive(:user_id).and_return(1)
             @fake_review = double('review')
             allow(Review).to receive(:find_by).and_return(@fake_review)
             get :show, :id => 1
@@ -21,6 +23,7 @@ RSpec.describe VisitsController, type: :controller do
             expect(assigns(:review_exists)).to eq(true)
         end
         it "should get info from model methods if no review is associated" do
+            allow(@fake_visit).to receive(:user_id).and_return(1)
             allow(Review).to receive(:find_by).and_return(nil)
             get :show, :id => 1
             expect(assigns(:visit)).to eq(@fake_visit)
@@ -28,8 +31,14 @@ RSpec.describe VisitsController, type: :controller do
             expect(assigns(:review_exists)).to eq(false)
         end
         it "should render the show review template" do
+            allow(@fake_visit).to receive(:user_id).and_return(1)
             get :show, :id => 1
             expect(response).to render_template("show") 
+        end
+        it "should redirect to hompage if user does not own visit" do
+            allow(@fake_visit).to receive(:user_id).and_return(0) 
+            get :show, :id => 1
+            expect(response).to redirect_to users_homepage_path
         end
     end
     
@@ -51,8 +60,11 @@ RSpec.describe VisitsController, type: :controller do
         before :each do
             @fake_location = double('location')
             @fake_visit = double('visit')
+            @fake_pic = double('profile_pic')
             allow(Location).to receive(:find_or_create_by).and_return(@fake_location)
             allow(@fake_user).to receive(:id)
+            allow(@fake_user).to receive(:profile_pic).and_return(@fake_pic)
+            allow(@fake_pic).to receive(:url)
             allow(@fake_location).to receive(:id)
             allow(Visit).to receive(:create!).and_return(@fake_visit)
         end
@@ -77,14 +89,23 @@ RSpec.describe VisitsController, type: :controller do
             allow(Visit).to receive(:find).and_return(@fake_visit)
             allow(Location).to receive(:find).and_return(@fake_location)
             allow(@fake_visit).to receive(:location_id)
-            get :edit, :id => 1
+            allow(@fake_user).to receive(:id).and_return(1)
         end
         it "should supply info to the template" do
+            allow(@fake_visit).to receive(:user_id).and_return(1)
+            get :edit, :id => 1
             expect(assigns(:visit)).to eq(@fake_visit)
             expect(assigns(:location)).to eq(@fake_location)
         end
         it "should render the edit review template" do
+            allow(@fake_visit).to receive(:user_id).and_return(1)
+            get :edit, :id => 1
             expect(response).to render_template("edit")
+        end
+        it "should redirect to hompage if user does not own visit" do
+            allow(@fake_visit).to receive(:user_id).and_return(0) 
+            get :edit, :id => 1
+            expect(response).to redirect_to users_homepage_path
         end
     end
     

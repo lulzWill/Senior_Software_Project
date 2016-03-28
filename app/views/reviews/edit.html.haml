@@ -13,3 +13,7 @@
             = text_area :review, :comment, :value => @review.comment
           .row
             = submit_tag 'Update Review', :id => 'review_submit', :class => 'btn btn-success'
+      .panel-footer
+        = link_to "Back to visit", visit_path(@review.visit_id)
+        %br
+        = link_to "Back to location", location_path(Visit.find(@review.visit_id).location_id)

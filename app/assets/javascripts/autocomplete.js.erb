@@ -18,7 +18,7 @@ $(document).on('ready page:load', function(event) {
     .data("uiAutocomplete")._renderItem = function(ul,item){
         return $("<li></li>")
             .data("item.uiAutocomplete",item)
-            .append("<a href='" + item.id + "'>" + "<div><img src='" + item.profile_pic.url + "' onerror='imgError(this);'>  " + item.user_id + "</div></a>" )
+            .append("<a href='" + item.user_id + "'>" + "<div><img src='" + item.profile_pic.url + "' onerror='imgError(this);'>  " + item.user_id + "</div></a>" )
             .appendTo(ul);
     }
 

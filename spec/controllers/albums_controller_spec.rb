@@ -51,6 +51,14 @@ RSpec.describe AlbumsController, type: :controller do
             allow(@fake_album).to receive(:id).and_return("test")
             allow(Photo).to receive(:create!).and_return(@fake_photo)
             allow(Album).to receive(:create!).and_return(@fake_album)
+            #activity creation
+            @fake_photo_data = double('photo_data')
+            allow(@fake_photo).to receive(:data).and_return(@fake_photo_data)
+            allow(@fake_photo_data).to receive(:url)
+            allow(@fake_album).to receive(:title)
+            @fake_profile_pic = double('profile_pic')
+            allow(@fake_user).to receive(:profile_pic).and_return(@fake_profile_pic)
+            allow(@fake_profile_pic).to receive(:url)
         end
         it "should create a new album an redirect to the show path for that album" do
             post :create, :album => {:title => "title of album", :description => "description of album"}, :cover => "1"

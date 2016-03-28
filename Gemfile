@@ -25,7 +25,6 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'haml'
 gem 'mailgun-ruby', '~>1.0.2', require: 'mailgun'
 gem 'mailgun_rails'
 

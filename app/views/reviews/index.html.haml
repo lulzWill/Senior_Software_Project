@@ -1,0 +1,16 @@
+.container
+    -if @reviews != []
+        - @reviews.each do |review|
+            .panel.panel-default
+                -@review = review
+                -location = Location.find(Visit.find(review.visit_id).location_id)
+                .panel-heading
+                    %h3
+                        = link_to location.name, location_path(location)
+                .panel-body
+                    = render :partial => 'reviews/review'
+                    = link_to "Review Info", review_path(review)
+    -else
+        .panel.panel-default
+            .panel-body
+                No reviews to show

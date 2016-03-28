@@ -16,7 +16,7 @@ Scenario: View location details from visit
     And I select "The University of Iowa"
     Then I should be shown "I've been here"
     
-    
+#needs point from google maps api, can't test    
 @wip
 @javascript
 Scenario: View location details from map

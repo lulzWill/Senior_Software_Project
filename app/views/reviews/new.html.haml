@@ -3,16 +3,28 @@
   = form_tag reviews_path, :id => 'date_form', :method => :post do
     .panel.panel-default
       .panel-body
-        %h3 Review #{@name}
+        -if @visit == nil
+          %h3 Review for #{@name}
+        -else
+          %h3 Review for #{@location.name}
         .col-sm-6
           .form-group.row
-            = label :visit, :start_date, 'I visited from'
-            %br
-            %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
+            -if @visit == nil
+              = hidden_field_tag :name, @name
+              = hidden_field_tag :latitude, @latitude
+              = hidden_field_tag :longitude, @longitude
+              = label :visit, :start_date, 'I visited on'
+              %br
+              %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
+            -else
+              I visited on #{@visit.start_date}
+              = hidden_field_tag :location_id, @location.id
+              = hidden_field_tag :visit_id, @visit.id
+            = hidden_field_tag :user_id, @current_user.id
           .form-group.row
-            = label :visit, :end_date, 'to'
-            %br
-            %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+            =#= label :visit, :end_date, 'to'
+            =#%br
+            =#%input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
           .form-group.row
             = label :review, :rating, 'Rating'
             = select :review, :rating, [5,4,3,2,1]
@@ -20,13 +32,10 @@
             = label :review, :comment, 'Comment'
             %br
             = text_area :review, :comment
-            = hidden_field_tag :name, @name
-            = hidden_field_tag :latitude, @latitude
-            = hidden_field_tag :longitude, @longitude
-            = hidden_field_tag :user_id, @current_user.id
+            
           .row
             = submit_tag 'Save Review', :id => 'review_submit', :class => 'btn btn-success'
-      #errors.alert.alert-danger
+      =#errors.alert.alert-danger
 
 
 

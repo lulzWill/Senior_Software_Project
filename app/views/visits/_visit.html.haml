@@ -1,5 +1,5 @@
-
 %h3
     -@location = Location.find(@visit.location_id)
     =link_to "#{@location.name} ", location_path(@visit.location_id, name: @location.name, latitude: @location.latitude, longitude: @location.longitude)
-%p Visited on #{Visit.get_dates(@visit.id)}
+=#%p Visited on #{Visit.get_dates(@visit.id)}
+%p Visited on #{@visit.start_date}

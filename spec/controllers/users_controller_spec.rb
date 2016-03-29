@@ -82,6 +82,7 @@ describe UsersController do
         @fake_locations = double('location')
         @fake_visit = double('visit')
         @fake_visits = [@fake_visit]
+        @fake_review = double('review')
         
         allow(User).to receive(:find_by_session_token).and_return(@fake_user)
         allow(@fake_user).to receive(:user_id).and_return("testid")
@@ -99,10 +100,21 @@ describe UsersController do
         allow(@fake_location).to receive(:longitude).and_return("test5")
         
       end
-      it "should supply past locations to map for markers" do
+      it "should supply past locations to map for markers w/ reviews" do
+        allow(Review).to receive(:find_by). and_return(@fake_review)
         get :_past_results,:loc_id => "1",:visit_id => "1"
         expect(assigns(:location)).to eq(@fake_location)
         expect(assigns(:visit)).to eq(@fake_visit)
+        expect(assigns(:review)).to eq(@fake_review)
+        expect(response).to render_template(:partial => '_past_results')
+      end
+      it "should supply past locations to map for markers w/o reviews" do
+        allow(Review).to receive(:find_by). and_return(nil)
+        get :_past_results,:loc_id => "1",:visit_id => "1"
+        expect(assigns(:location)).to eq(@fake_location)
+        expect(assigns(:visit)).to eq(@fake_visit)
+        expect(assigns(:review)).to eq(nil)
+        expect(assigns(:review_exists)).to eq(false)
         expect(response).to render_template(:partial => '_past_results')
       end
       it "should supply past locations to homepage for heat map" do

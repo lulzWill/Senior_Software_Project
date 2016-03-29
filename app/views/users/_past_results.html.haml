@@ -1,4 +1,10 @@
-%h1{:style => "background-color: #5cb85c;color: white;text-align: center;"} #{@location.name}
-%h2{:style => "text-align: center;"} Visit Dates
-%h3{:style => "text-align: center;"} #{@visit.start_date}
-%h3{:style => "text-align: center;"} #{@visit.end_date}
+%a{:href => "/visits/#{@visit.id}", :target => "_blank", :id => "homepage_link"} 
+    %h1{:style => "color: #5cb85c;text-align: center;"} #{@location.name}
+    %h2{:style => "text-align: center;"} Visited On: #{@visit.start_date}
+%div{:style => "border: black 1px solid;text-align:center;"}    
+    -if @review_exists
+        =render :partial => 'reviews/review'
+        =link_to "Edit review", edit_review_path(@review)
+    -else
+        =link_to "Add review", new_review_path(visit_id: @visit.id, location_id: @visit.location_id)
+    

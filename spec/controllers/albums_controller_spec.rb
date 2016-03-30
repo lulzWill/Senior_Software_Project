@@ -17,6 +17,7 @@ RSpec.describe AlbumsController, type: :controller do
         it "should get info from model methods if a photo/photos is/are associated" do
             @fake_photo = double('photo')
             allow(Photo).to receive(:where).and_return(@fake_photo)
+            allow(@fake_album).to receive(:privacy).and_return("Everyone")
             get :show, :id => 1
             expect(assigns(:album)).to eq(@fake_album)
             expect(assigns(:photos)).to eq(@fake_photo)
@@ -24,12 +25,14 @@ RSpec.describe AlbumsController, type: :controller do
         
         it "should get info from model methods if no photo is associated" do
             allow(Photo).to receive(:where).and_return(nil)
+            allow(@fake_album).to receive(:privacy).and_return("Everyone")
             get :show, :id => 1
             expect(assigns(:album)).to eq(@fake_album)
             expect(assigns(:photos)).to eq(nil)
         end
         
         it "should render the show album template" do
+            allow(@fake_album).to receive(:privacy).and_return("Everyone")
             get :show, :id => 1
             expect(response).to render_template("show") 
         end

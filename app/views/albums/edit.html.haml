@@ -11,5 +11,8 @@
                 = label :album, :pic, 'New Album Cover', :class => 'col-sm-2'
                 = file_field_tag 'pic', :id => 'pic', accept: 'image/png,image/gif,image/jpeg', :onchange => "displayImage(this)" 
                 %img.img-responsive.img-rounded{:src => @photo.data, :id => "previewimage"} 
+            %div.form-group.row
+                = label :album, :privacy, 'Who can see this album?', :class => 'col-sm-2'
+                = select :album, :privacy, ['Everyone','Friends','Just Me'], :id => 'privacy', :class => 'col-sm-9'
             %div.row{:style => "margin-left: 2%;"}     
                 = submit_tag 'Update Album', :id => 'album_submit', :class => 'btn btn-success'

@@ -57,4 +57,4 @@
                                                 %div.col-sm-4
                                                     %a{:href=>"/albums/#{album.id}"}
                                                         %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
-                                                    %h5 #{album.title} (#{album.description})
+                                                    %h5 #{album.title}

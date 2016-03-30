@@ -1,0 +1,4 @@
+//hide previous more news button
+$(".location-reviews-form").hide();
+//append another _newsfeed partial
+$("#location-reviews").append("<%= escape_javascript(render partial: 'location_reviews', locals: { review_offset: @review_offset } ) %>");

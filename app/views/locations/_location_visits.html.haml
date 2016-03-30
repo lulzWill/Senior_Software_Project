@@ -1,0 +1,28 @@
+.newsfeed
+    -if @visits.empty? && @offset == 5
+        %h3 No visits to this location yet.
+    -elsif @visits.empty?
+        %h3 No more visits.
+    -else
+        -@visits.each do |visit|
+            .news-row{:style => "display:block;width:100%"}
+                .panel.panel-default
+                    .panel-body
+                        .news-user-location
+                            = link_to '/users/' + visit.user.user_id do
+                                -if visit.user.profile_pic.url != nil
+                                    = image_tag visit.user.profile_pic, class:"img img-rounded", style:"width:100px;"
+                                -else
+                                    = image_tag (asset_path "missing.png"), class:"img img-rounded", style:"width:100px;"
+                        .news.news-visit
+                            = link_to visit.user.user_id, '/users/' + visit.user.user_id
+                            visited this location on:
+                            =visit.start_date
+                    .panel-footer
+                        .news-time
+                            = time_ago_in_words(visit.created_at)
+                            ago
+                %hr
+        = form_tag locations_location_visits_path, :class => 'location-visits-form', :remote => true do
+            = hidden_field_tag :visit_offset, @visit_offset
+            = submit_tag 'More visits...', :class => 'btn btn-success location-visits-submit'

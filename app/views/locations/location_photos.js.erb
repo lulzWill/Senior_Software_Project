@@ -1,0 +1,4 @@
+//hide previous more news button
+$(".location-photos-form").hide();
+//append another _newsfeed partial
+$("#location-photos").append("<%= escape_javascript(render partial: 'location_photos', locals: { photo_offset: @photo_offset } ) %>");

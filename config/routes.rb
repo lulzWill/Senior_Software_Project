@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions
   resources :reviews
+  post 'locations/location_reviews'
+  post 'locations/location_visits'
+  post 'locations/location_photos'
   resources :locations
   resources :visits
   resources :albums

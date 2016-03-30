@@ -1,0 +1,4 @@
+//hide previous more news button
+$(".location-visits-form").hide();
+//append another _newsfeed partial
+$("#location-visits").append("<%= escape_javascript(render partial: 'location_visits', locals: { visit_offset: @visit_offset } ) %>");

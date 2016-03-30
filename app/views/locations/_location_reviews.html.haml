@@ -1,0 +1,35 @@
+.newsfeed
+    -if @reviews.empty? && @offset == 5
+        %h3 No reviews yet.
+    -elsif @reviews.empty?
+        %h3 No more reviews.
+    -else
+        -@reviews.each do |review|
+            .news-row{:style => "display:block;width:100%"}
+                .panel.panel-default
+                    .panel-body
+                        .news-user-location
+                            = link_to '/users/' + review.user.user_id do
+                                -if review.user.profile_pic.url != nil
+                                    = image_tag review.user.profile_pic, class:"img img-rounded"
+                                -else
+                                    = image_tag (asset_path "missing.png"), class:"img img-rounded"
+                        .news.news-review
+                            -@review = review
+                            =render :partial => 'reviews/review'
+                            Rated by:
+                            = link_to '/users/' + review.user.user_id do
+                                =review.user.user_id
+                    .panel-footer
+                        = link_to "Expand review", review_path(review)
+                        -if @current_user.id == review.user_id
+                            %br
+                            =link_to "Edit Review", edit_review_path(review)
+                        %br
+                        .news-time
+                            = time_ago_in_words(review.created_at)
+                            ago
+                %hr
+        = form_tag locations_location_reviews_path, :class => 'location-reviews-form', :remote => true do
+            = hidden_field_tag :review_offset, @review_offset
+            = submit_tag 'More reviews...', :class => 'btn btn-success location-reviews-submit'

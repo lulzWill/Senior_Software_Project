@@ -1,0 +1,18 @@
+.newsfeed.location-newsfeed
+    -if @photos.empty?
+        %h3 No photos
+    -else
+        -@photos.each do |photo|
+            .news-row
+                .news.news-photo
+                    = link_to '/photos/' + photo.id.to_s do
+                        = image_tag photo.data, class:"img img-rounded"
+                %br
+                .news-time
+                    = time_ago_in_words(photo.created_at)
+                    ago
+                %hr
+        = form_tag locations_location_photos_path, :class => 'location-photos-form', :remote => true do
+            = hidden_field_tag :location_id, @location_id
+            = hidden_field_tag :photo_offset, @photo_offset
+            = submit_tag 'More photos...', :class => 'btn btn-success location-photos-submit'

@@ -32,6 +32,9 @@
     color: 	#5cb85c;
 }
 
+a {
+    color:#5cb85c;
+}
 
 #logo {
     font-size: 2em;
@@ -78,4 +81,15 @@
 .friend-activity {
     margin-top:10px;
     opacity: 1 !important;
+}
+
+//location newsfeed
+.news-user-location {
+    width:100px;
+    display: inline-block;
+    vertical-align: top;
+}
+.news-user-location img {
+    max-height:100px;
+    max-width:100px;
 }

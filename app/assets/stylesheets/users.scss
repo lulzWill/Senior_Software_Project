@@ -7,8 +7,7 @@
 }
 #floating-panel 
 {
-    position: absolute;
-    top: 10%;
+    position: relative;
     left: 16%;
     z-index: 5;
     text-align: center;
@@ -16,10 +15,14 @@
     line-height: 30px;
     padding-left: 10px;
 }
-#floating-panel 
+#homepage_link
 {
-    left: 16%;
-    position: absolute;
-    top: 10%;
-    z-index: 5;
+    display:block; 
+    text-align: center;
+    color: #5cb85c;
+    font-size: 25px;
+}
+#homepage_link a:hover 
+{
+    text-decoration: none;
 }

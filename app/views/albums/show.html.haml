@@ -6,11 +6,12 @@
     %h3
         = @album.description
     %br
-    .buttons
-        = button_to "Edit Album", edit_album_path(@album.id),:method => "get", :class => 'btn btn-success'
-        = button_to "Add Photos", new_photo_path,:method => "get", :class => 'btn btn-success', params: {album_id: @album.id}
-        = button_to 'Delete Album', album_path(@album.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
-        = button_to "Albums Homepage", albums_path,:method => "get", :class => 'btn btn-success'
+    - if @album.user_id == @current_user.id
+        .buttons
+            = button_to "Edit Album", edit_album_path(@album.id),:method => "get", :class => 'btn btn-success'
+            = button_to "Add Photos", new_photo_path,:method => "get", :class => 'btn btn-success', params: {album_id: @album.id}
+            = button_to 'Delete Album', album_path(@album.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+            = button_to "Albums Homepage", albums_path,:method => "get", :class => 'btn btn-success'
     %br
     
     - if !(@photos.nil?)

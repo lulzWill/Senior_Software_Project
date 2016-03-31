@@ -39,3 +39,22 @@
                                             %a{:href=>"/users/#{friend.user_id}"}
                                                 %img.img-rounded{:src => friend.profile_pic, :id => "profile_picture", :height => "150px", :width => "150px"}
                                             %h5 #{friend.first_name} #{friend.last_name} (#{friend.user_id})
+            %div.panel.panel-default
+                %div.panel-body
+                    %div.row
+                        %div.col-sm-12
+                            %h1 Albums
+                            %div.row
+                                -@user_view.albums.each do |album|
+                                    -if album.privacy == "Everyone" || (album.privacy == "Just Me" && @user_view.id == @current_user.id) || (album.privacy == "Friends" && @user_view.id == @current_user.id)
+                                        %div.col-sm-4
+                                            %a{:href=>"/albums/#{album.id}"}
+                                                %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
+                                            %h5 #{album.title} (#{album.description})
+                                    -if album.privacy == "Friends"
+                                        -@user_view.friends.each do |friend|
+                                            -if friend.user_id == @current_user.user_id
+                                                %div.col-sm-4
+                                                    %a{:href=>"/albums/#{album.id}"}
+                                                        %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
+                                                    %h5 #{album.title}

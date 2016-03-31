@@ -61,6 +61,11 @@ class UsersController < ApplicationController
         #get all past location details
         @location = Location.find_by_id(params[:loc_id]) 
         @visit = Visit.find_by_id( params[:visit_id] )
+        @review = Review.find_by(visit_id: params[:visit_id])
+        @review_exists = true
+        if @review == nil
+            @review_exists = false
+        end
         render :partial =>'past_results'# and return if request.xhr?
     end
     

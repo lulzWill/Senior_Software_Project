@@ -20,14 +20,22 @@ var visitId;
 var gradient =[
     'rgba(0, 0, 0, 0)',
     'rgba(55, 55, 55, 1)',
+    'rgba(0, 195, 0, 1)',
+    'rgba(0, 205, 0, 1)',
+    'rgba(0, 215, 0, 1)',
     'rgba(0, 225, 0, 1)',
     'rgba(0, 235, 0, 1)',
     'rgba(0, 245, 0, 1)',
     'rgba(0, 255, 0, 1)',
+    'rgba(0, 205, 205, 1)',
+    'rgba(0, 215, 215, 1)',
     'rgba(0, 225, 225, 1)',
     'rgba(0, 235, 235, 1)',
     'rgba(0, 245, 245, 1)',
     'rgba(0, 255, 255, 1)',
+    'rgba(0, 0, 195, 1)',
+    'rgba(0, 0, 205, 1)',
+    'rgba(0, 0, 215, 1)',
     'rgba(0, 0, 225, 1)',
     'rgba(0, 0, 235, 1)',
     'rgba(0, 0, 245, 1)',
@@ -99,8 +107,10 @@ function initAutocomplete()
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
+  var input2 = document.getElementById('floating-panel');
   var searchBox = new google.maps.places.SearchBox(input);
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input2);
   
   
   
@@ -293,7 +303,7 @@ function pastbox(location_id,visit_id)
       //alert(results);
       var oneFourth = Math.ceil($(window).width()/4);
       $("#individual2").html(results).
-      css({'left': "100px", 'top': "100px", 'width': oneFourth, 'position': 'absolute'}).
+      css({'left': "100px", 'top': "120px", 'width': oneFourth, 'position': 'absolute'}).
       show();
     }
   }); 
@@ -343,7 +353,7 @@ function yelpSearch()
       //alert("got success condition");
       var oneFourth = Math.ceil($(window).width()/4);
       $("#individual").html(result).
-      css({'left': "100px", 'top': "100px", 'width': oneFourth, 'position': 'absolute'}).
+      css({'left': "100px", 'top': "120px", 'width': oneFourth, 'position': 'absolute'}).
       show();
     }
   }); 

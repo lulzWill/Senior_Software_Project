@@ -11,7 +11,7 @@ class Visit < ActiveRecord::Base
         return visit_dates
     end
 
-    def self.overlap?(user_id, location_id, start_date)
+    def self.overlap?(user_id, location_id, start_date, end_date)
         visits = Visit.where(user_id: user_id, location_id: location_id)
         if visits == nil
             return false

@@ -99,6 +99,8 @@ class UsersController < ApplicationController
     def show
         if User.find_by_user_id(params[:id])
             @user_view = User.find_by_user_id(params[:id])
+            @activities = Activity.limit(10).order('created_at DESC').where(user_id: @user_view.id)
+            @offset = 10
         else
             flash[:notice] = "User Not Found"
             redirect_to users_homepage_path
@@ -159,6 +161,15 @@ class UsersController < ApplicationController
            @friend_ids << friendship.friend_id
         end
         @activities = Activity.limit(10).order('created_at DESC').where(user_id: @friend_ids).offset(params[:offset])
+        @offset = params[:offset].to_i + 10
+        respond_to do |format|
+            format.js {}
+        end
+    end
+    
+    def profile_newsfeed
+        @user_view = User.find(params[:id])
+        @activities = Activity.limit(10).order('created_at DESC').where(user_id: @user_view.id).offset(params[:offset])
         @offset = params[:offset].to_i + 10
         respond_to do |format|
             format.js {}

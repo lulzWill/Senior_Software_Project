@@ -17,4 +17,5 @@
     - if !(@photos.nil?)
         - @photos.each do |photo|
             .photo_resize
-                =image_tag photo.data
+                %a{:href => "/photos/#{photo.id}", :method => :get}
+                    =image_tag photo.data

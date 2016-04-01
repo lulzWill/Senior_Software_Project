@@ -105,7 +105,7 @@ class UsersController < ApplicationController
         end
     end
     
-    def index
+    def user_search
         if request.format == :json
             @users = User.where("user_id LIKE :q", { q: "#{params[:term]}%"})
         else
@@ -115,6 +115,11 @@ class UsersController < ApplicationController
             format.json{ render :json => @users.as_json(:only => [:first_name,:last_name,:user_id,:id,:profile_pic]) }
             format.html
         end
+    end 
+    
+    def index
+      @users = User.where.not("id = ?",@current_user.id).order("created_at DESC")
+      @conversations = Conversation.involving(@current_user).order("created_at DESC")
     end
 
     def user_params

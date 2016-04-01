@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -42,12 +40,16 @@ gem 'carrierwave'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'selenium-webdriver'
+gem 'private_pub'
+gem 'thin'
+gem 'faye'
 # Use Capistrano for deploymt
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'sqlite3'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'rspec-rails'
@@ -55,7 +57,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'sqlite3'
   gem 'launchy'
   gem 'rspec-expectations'
   gem 'cucumber-rails', :require=>false

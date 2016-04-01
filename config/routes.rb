@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   resources :albums
   resources :photos
   resources :friendships
+  
+  resources :conversations do
+    resources :messages
+  end
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

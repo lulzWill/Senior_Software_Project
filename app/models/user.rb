@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
     has_many :inverse_friends, :through => :inverse_friendships, :source => :user
     has_many :photos
     has_many :albums
+    has_many :activities
 
     
 end

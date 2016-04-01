@@ -6,8 +6,8 @@
             .news-row
                 .news-user
                     = link_to '/users/' + activity.username do
-                        -if activity.profile_pic != nil
-                            = image_tag activity.profile_pic, class:"img img-rounded"
+                        -if activity.user.profile_pic.url != nil
+                            = image_tag activity.user.profile_pic, class:"img img-rounded"
                         -else
                             = image_tag (asset_path "missing.png"), class:"img img-rounded"
                 -if activity.activity_type == 'photo'

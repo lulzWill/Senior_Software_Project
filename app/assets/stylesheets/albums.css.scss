@@ -9,6 +9,9 @@
     max-width: 200px;
     max-height: 200px;
 }
+.photo_resized img {
+    max-width: 100%;
+}
 .photo_resize a{
     text-decoration: none;
     color: black;

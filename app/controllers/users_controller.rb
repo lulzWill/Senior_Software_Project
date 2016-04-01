@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete', 'newsfeed']
+    before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete', 'newsfeed', 'user_search']
 
 
 

@@ -1,11 +1,19 @@
 .container{:style => "background-color: white;"}
-    .photo_resize    
+    
+    %br
+    %h1
+        = @photo.title
+    %br
+    %h3
+        = @photo.description
+    %br
+    %div.photo_resized   
         = image_tag @photo.data
     %br
-    = @photo.title
-    %br
-    = @photo.description
-    %br
-    = link_to 'Edit photo info', edit_photo_path(@photo.id)
-    = link_to 'Delete photo', photo_path(@photo.id), method: :delete, data: {confirm: "Are you sure?"}
-                        
+    -if @photo.user_id == @current_user.user_id
+        .buttons{:style => "padding: 5px;"}    
+            = button_to 'Edit photo info', edit_photo_path(@photo.id), :method => "get", :class => 'btn btn-success'
+            = button_to 'Delete photo', photo_path(@photo.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+    - if (@photo.album_id)   
+        = button_to 'Return to Album', album_path(@photo.album_id), :method => "get", :class => 'btn btn-success'
+            

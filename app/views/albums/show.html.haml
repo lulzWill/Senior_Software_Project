@@ -3,6 +3,9 @@
     %br
     %h1
         = @album.title
+        -if @current_user.id != @album.user_id
+            by
+            %a{:href => "/users/#{@album.user.user_id}", :method => :get} #{@album.user.user_id}
     %h3
         = @album.description
     %br
@@ -17,4 +20,5 @@
     - if !(@photos.nil?)
         - @photos.each do |photo|
             .photo_resize
-                =image_tag photo.data
+                %a{:href => "/photos/#{photo.id}", :method => :get}
+                    =image_tag photo.data

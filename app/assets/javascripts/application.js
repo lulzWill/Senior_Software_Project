@@ -12,12 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require private_pub
+//= require chat
 //= require turbolinks
 //= require homepage.js
 //= require autocomplete.js
 //= require jquery-ui
-
 //= require_tree .
 //= require bootstrap-sprockets
-$('.dropdown-toggle').dropdown()
-

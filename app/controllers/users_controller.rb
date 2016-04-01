@@ -107,7 +107,7 @@ class UsersController < ApplicationController
         end
     end
     
-    def index
+    def user_search
         if request.format == :json
             @users = User.where("user_id LIKE :q", { q: "#{params[:term]}%"})
         else
@@ -117,6 +117,11 @@ class UsersController < ApplicationController
             format.json{ render :json => @users.as_json(:only => [:first_name,:last_name,:user_id,:id,:profile_pic]) }
             format.html
         end
+    end 
+    
+    def index
+      @users = User.where.not("id = ?",@current_user.id).order("created_at DESC")
+      @conversations = Conversation.involving(@current_user).order("created_at DESC")
     end
 
     def user_params
@@ -137,7 +142,7 @@ class UsersController < ApplicationController
             if @user.save
                 #create default album
                 #Album.create!(user_id: @user.id, title: 'User pics', description:'',)
-                #UserMailer.welcome_email(@user).deliver_now
+                UserMailer.welcome_email(@user).deliver_now
                 flash[:notice] = "Welcome #{params[:user][:first_name]}! You have successfully signed up as a User of Backpack Traveler!"
                 redirect_to new_user_path
             else

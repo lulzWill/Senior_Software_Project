@@ -1,15 +1,19 @@
-.container.album    
-    %div    
-        - if !(@photoalbums.nil?)    
-            - @photoalbums.each do |album|
-                .photo_resize
-                    = link_to album_path(album.id) do
-                        - if !(album.cover.nil?)
-                            = image_tag Photo.find(album.cover).data
-                        %br
-                        = album.title
-                        %br
-                        = album.description
-                        %br
-        = button_to "Add Album", new_album_path,:method => "get", :class => 'btn btn-success'
-    
+%div.container
+    %div.panel.panel-default
+        %div.panel-body{:style => 'height: 40%;'}
+            %div.row
+                %div.col-sm-12    
+                    - if !(@photoalbums.nil?)    
+                        - @photoalbums.each do |album|
+                            .photo_resize
+                                = link_to album_path(album.id) do
+                                    - if !(album.cover.nil?)
+                                        = image_tag Photo.find(album.cover).data
+                                    %br
+                                    = album.title
+                                    %br
+                                    = album.description
+                                    %br
+            %div.row
+                %div.col-sm-12
+                    = button_to "Add Album", new_album_path,:method => "get", :class => 'btn btn-success'

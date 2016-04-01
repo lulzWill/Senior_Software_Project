@@ -50,14 +50,14 @@
                                         %div.col-sm-4
                                             %a{:href=>"/albums/#{album.id}"}
                                                 %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
-                                            %h5 #{album.title} (#{album.description})
+                                            %h5 #{album.title}
                                     -if album.privacy == "Friends"
                                         -@user_view.friends.each do |friend|
                                             -if friend.user_id == @current_user.user_id
                                                 %div.col-sm-4
                                                     %a{:href=>"/albums/#{album.id}"}
                                                         %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
-                                                    %h5 #{album.title}
+                                                    %h5 #{album.title}  (#{album.description})
             %div.row
                 %div.col-sm-12
                     .panel.panel-default.friend-activity
@@ -66,3 +66,4 @@
                         .panel-body
                             #newsfeed{:style => "margin-right: auto; margin-left: auto;text-align:center;"}
                                 =render :partial => 'profile_newsfeed'
+

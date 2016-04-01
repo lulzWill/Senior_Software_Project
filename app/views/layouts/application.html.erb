@@ -2,8 +2,15 @@
 <html>
   <head>
     <title>Backpack Traveler</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta content='<%= @current_user!=nil ? @current_user.id : "" %>' name='user-id'/>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag    'autocomplete'%>
+    <%= stylesheet_link_tag    'autocomplete' %>
+    <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
@@ -37,7 +44,7 @@
             <li>
               
               <div class="ui-widget">
-                <form class="navbar-form navbar-right form-search" method="GET" action="/users">
+                <form class="navbar-form navbar-right form-search" method="GET" action="/users/user_search">
                   <input type="text" class="form-control search-query" placeholder="Search for friends!" oninput= "searching()" id="search" autocomplete = 'on'/>
                   <input id="link_origin_id" name="link[origin_id]" type="hidden"/>
                 </form>
@@ -53,7 +60,8 @@
               <ul class="dropdown-menu">
                 <li><a href="/users/<%= @current_user.user_id %>">View Profile</a></li>
                 <li><a href="/users/<%= @current_user.user_id %>/edit">Edit Profile</a></li>
-                <li><a href= <%=albums_path %> >Photos</a></li>
+                <li><a href= "/chat" >Chat</a></li>
+                <li><a href= <%=albums_path %> >Albums</a></li>
                 <li><a href= <%=visits_path %> >Visits</a></li>
                 <li><a href= <%=reviews_path %> > Reviews</a></li>
               </ul>
@@ -91,3 +99,5 @@
     </div>
   </body>
 </html>
+
+

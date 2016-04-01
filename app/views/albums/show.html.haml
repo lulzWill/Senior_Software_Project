@@ -3,6 +3,9 @@
     %br
     %h1
         = @album.title
+        -if @current_user.id != @album.user_id
+            by
+            %a{:href => "/users/#{@album.user.user_id}", :method => :get} #{@album.user.user_id}
     %h3
         = @album.description
     %br

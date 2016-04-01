@@ -10,9 +10,10 @@
     %div.photo_resized   
         = image_tag @photo.data
     %br
-    .buttons{:style => "padding: 5px;"}    
-        = button_to 'Edit photo info', edit_photo_path(@photo.id), :method => "get", :class => 'btn btn-success'
-        = button_to 'Delete photo', photo_path(@photo.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
-        - if (@photo.album_id)   
-            = button_to 'Return to Album', album_path(@photo.album_id), :method => "get", :class => 'btn btn-success'
-        
+    -if @photo.user_id == @current_user.user_id
+        .buttons{:style => "padding: 5px;"}    
+            = button_to 'Edit photo info', edit_photo_path(@photo.id), :method => "get", :class => 'btn btn-success'
+            = button_to 'Delete photo', photo_path(@photo.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+    - if (@photo.album_id)   
+        = button_to 'Return to Album', album_path(@photo.album_id), :method => "get", :class => 'btn btn-success'
+            

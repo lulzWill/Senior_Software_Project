@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'users/newsfeed'
   resources :users 
   match '/users/:user_id/update', to: 'users#update', via: :post
+  match '/chat', to: 'users#index', via: :get
   resources :users
   resources :sessions
   resources :reviews

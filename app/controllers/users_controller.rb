@@ -140,7 +140,7 @@ class UsersController < ApplicationController
             if @user.save
                 #create default album
                 #Album.create!(user_id: @user.id, title: 'User pics', description:'',)
-                #UserMailer.welcome_email(@user).deliver_now
+                UserMailer.welcome_email(@user).deliver_now
                 flash[:notice] = "Welcome #{params[:user][:first_name]}! You have successfully signed up as a User of Backpack Traveler!"
                 redirect_to new_user_path
             else

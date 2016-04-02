@@ -46,6 +46,7 @@
             <ul class="media-list">
               <% @conversations.each do |conversation| %>
                 <li class="media">
+                  <%= image_tag(User.find_by_user_id(conversation_interlocutor(conversation).user_id).profile_pic, class: "media-object pull-left", width: "50px", height: "50px") %>
                   <div class="media-body">
                     <%= link_to "", conversation_path(conversation), class: "conversation", "data-cid" => conversation.id %>
                     <h4 class="media-heading"><%= conversation_interlocutor(conversation).user_id %></h4>

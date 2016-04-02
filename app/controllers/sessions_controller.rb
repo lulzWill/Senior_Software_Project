@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     
     def destroy
         cookies.delete(:session_token)
-        @current_user=nil
+        @current_user.clear
         flash[:notice] = "You have logged out"
         redirect_to new_user_path
     end

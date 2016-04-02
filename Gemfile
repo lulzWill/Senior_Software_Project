@@ -44,6 +44,7 @@ gem 'private_pub'
 gem 'thin'
 gem 'faye'
 gem 'fog-aws'
+gem 'fog'
 gem 'aws-sdk', '~> 2'
 # Use Capistrano for deploymt
 # gem 'capistrano-rails', group: :development

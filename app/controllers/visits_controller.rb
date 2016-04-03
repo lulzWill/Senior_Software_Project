@@ -16,7 +16,7 @@ class VisitsController < ApplicationController
         #create entry in location table if it doesn't exist
         @location = Location.find_or_create_by!(name: params[:name], latitude: params[:latitude], longitude: params[:longitude])
         #call method to see if this visit would overlap with an already established visit
-        if !Visit.overlap?(@current_user.id, @location.id, params[:start_date])
+        if !Visit.overlap?(@current_user.id, @location.id, params[:start_date], params[:end_date])
             #@visit = Visit.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[:start_date], end_date: params[:end_date])
             @visit = Visit.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[:start_date])
             data_hash = {location_name: @location.name, location_id: @location.id}
@@ -39,7 +39,7 @@ class VisitsController < ApplicationController
 
     def update
         @visit = Visit.find(params[:id])
-        if !Visit.overlap?(@current_user.id, @visit.location_id, params[:start_date])
+        if !Visit.overlap?(@current_user.id, @visit.location_id, params[:start_date], params[:end_date])
             #@visit.update(start_date: params[:start_date], end_date: params[:end_date])
             @visit.update(start_date: params[:start_date])
             flash[:notice] = "Visit updated!"

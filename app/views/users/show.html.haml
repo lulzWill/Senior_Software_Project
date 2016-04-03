@@ -58,12 +58,13 @@
                                                     %a{:href=>"/albums/#{album.id}"}
                                                         %img.img-rounded{:src => Photo.find(album.cover).data, :id => "album_cover_#{album.id}", :height => "150px", :width => "150px"}
                                                     %h5 #{album.title}  (#{album.description})
-            %div.row
-                %div.col-sm-12
-                    .panel.panel-default.friend-activity
-                        .panel-heading
-                            %h3 Activity
-                        .panel-body
-                            #newsfeed{:style => "margin-right: auto; margin-left: auto;text-align:center;"}
-                                =render :partial => 'profile_newsfeed'
+            -if @activities_access
+                %div.row
+                    %div.col-sm-12
+                        .panel.panel-default.friend-activity
+                            .panel-heading
+                                %h3 Activity
+                            .panel-body
+                                #newsfeed{:style => "margin-right: auto; margin-left: auto;text-align:center;"}
+                                    =render :partial => 'profile_newsfeed'
 

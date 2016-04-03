@@ -48,15 +48,15 @@ describe UsersController do
         allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
       end
       it 'autocomplete should return user info' do
-        get :index, {:format => :json, :term => 'abc'}
+        get :user_search, {:format => :json, :term => 'abc'}
         expect(response).to be_success
       end
       it "should supply results to template" do
         @fake_user_result = double(['user_result'])
         allow(User).to receive(:where).and_return(@fake_user_result)
-        get :index, {:link => {:origin_id => 1}}
+        get :user_search, {:link => {:origin_id => 1}}
         expect(assigns(:users)).to eq(@fake_user_result)
-        expect(response).to render_template("index")
+        expect(response).to render_template("user_search")
       end
     end
     
@@ -190,10 +190,12 @@ describe UsersController do
         @fake_current_user = double('current_user')
         allow(User).to receive(:find_by_session_token).and_return(@fake_current_user)
         allow(@fake_current_user).to receive(:user_id).and_return("testid")
+        allow(@fake_current_user).to receive(:id)
         allow(@fake_current_user).to receive(:inverse_friends).and_return(Array.new)
       end
       it "should render the show user template and set user view if user exists" do
         @fake_display_user = double('fake_display')
+        allow(@fake_display_user).to receive(:id)
         allow(User).to receive(:find_by_user_id).and_return(@fake_display_user)
         get :show, :id => "test"
         expect(response).to render_template("show")

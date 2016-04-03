@@ -4,7 +4,7 @@ $(document).on('ready page:load', function(event) {
     //autocomplete functions
     $('#search').autocomplete({
         minLength: 1,
-        source: "/users.json",
+        source: "/users/user_search.json",
         
         focus: function(event, ui){
             $('#search').val(ui.item.user_id);

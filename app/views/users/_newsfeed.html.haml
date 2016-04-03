@@ -17,7 +17,7 @@
                         %br
                         = link_to '/photos/' + activity.data["photo_id"].to_s do
                             = image_tag activity.data["url"], class:"img img-rounded"
-                -elsif activity.activity_type == 'album'
+                -elsif activity.activity_type == 'album' && 
                     .news.news-album.col-md-9
                         = link_to activity.username, '/users/' + activity.username
                         added an album:

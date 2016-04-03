@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete', 'newsfeed']
+    before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete', 'newsfeed', 'user_search']
 
 
 
@@ -99,7 +99,10 @@ class UsersController < ApplicationController
     def show
         if User.find_by_user_id(params[:id])
             @user_view = User.find_by_user_id(params[:id])
-            @activities = Activity.limit(10).order('created_at DESC').where(user_id: @user_view.id)
+            if @current_user.id == @user_view.id || (@current_user.friendships.exists?(friend_id: @user_view.id) && @user_view.friendships.exists?(friend_id: @current_user.id))
+                @activities = Activity.limit(10).order('created_at DESC').where(user_id: @user_view.id)
+                @activities_access = true;
+            end
             @offset = 10
         else
             flash[:notice] = "User Not Found"

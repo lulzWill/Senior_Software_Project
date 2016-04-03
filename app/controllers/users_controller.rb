@@ -129,7 +129,7 @@ class UsersController < ApplicationController
     end
     
     def new
-        if cookies[:session_token]
+        if cookies[:session_token] || @current_user
             flash[:notice]="You are already logged in"
             redirect_to '/users/homepage'
         end

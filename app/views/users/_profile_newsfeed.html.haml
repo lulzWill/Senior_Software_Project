@@ -1,6 +1,6 @@
 .newsfeed
     -if @activities.empty?
-        %h3 No news
+        %h3 No activity
     -else
         -@activities.each do |activity|
             .news-row
@@ -46,7 +46,7 @@
                     = time_ago_in_words(activity.created_at)
                     ago
                 %hr
-        = form_tag users_newsfeed_path, :class => 'newsfeed-form', :remote => true do
+        = form_tag users_profile_newsfeed_path, :class => 'profile-newsfeed-form', :remote => true do
             = hidden_field_tag :offset, @offset
             = hidden_field_tag :id, @user_view.id
             = submit_tag 'More news...', :class => 'btn btn-success newsfeed-submit'

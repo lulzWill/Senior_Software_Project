@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'users/autocomplete'
   get 'users/user_search'
   post 'users/newsfeed'
+  post 'users/profile_newsfeed'
   resources :users 
   match '/users/:user_id/update', to: 'users#update', via: :post
   match '/chat', to: 'users#index', via: :get

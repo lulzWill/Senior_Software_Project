@@ -227,4 +227,22 @@ describe UsersController do
         expect(response).to render_template('newsfeed')
       end
     end
+    
+    describe 'POST profile_newsfeed' do
+      before :each do
+        @fake_current_user = double('current_user')
+        allow(User).to receive(:find_by_session_token).and_return(@fake_current_user)
+        allow(@fake_current_user).to receive(:user_id).and_return("testid")
+        allow(@fake_current_user).to receive(:inverse_friends).and_return(Array.new)
+        @fake_user = double('user')
+        allow(User).to receive(:find).and_return(@fake_user)
+        allow(@fake_user).to receive(:id)
+      end
+      it "should make this user's activities available to newsfeed and render partial" do
+        allow(Activity).to receive(:where)
+        post :profile_newsfeed, :format => 'js'
+        expect(assigns(:activities)).to eq([])
+        expect(response).to render_template('profile_newsfeed')
+      end
+    end
 end

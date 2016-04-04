@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   def set_current_user
+    if cookies[:session_token]
       @current_user ||= User.find_by_session_token(cookies[:session_token])
       
       if @current_user
@@ -16,5 +17,8 @@ class ApplicationController < ActionController::Base
         end
       end
       redirect_to new_user_path unless @current_user
+    else 
+      redirect_to new_user_path
+    end
   end
 end

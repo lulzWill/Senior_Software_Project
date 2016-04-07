@@ -1,51 +1,52 @@
 .newsfeed
     -if @activities.empty?
         %h3 No news
-    -else
+    -else 
         -@activities.each do |activity|
-            .news-row.row
-                .news-user.col-md-3
-                    = link_to '/users/' + activity.username do
-                        -if activity.user.profile_pic.url != nil
-                            = image_tag activity.user.profile_pic.url, class:"img img-rounded"
-                        -else
-                            = image_tag (asset_path "missing.png"), class:"img img-rounded"
-                -if activity.activity_type == 'photo'
-                    .news.news-photo.col-md-9
-                        = link_to activity.username, '/users/' + activity.username
-                        added a photo: 
-                        %br
-                        = link_to '/photos/' + activity.data["photo_id"].to_s do
-                            = image_tag activity.data["url"], class:"img img-rounded"
-                -elsif activity.activity_type == 'album' && 
-                    .news.news-album.col-md-9
-                        = link_to activity.username, '/users/' + activity.username
-                        added an album:
-                        = link_to '/albums/' + activity.data["album_id"].to_s do
-                            = activity.data["title"]
+            -if !((activity.activity_type == 'album' || activity.activity_type == 'photo') && activity.data["privacy"] == "Just Me" && activity.id != @current_user.id)
+                .news-row.row
+                    .news-user.col-md-3
+                        = link_to '/users/' + activity.username do
+                            -if activity.user.profile_pic.url != nil
+                                = image_tag activity.user.profile_pic.url, class:"img img-rounded"
+                            -else
+                                = image_tag (asset_path "missing.png"), class:"img img-rounded"
+                    -if activity.activity_type == 'photo'
+                        .news.news-photo.col-md-9
+                            = link_to activity.username, '/users/' + activity.username
+                            added a photo: 
                             %br
-                            = image_tag activity.data["url"], class:"img img-rounded"
-                -elsif activity.activity_type == 'visit'
-                    .news.news-visit.col-md-9
-                        = link_to activity.username, '/users/' + activity.username
-                        added a visit:
-                        .news-visit-location
-                            %h3
-                                = link_to activity.data["location_name"], '/locations/' + activity.data["location_id"].to_s
-                -elsif activity.activity_type == 'review'
-                    .news.news-review.col-md-10
-                        = link_to activity.username
-                        added a 
-                        = link_to 'review', '/reviews/' + activity.data["review_id"].to_s
-                        of
-                        = link_to activity.data["location_name"], '/locations/' + activity.data["location_id"].to_s
-                        with rating:
-                        = activity.data["rating"]
-            
-            .news-time.row
-                = time_ago_in_words(activity.created_at)
-                ago
-            %hr
+                            = link_to '/photos/' + activity.data["photo_id"].to_s do
+                                = image_tag activity.data["url"], class:"img img-rounded"
+                    -elsif activity.activity_type == 'album'
+                        .news.news-album.col-md-9
+                            = link_to activity.username, '/users/' + activity.username
+                            added an album:
+                            = link_to '/albums/' + activity.data["album_id"].to_s do
+                                = activity.data["title"]
+                                %br
+                                = image_tag activity.data["url"], class:"img img-rounded"
+                    -elsif activity.activity_type == 'visit'
+                        .news.news-visit.col-md-9
+                            = link_to activity.username, '/users/' + activity.username
+                            added a visit:
+                            .news-visit-location
+                                %h3
+                                    = link_to activity.data["location_name"], '/locations/' + activity.data["location_id"].to_s
+                    -elsif activity.activity_type == 'review'
+                        .news.news-review.col-md-10
+                            = link_to activity.username
+                            added a 
+                            = link_to 'review', '/reviews/' + activity.data["review_id"].to_s
+                            of
+                            = link_to activity.data["location_name"], '/locations/' + activity.data["location_id"].to_s
+                            with rating:
+                            = activity.data["rating"]
+                
+                .news-time.row
+                    = time_ago_in_words(activity.created_at)
+                    ago
+                %hr
         = form_tag users_newsfeed_path, :class => 'newsfeed-form', :remote => true do
             = hidden_field_tag :offset, @offset
             = submit_tag 'More news...', :class => 'btn btn-success newsfeed-submit'

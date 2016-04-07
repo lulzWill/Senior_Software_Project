@@ -1,9 +1,0 @@
-.container.panel.panel-default
-    -if @users != []
-        - @users.each do |user|
-            .panel.panel-default.photo_resize
-                =link_to '/users/' + user.user_id do
-                    =image_tag user.profile_pic, onerror: "imgError(this);"
-                    =user.user_id
-    -else
-        %h1 No users match that name

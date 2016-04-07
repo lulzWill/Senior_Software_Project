@@ -59,6 +59,7 @@ RSpec.describe AlbumsController, type: :controller do
             allow(@fake_photo).to receive(:data).and_return(@fake_photo_data)
             allow(@fake_photo_data).to receive(:url)
             allow(@fake_album).to receive(:title)
+            allow(@fake_album).to receive(:privacy)
             @fake_profile_pic = double('profile_pic')
             allow(@fake_user).to receive(:profile_pic).and_return(@fake_profile_pic)
             allow(@fake_profile_pic).to receive(:url)

@@ -36,10 +36,12 @@ class UsersController < ApplicationController
 
     
     def homepage
-        @friendships = @current_user.friendships
+        #@friendships = @current_user.friendships
         @friend_ids = []
-        @friendships.each do |friendship|
-           @friend_ids << friendship.friend_id
+        #@friendships.each do |friendship|
+        @current_user.inverse_friends.each do |friend|
+           #@friend_ids << friendship.friend_id
+           @friend_ids << friend.id
         end
         @activities = Activity.limit(10).order('created_at DESC').where(user_id: @friend_ids)
         @offset = 10
@@ -163,10 +165,12 @@ class UsersController < ApplicationController
     end
     
     def newsfeed
-        @friendships = @current_user.friendships
+        #@friendships = @current_user.friendships
         @friend_ids = []
-        @friendships.each do |friendship|
-           @friend_ids << friendship.friend_id
+        #@friendships.each do |friendship|
+        @current_user.inverse_friends.each do |friend|
+           #@friend_ids << friendship.friend_id
+           @friend_ids << friend.id
         end
         @activities = Activity.limit(10).order('created_at DESC').where(user_id: @friend_ids).offset(params[:offset])
         @offset = params[:offset].to_i + 10

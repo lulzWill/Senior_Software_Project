@@ -15,6 +15,7 @@ RSpec.describe LocationsController, type: :controller do
     describe "GET show from map" do
         before :each do
             allow(Location).to receive(:find_or_create_by!).and_return(@fake_location_results)
+            allow(@fake_review).to receive(:limit).and_return(@fake_review)
         end
         it "should collect the information for that location" do
             get :show, {:id => 1, :from_map => 1}
@@ -30,6 +31,7 @@ RSpec.describe LocationsController, type: :controller do
     describe "GET show from link" do
         before :each do
             allow(Location).to receive(:find).and_return(@fake_location_results)
+            allow(@fake_review).to receive(:limit).and_return(@fake_review)
         end
         it "should collect the information for that location" do
             get :show, {:id => 1}

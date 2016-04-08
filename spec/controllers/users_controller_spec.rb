@@ -87,7 +87,13 @@ describe UsersController do
         allow(User).to receive(:find_by_session_token).and_return(@fake_user)
         allow(@fake_user).to receive(:user_id).and_return("testid")
         allow(@fake_user).to receive(:id)
-        allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
+        @fake_user2 = double('user2')
+        allow(@fake_user).to receive(:inverse_friends).and_return([@fake_user2])
+        
+        allow(@fake_user).to receive(:friends).and_return(@fake_user2)
+        allow(@fake_user2).to receive(:find_by_user_id)
+        allow(@fake_user2).to receive(:user_id)
+        allow(@fake_user2).to receive(:id)
         
         allow(Visit).to receive(:find_by_id).and_return(@fake_visit)
         allow(Location).to receive(:find_by_id).and_return(@fake_location)
@@ -213,14 +219,14 @@ describe UsersController do
         @fake_current_user = double('current_user')
         allow(User).to receive(:find_by_session_token).and_return(@fake_current_user)
         allow(@fake_current_user).to receive(:user_id).and_return("testid")
-        allow(@fake_current_user).to receive(:inverse_friends).and_return(Array.new)
+        @fake_user = double('user')
+        allow(@fake_current_user).to receive(:inverse_friends).and_return([@fake_user])
+        allow(@fake_user).to receive(:id)
+        allow(@fake_user).to receive(:user_id)
+        allow(@fake_current_user).to receive(:friends).and_return(@fake_user)
+        allow(@fake_user).to receive(:find_by_user_id)
       end
       it "should make friend's activities available to newsfeed and render partial" do
-        @fake_friendship = double('friend')
-        @fake_activity = double('activity')
-        friendships = [@fake_friendship]
-        allow(@fake_current_user).to receive(:friendships).and_return(friendships)
-        allow(@fake_friendship).to receive(:friend_id)
         allow(Activity).to receive(:where)
         post :newsfeed, :format => 'js'
         expect(assigns(:activities)).to eq([])

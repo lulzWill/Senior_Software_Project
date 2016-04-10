@@ -6,11 +6,11 @@ class SessionsController < ApplicationController
         if user && user.authenticate(params[:session][:password])
             user.session_token = SecureRandom.urlsafe_base64
             user.save!
-            cookies.permanent[:session_token]=user.session_token
+            cookies[:session_token]=user.session_token
             flash[:notice] = "You have successfully logged in as #{params[:session][:user_id]}"
             redirect_to "/users/homepage"
         else
-            flash[:warning] = "invalid User-ID/Password combination"
+            flash[:warning] = "Invalid User-ID/Password combination"
             redirect_to new_user_path
         end
     end

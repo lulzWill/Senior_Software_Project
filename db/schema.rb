@@ -27,8 +27,6 @@ ActiveRecord::Schema.define(version: 20160321164500) do
     t.integer  "user_id"
     t.string   "title"
     t.string   "description"
-    t.integer  "cover"
-    t.string   "privacy"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -44,8 +42,10 @@ ActiveRecord::Schema.define(version: 20160321164500) do
   add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id"
 
   create_table "friendships", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "friend_id"
+    t.integer  "user1_id"
+    t.integer  "user2_id"
+    t.boolean  "accepted"
+    t.boolean  "follow"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

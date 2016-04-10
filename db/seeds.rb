@@ -8,8 +8,8 @@
 
 User.create(user_id: 'chuck', password: 'chuck1', email: 'a@b.com')
 User.create(user_id: 'jarred', password: 'jarred1', email: 'f@b.com')
-Friendship.create(user_id:1,friend_id:2)
-Friendship.create(user_id:2,friend_id:1)
+#Friendship.create(user1_id:1,friend_id:2)
+#Friendship.create(user2_id:2,friend_id:1)
 User.create(user_id: 'will', password: 'will1', email: 'c@c.com')
 User.create(user_id: 'will2', password: 'will1', email: 'c@c.com')
 Location.create(name: 'The University of Iowa', latitude: 41.6626963, longitude: -91.55489979999999)

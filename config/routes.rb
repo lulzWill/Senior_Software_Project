@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :messages
   end
   
+  match '/logout', to: 'sessions#destroy', via: :delete
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

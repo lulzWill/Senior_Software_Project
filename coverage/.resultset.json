@@ -5,8 +5,23 @@
         1,
         null
       ],
+      "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/conversations_helper.rb": [
+        1,
+        null
+      ],
       "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/locations_helper.rb": [
         1,
+        null
+      ],
+      "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/messages_helper.rb": [
+        1,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
         null
       ],
       "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/reviews_helper.rb": [
@@ -15,10 +30,59 @@
       ],
       "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/users_helper.rb": [
         1,
+        1,
+        0,
+        null,
         null
       ],
       "/home/ubuntu/workspace/Senior_Software_Project/app/helpers/visits_helper.rb": [
         1,
+        null
+      ],
+      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/conversations_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        0,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/application_controller.rb": [
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        3,
+        3,
+        null,
+        null,
         null
       ],
       "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/locations_controller.rb": [
@@ -32,15 +96,23 @@
         null,
         null
       ],
-      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/application_controller.rb": [
+      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/messages_controller.rb": [
+        1,
         1,
         null,
-        null,
         1,
-        null,
+        1,
+        1,
         1,
         0,
+        null,
         0,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
         null,
         null
       ],
@@ -132,7 +204,8 @@
         null,
         null,
         1,
-        null,
+        0,
+        0,
         null,
         null,
         1,
@@ -233,6 +306,24 @@
         1,
         null
       ],
+      "/home/ubuntu/workspace/Senior_Software_Project/app/models/conversation.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null
+      ],
       "/home/ubuntu/workspace/Senior_Software_Project/app/models/friendship.rb": [
         1,
         1,
@@ -242,6 +333,14 @@
         1,
         1,
         1,
+        1,
+        null
+      ],
+      "/home/ubuntu/workspace/Senior_Software_Project/app/models/message.rb": [
+        1,
+        1,
+        1,
+        null,
         1,
         null
       ],
@@ -264,6 +363,7 @@
         1,
         1,
         null,
+        1,
         1,
         1,
         1,
@@ -355,8 +455,54 @@
         null,
         null,
         null
+      ],
+      "/home/ubuntu/workspace/Senior_Software_Project/app/mailers/user_mailer.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/ubuntu/workspace/Senior_Software_Project/app/controllers/sessions_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
       ]
     },
-    "timestamp": 1456159750
+    "timestamp": 1460322911
   }
 }

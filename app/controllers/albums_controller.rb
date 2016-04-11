@@ -28,7 +28,7 @@ class AlbumsController < ApplicationController
     end
     
     def create
-        @photo = Photo.create!(user_id: @current_user.id, description: params[:album][:description], title: params[:album][:title], data: params[:pic])
+        @photo = Photo.create!(user_id: @current_user.id, description: params[:album][:description], title: params[:album][:title], data: params[:pic], privacy: params[:album][:privacy])
         @album = Album.create!(user_id: @current_user.id, description: params[:album][:description], title: params[:album][:title], cover: @photo.id,  privacy: params[:album][:privacy])
         @photo.update(album_id: @album.id)
         data_hash = {url: @photo.data.url, title: @album.title, album_id: @album.id}

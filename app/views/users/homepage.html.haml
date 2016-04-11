@@ -22,6 +22,13 @@
     %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
     #map{:style => "width: 100%;height: 500px;border-radius: 1%; border: 1px #5cb85c;"}
     
+  .panel.panel-default{:style => "margin-top: 2%;"}
+    .panel-heading
+      %h3 Places You May Enjoy!
+    .panel-body
+      -@recommendations.each do |recommendation|
+        %a{:href => "/locations/#{recommendation.id}"} #{recommendation.name}
+        %br
   .panel.panel-default.friend-activity
     .panel-heading
       %h3 Friend Activity

@@ -54,6 +54,32 @@ class UsersController < ApplicationController
             @locations_id.push([@location.id])
             @visits_id.push([visit.id])
         end
+        
+        @recommendations = Array.new
+        @current_user.reviews.each do |review|
+            if review.rating >= 4
+                review.location.reviews.each do |locationReview|
+                    if locationReview.rating >= 4
+                        locationReview.user.reviews.where("rating >= 4").each do |suggestedPlace|
+                            if suggestedPlace.location.id != review.location.id && (!@recommendations.include? suggestedPlace.location)
+                                begin
+                                    if @current_user.locations.find(suggestedPlace.location.id) || @current_user.reviews.where("location_id == #{suggestedPlace.location.id}")
+                                        #do nothing if the location is one that has already been visited or reviewed by the current user.
+                                    end
+                                rescue
+                                    #add to recommendations if the place has not been previously reviewed or visited by the current user
+                                    @recommendations << suggestedPlace.location
+                                    if @recommendations.size == 5
+                                        return
+                                    end
+                                end
+                                
+                            end
+                        end
+                    end
+                end
+            end
+        end
     end  
     
     

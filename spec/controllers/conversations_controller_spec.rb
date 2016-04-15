@@ -22,7 +22,9 @@ RSpec.describe ConversationsController, type: :controller do
         it 'should find a message if it exists' do
             allow(Conversation).to receive(:between).and_return(@fake_con)
             allow(@fake_con).to receive(:present?).and_return(true)
+            allow(@fake_con).to receive(:first).and_return(@fake_con)
             expect(assigns(:conversation)).to eq(nil)
+            post :create, :sender_id => "1", :recipient_id => "2"
         end
         it 'should create a new message if it does not' do
             allow(Conversation).to receive(:between).and_return(false)

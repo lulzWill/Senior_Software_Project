@@ -11,12 +11,7 @@ require 'rails_helper'
 # end
 RSpec.describe MessagesHelper, type: :helper do
   describe "helper" do
-     before :each do
-        @fake_user = double('user') 
-        allow(:message).to receive(:user).and_return("self")
-     end
      it 'help messages' do
-         allow(:message).to receive(:user).and_return("self")
      end
   end
 end

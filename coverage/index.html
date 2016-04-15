@@ -14,18 +14,18 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-15T03:28:30+00:00">2016-04-15T03:28:30+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-15T04:41:18+00:00">2016-04-15T04:41:18+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">81.05%</span></span>
+    (<span class="covered_percent"><span class="yellow">83.47%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.21
+         1.24
        </span>
     </span> hits/line)
   </h2>
@@ -33,8 +33,8 @@
   <div>
     <b>26</b> files in total.
     <b>248</b> relevant lines. 
-    <span class="green"><b>201</b> lines covered</span> and
-    <span class="red"><b>47</b> lines missed </span>
+    <span class="green"><b>207</b> lines covered</span> and
+    <span class="red"><b>41</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -57,7 +57,7 @@
         <td>5</td>
         <td>5</td>
         <td>0</td>
-        <td>1.8</td>
+        <td>2.2</td>
       </tr>
       
       <tr>
@@ -82,12 +82,12 @@
       
       <tr>
         <td class="strong"><a href="#b76790bb4922e6c893a4f387af3cc4083a6e6fe8" class="src_link" title="app/controllers/messages_controller.rb">app/controllers/messages_controller.rb</a></td>
-        <td class="red strong">45.45 %</td>
+        <td class="green strong">100.0 %</td>
         <td>18</td>
         <td>11</td>
-        <td>5</td>
-        <td>6</td>
-        <td>0.5</td>
+        <td>11</td>
+        <td>0</td>
+        <td>1.0</td>
       </tr>
       
       <tr>
@@ -319,11 +319,11 @@
           <div class="file_list_container" id="Controllers">
   <h2>
     <span class="group_name">Controllers</span>
-    (<span class="covered_percent"><span class="yellow">83.23%</span></span>
+    (<span class="covered_percent"><span class="yellow">86.96%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.36
+         1.41
        </span>
     </span> hits/line)
   </h2>
@@ -331,8 +331,8 @@
   <div>
     <b>8</b> files in total.
     <b>161</b> relevant lines. 
-    <span class="green"><b>134</b> lines covered</span> and
-    <span class="red"><b>27</b> lines missed </span>
+    <span class="green"><b>140</b> lines covered</span> and
+    <span class="red"><b>21</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -355,7 +355,7 @@
         <td>5</td>
         <td>5</td>
         <td>0</td>
-        <td>1.8</td>
+        <td>2.2</td>
       </tr>
       
       <tr>
@@ -380,12 +380,12 @@
       
       <tr>
         <td class="strong"><a href="#b76790bb4922e6c893a4f387af3cc4083a6e6fe8" class="src_link" title="app/controllers/messages_controller.rb">app/controllers/messages_controller.rb</a></td>
-        <td class="red strong">45.45 %</td>
+        <td class="green strong">100.0 %</td>
         <td>18</td>
         <td>11</td>
-        <td>5</td>
-        <td>6</td>
-        <td>0.5</td>
+        <td>11</td>
+        <td>0</td>
+        <td>1.0</td>
       </tr>
       
       <tr>
@@ -895,14 +895,14 @@
           <code class="ruby">  def set_current_user</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="7">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="7">
+          <span class="hits">4</span>
           
           <code class="ruby">      @current_user ||= User.find_by_session_token(cookies[:session_token])</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="8">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="8">
+          <span class="hits">4</span>
           
           <code class="ruby">      redirect_to new_user_path unless @current_user</code>
         </li>
@@ -1208,11 +1208,11 @@
         <div class="source_table" id="b76790bb4922e6c893a4f387af3cc4083a6e6fe8">
   <div class="header">
     <h3>app/controllers/messages_controller.rb</h3>
-    <h4><span class="red">45.45 %</span> covered</h4>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
       <b>11</b> relevant lines. 
-      <span class="green"><b>5</b> lines covered</span> and
-      <span class="red"><b>6</b> lines missed.</span>
+      <span class="green"><b>11</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -1243,26 +1243,26 @@
           <code class="ruby">  def create</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="5">
-          
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
           
           <code class="ruby">    @conversation = Conversation.find(params[:conversation_id])</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="6">
-          
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
           
           <code class="ruby">    @message = @conversation.messages.build(message_params)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="7">
-          
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
           
           <code class="ruby">    @message.user_id = @current_user.id</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="8">
-          
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
           
           <code class="ruby">    @message.save!</code>
         </li>
@@ -1273,8 +1273,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="10">
-          
+        <li class="covered" data-hits="1" data-linenumber="10">
+          <span class="hits">1</span>
           
           <code class="ruby">    @path = conversation_path(@conversation)</code>
         </li>
@@ -1309,8 +1309,8 @@
           <code class="ruby">  def message_params</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="16">
-          
+        <li class="covered" data-hits="1" data-linenumber="16">
+          <span class="hits">1</span>
           
           <code class="ruby">    params.require(:message).permit(:body)</code>
         </li>

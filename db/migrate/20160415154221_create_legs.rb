@@ -4,8 +4,8 @@ class CreateLegs < ActiveRecord::Migration
       
       t.string :name
       t.integer :trip_id
-      t.Date :start_date
-      t.Date :end_date
+      t.date :start_date
+      t.date :end_date
       t.timestamps null: false
     end
   end

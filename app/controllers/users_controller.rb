@@ -125,7 +125,6 @@ class UsersController < ApplicationController
     end 
     
     def index
-      @users = User.where.not("id = ?",@current_user.id).order("created_at DESC")
       @conversations = Conversation.involving(@current_user).order("created_at DESC")
     end
 
@@ -134,7 +133,7 @@ class UsersController < ApplicationController
     end
     
     def new
-        if cookies[:session_token] || @current_user
+        if cookies[:session_token]
             flash[:notice]="You are already logged in"
             redirect_to '/users/homepage'
         end

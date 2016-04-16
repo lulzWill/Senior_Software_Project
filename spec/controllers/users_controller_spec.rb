@@ -5,9 +5,10 @@ describe UsersController do
     describe 'creating a User' do
         it 'should call the model method to make a new user and the method model to save a new user and redirect to login when successful' do
           expect(User).to receive(:find_by_user_id).with('fakeid').and_return(false)
-          
+          message = double('actionmailer')
           fakeUser = double("user");
-          
+          allow(UserMailer).to receive(:welcome_email).and_return(message)
+          allow(message).to receive(:deliver_now).and_return(true)
           expect(User).to receive(:new).and_return(fakeUser)
           expect(fakeUser).to receive(:save).and_return(true)
           
@@ -38,6 +39,21 @@ describe UsersController do
           expect(response).to redirect_to(new_user_path)
           expect(flash[:notice]).to eq("Sorry, but that user id is already taken")
         end
+    end
+    
+    describe 'new' do
+      before :each do
+        controller.request.cookies[:session_token] = '1'
+        cookies[:session_token]  = '1'
+        get :new
+      end
+      it 'redirect' do
+        expect(response.cookies[:session_token]).to eq('1')
+        #expect(assigns(cookies[:session_token])).to eq(true)
+        expect(flash[:notice]).to eq("You are already logged in")
+        expect(response).to redirect_to('users/homepage')
+
+      end
     end
     
     describe 'searching for users: ' do

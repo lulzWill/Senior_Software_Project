@@ -23,6 +23,29 @@ RSpec.describe AlbumsController, type: :controller do
             expect(assigns(:photos)).to eq(@fake_photo)
         end
         
+        it "should not allow users to view private albums" do
+            allow(@fake_album).to receive(:privacy).and_return("Just Me")
+            allow(@fake_album).to receive(:user_id).and_return("1")
+            allow(@fake_user).to receive(:id).and_return("testid")
+            get :show, :id => 1
+            expect(response).to redirect_to(users_homepage_path)
+        end
+        
+        it "should allow users to view friends albums" do
+            @fake_feinds = "test"
+            @fake_users = "test"
+            allow(@fake_album).to receive(:privacy).and_return("Friends")
+            allow(@fake_album).to receive(:user_id).and_return("1")
+            allow(@fake_user).to receive(:id).and_return("testid2")
+            allow(@fake_album).to receive(:id).and_return("1")
+            allow(@fake_user).to receive(:friends).and_return(@fake_friends)
+            allow(User).to receive(:find).and_return(@fake_album)
+            allow(@fake_album).to receive(:friends).and_return(@fake_friends)
+            allow(@fake_friends).to receive(:find).and_return(@fake_users)
+            get :show, :id => 1
+            expect(assigns(:current_user)).to eq(@fake_user)
+        end
+        
         it "should get info from model methods if no photo is associated" do
             allow(Photo).to receive(:where).and_return(nil)
             allow(@fake_album).to receive(:privacy).and_return("Everyone")
@@ -90,12 +113,22 @@ RSpec.describe AlbumsController, type: :controller do
     describe "PUT update" do
         before :each do
             @fake_album = double('album') 
+            @fake_photo = double('photo')
+            @fake_album2 = double('album')
             allow(Album).to receive(:find).and_return(@fake_album)
+            allow(Album).to receive(:update).and_return(@fake_album2)
+            allow(Photo).to receive(:create!).and_return(@fake_photo)
             allow(@fake_album).to receive(:update)
             allow(@fake_album).to receive(:id).and_return("test")
+            allow(@fake_album2).to receive(:id).and_return("test")
             allow(@fake_user).to receive(:id)
         end
         it "should render the album show page with the new data" do
+            put :update, :id =>1, :album => {:title => 'title', :description => "description"}, :cover => ""
+            expect(response).to redirect_to(album_path("test"))
+        end
+        it "should render the album show page with the new data with new picture" do
+            @params = {:pic => true}
             put :update, :id =>1, :album => {:title => 'title', :description => "description"}, :cover => ""
             expect(response).to redirect_to(album_path("test"))
         end

@@ -41,17 +41,38 @@ describe UsersController do
         end
     end
     
+    describe 'index' do
+      before :each do
+        @fake_user = double('user')
+        allow(User).to receive(:find_by_session_token).and_return(@fake_user)
+        allow(@fake_user).to receive(:user_id).and_return("testid")
+        allow(@fake_user).to receive(:id).and_return(1)
+        allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
+      end
+      it 'load conversation' do
+        get :index
+        @con = double("conversation", :id => 1, :sender_id => 1, :recipient_id => 2, :created_at => 1)
+        relation = Conversation.all
+        allow(relation).to receive(:[]).and_return( [Conversation.first])
+        allow(Conversation).to receive(:where).and_return( relation )
+        allow(Conversation).to receive(:involving).with(@fake_user).and_return(@con)
+        allow(@con).to receive(:order).with("created_at DESC").and_return(@con)
+        expect(assigns(:conversations)).to_not be_nil
+      end
+    end
+    
     describe 'new' do
       before :each do
         controller.request.cookies[:session_token] = '1'
-        cookies[:session_token]  = '1'
-        get :new
+        #request.cookies[:session_token]  = '1'
       end
       it 'redirect' do
-        expect(response.cookies[:session_token]).to eq('1')
-        #expect(assigns(cookies[:session_token])).to eq(true)
+        request.cookies['session_token']  = true
+        get :new
+        #expect(response.cookies['session_token']).to eq('1')
+        expect(assigns(response.cookies['session_token'])).to eq({"marked_for_same_origin_verification"=>true})
         expect(flash[:notice]).to eq("You are already logged in")
-        expect(response).to redirect_to('users/homepage')
+        expect(response).to redirect_to('/users/homepage')
 
       end
     end

@@ -44,6 +44,7 @@ gem 'private_pub'
 gem 'thin'
 gem 'faye'
 gem 'fog-aws'
+gem 'show_me_the_cookies'
 gem 'fog'
 gem 'aws-sdk', '~> 2'
 # Use Capistrano for deploymt

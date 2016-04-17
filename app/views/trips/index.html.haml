@@ -1,0 +1,55 @@
+.container
+    
+    .row
+        .col-md-12
+            .panel.panel-default
+                .panel-heading
+                    %h3 Current Trips
+                .panel-body
+                    -if @current_trips == []
+                        No current trips
+                    -else
+                        -@current_trips.each do |trip| 
+                            .trip-title
+                                %h3
+                                    =link_to trip.name, trip_path(trip)
+                            .trip-info
+                                from #{trip.start_date} to #{trip.end_date}
+                                .row
+                                =link_to "Edit Trip", edit_trip_path(trip), class: "btn btn-success"
+                            %hr
+    .row
+        .col-md-12
+            .panel.panel-default
+                .panel-heading
+                    %h3 Future Trips
+                .panel-body
+                    -if @future_trips == []
+                        No future trips
+                    -else
+                        -@future_trips.each do |trip|
+                            %h3
+                                =link_to trip.name, trip_path(trip)
+                            from #{trip.start_date} to #{trip.end_date}
+                            %br
+                            =link_to "Edit Trip", edit_trip_path(trip), class: "btn btn-success"
+                            %hr
+    .row
+        .col-md-12
+            .panel.panel-default
+                .panel-body
+                    =link_to "Create a New Trip", new_trip_path(), class: "btn btn-success"
+    .row
+        .col-md-12
+            .panel.panel-default
+                .panel-heading
+                    %h3 Past Trips
+                .panel-body
+                    -if @past_trips == []
+                        No past trips
+                    -else
+                        -@past_trips.each do |trip|
+                            %h3
+                                =link_to trip.name, trip_path(trip)
+                            from #{trip.start_date} to #{trip.end_date}
+                            %hr

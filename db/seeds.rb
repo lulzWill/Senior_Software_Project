@@ -22,3 +22,7 @@ User.create(user_id: 'chuck2', password: 'chuck1', email: 'b@b.com')
 User.create(user_id: 'chuck3', password: 'chuck1', email: 'c@b.com')
 User.create(user_id: 'chuck4', password: 'chuck1', email: 'd@b.com')
 User.create(user_id: 'chuck5', password: 'chuck1', email: 'e@b.com')
+
+Trip.create(name: "past trip", main_user_id: 1, start_date: Date.new(1999,2,13), end_date: Date.new(1999,2,20))
+Trip.create(name: "current trip", main_user_id: 1, start_date: Date.new(2016,2,13), end_date: Date.new(2017,2,20))
+Trip.create(name: "future trip", main_user_id: 1, start_date: Date.new(2999,2,13), end_date: Date.new(2999,2,20))

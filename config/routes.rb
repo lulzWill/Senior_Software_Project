@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   resources :photos
   resources :friendships
   
+  resources :trips
+  resources :legs
+  
   resources :conversations do
     resources :messages
   end

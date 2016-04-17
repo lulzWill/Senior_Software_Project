@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321164500) do
+ActiveRecord::Schema.define(version: 20160415154221) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20160321164500) do
     t.integer  "user_id"
     t.string   "title"
     t.string   "description"
+    t.integer  "cover"
+    t.string   "privacy"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -42,10 +44,17 @@ ActiveRecord::Schema.define(version: 20160321164500) do
   add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id"
 
   create_table "friendships", force: :cascade do |t|
-    t.integer  "user1_id"
-    t.integer  "user2_id"
-    t.boolean  "accepted"
-    t.boolean  "follow"
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "legs", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "trip_id"
+    t.date     "start_date"
+    t.date     "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -90,6 +99,16 @@ ActiveRecord::Schema.define(version: 20160321164500) do
     t.boolean  "allowed"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "main_user_id"
+    t.string   "description"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "users", force: :cascade do |t|

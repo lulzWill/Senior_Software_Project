@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160415154221) do
     t.string   "data"
     t.string   "description"
     t.integer  "album_id"
+    t.string   "privacy"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -107,6 +108,7 @@ ActiveRecord::Schema.define(version: 20160415154221) do
     t.string   "description"
     t.date     "start_date"
     t.date     "end_date"
+    t.boolean  "show"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end

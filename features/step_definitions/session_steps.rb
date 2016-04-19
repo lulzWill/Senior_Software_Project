@@ -24,6 +24,8 @@ end
 When /^I navigate to the "(.*?)" page$/ do |page|
     if page == "My Visits"
         visit visits_path
+    elsif page == "Trips"
+        visit trips_path
     else
         click_link page
     end

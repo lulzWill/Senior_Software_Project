@@ -1,0 +1,16 @@
+%script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBxnXZJRg6NIKFRtVR1YPzArruPdSzImsI&libraries=places,visualization&callback=initAutocomplete"}
+
+%div.container
+    %div.row
+        %div.col-sm-6
+            %div.panel.panel-default
+                %div.panel-body
+                    %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
+                    #map{:style => "width: 100%;height: 500px;border-radius: 1%; border: 1px #5cb85c;"}
+        %div.col-sm-6.pull-right
+            %div.panel.panel-default
+                %div.panel-body
+                    %div.row
+                        %div.col-sm-12
+                            
+

@@ -8,4 +8,13 @@ class TripsController < ApplicationController
         @past_trips = @trips.where('end_date < ?', DateTime.now)
     end
     
+    def show
+        @trip = Trip.find(params[:id])
+        
+        if(@trip.main_user_id != @current_user.user_id)
+            flash[:notice] = "You cannot view this trip"
+            redirect_to users_homepage_path
+        end
+    end
+    
 end

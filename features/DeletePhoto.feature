@@ -1,6 +1,6 @@
 Feature: Allow a user to delete a photo
 @javascript   
-Scenario: User deletess a photo from that photo's page
+Scenario: User deletes a photo from that photo's page
     Given the following users are in the database:
     | email                   | user_id       |password   |
     | a@b.com                 | fake_user     |fakepass   |

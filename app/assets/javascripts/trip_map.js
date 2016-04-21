@@ -253,3 +253,22 @@ $(document).mouseup(function (e)
     }
 });
 
+$(document).ready(function(){
+    $('#addLeg').hide();
+    if($("#trip_legs option:selected" ).text() == "New Leg") {
+      $('#addLeg').show();
+    }
+    
+    $('#trip_legs').change(function(e) {
+      if($("#trip_legs option:selected" ).text() == "New Leg") {
+        $('#addLeg').show();
+      } else {
+        $('#addLeg').hide();
+        $("#trip_legs option:selected" ).text() == ""
+      }
+    });
+    
+    $('#add_to_leg_form').on('submit', function(e){
+      
+    });
+});

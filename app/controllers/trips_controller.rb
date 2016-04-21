@@ -11,10 +11,34 @@ class TripsController < ApplicationController
     def show
         @trip = Trip.find(params[:id])
         
-        if(@trip.main_user_id != @current_user.user_id)
+        if(@trip.main_user_id != @current_user.id)
             flash[:notice] = "You cannot view this trip"
             redirect_to users_homepage_path
         end
+        
+        @legs = Array.new
+        @legNames = Array.new
+        
+        @trip.legs.each do |leg|
+            @legs << leg
+            @legNames << leg.name
+        end
+        @legNames << "Chicago"
+        @legNames << "New York"
+        @legNames << "New Leg"
     end
     
+    def new
+        
+    end
+    
+    def create
+        if @trip = Trip.create!(main_user_id: @current_user.id, name: params[:trip][:name], description: params[:trip][:description], start_date: params[:start_date], end_date: params[:end_date])
+            flash[:notice] = "Trip Added"
+            redirect_to trip_path(@trip.id)        
+        else
+            flash[:notice] = "Something went wrong!"
+            redirect_to trips_path
+        end
+    end
 end

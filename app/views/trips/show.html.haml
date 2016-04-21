@@ -1,16 +1,63 @@
 %script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyBxnXZJRg6NIKFRtVR1YPzArruPdSzImsI&libraries=places,visualization&callback=initAutocomplete"}
-
+= javascript_include_tag 'trip_map'
+= javascript_include_tag 'visits'
 %div.container
-    %div.row
-        %div.col-sm-6
-            %div.panel.panel-default
-                %div.panel-body
-                    %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
-                    #map{:style => "width: 100%;height: 500px;border-radius: 1%; border: 1px #5cb85c;"}
-        %div.col-sm-6.pull-right
-            %div.panel.panel-default
-                %div.panel-body
-                    %div.row
-                        %div.col-sm-12
-                            
+    %div.panel.panel-default
+        %div.panel-body
+            %div.row
+                %div.panel.panel-default{:style => "border: 0;"}
+                    %dib.panel-body
+                        %h1{:style => "margin-left: 2%;"} #{@trip.name}
+                        %h3{:style => "margin-left: 2%;"} #{@trip.description}
+            %div.row
+                %div.col-sm-6
+                    %div.panel.panel-default{:style => "border: 0;"}
+                        %div.panel-body
+                            %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
+                            #map{:style => "width: 100%;height: 500px;border-radius: 1%; border: 1px #5cb85c;"}
+                %div.col-sm-6.pull-right
+                    %div.panel.panel-default{:style => "border: 0;"}
+                        %div.panel-body
+                            %div.row
+                                %div.col-sm-6
+                                    = form_tag legs_path, :id => 'add_to_leg_form', multipart: true do
+                                        %div.form-group.row
+                                            = label :visit, :start_date, 'I would like to go here from:'
+                                            %br
+                                            %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
+                                        %div.form-group.row
+                                            = label :visit, :end_date, 'to:'
+                                            %br
+                                            %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+                                            = hidden_field_tag :name, ""
+                                            = hidden_field_tag :latitude, ""
+                                            = hidden_field_tag :longitude, ""
+                                        %div.form-group.row
+                                            = label :trip, :legs, 'What leg of the trip does this visit belond to?'
+                                            %br
+                                            = select :trip, :legs, @legNames, :id => 'legs', :class => 'col-sm-9'
+                                        #addLeg.form-group.row
+                                            = label :leg, :name, 'Give your new Leg a name!'
+                                            %br
+                                            = text_field :leg, 'name', :id => 'name', :class => 'col-sm-9'
+                                        %div.form-group.row
+                                            = submit_tag 'Add to Trip', :id => 'visit_submit', :class => 'btn btn-success'
 
+            %div.row
+                %div.panel.panel-default{:style => "border: 0;"}
+                    %div.panel-body
+                        %div
+                            %ul.nav.nav-tabs{:role => "tablist", :id => "myTabs"}
+                                -@legNames.each do |leg|
+                                    -if leg != "New Leg"
+                                        %li.active{"data-toggle" => "tab", :role => "presentation"}
+                                            %a{"aria-controls" => "#{leg}", "data-toggle" => "tab", :href => "##{leg}", :role => "tab"} #{leg}
+                            %div.tab-content
+                                -@legs.each do |leg|
+                                    -if leg.name != "New Leg"
+                                        %div.tab-pane.active{:id => "#{leg.name}", :role => "tabpanel"}
+                                            -leg.visits.each do |visit|
+                                                %h4 #{visit.location.name}
+                                                %h5 Start Date: #{visit.start_date}
+                                                %h5 End Date: #{visit.end_date}
+                                            

@@ -128,9 +128,6 @@ class UsersController < ApplicationController
       @conversations = Conversation.involving(@current_user).order("created_at DESC")
     end
 
-    def user_params
-        params.require(:user).permit(:email, :user_id, :password, :first_name, :last_name, :gender)
-    end
     
     def new
         if cookies[:session_token]

@@ -59,7 +59,12 @@ RSpec.describe AlbumsController, type: :controller do
             get :show, :id => 1
             expect(response).to render_template("show") 
         end
-            
+        
+        it "should fail elegently if the album is not found at any point" do
+            allow(Album).to receive(:find).and_raise(ActiveRecord::RecordNotFound)
+            get :show, :id => 1
+            expect(response).to redirect_to(users_homepage_path)
+        end
     end
     describe "GET new" do
         it "should render the new album template" do
@@ -130,6 +135,14 @@ RSpec.describe AlbumsController, type: :controller do
         it "should render the album show page with the new data with new picture" do
             @params = {:pic => true}
             put :update, :id =>1, :album => {:title => 'title', :description => "description"}, :cover => ""
+            expect(response).to redirect_to(album_path("test"))
+        end
+        
+        it "should update the picture if a picture id was passed in" do
+            allow(Photo).to receive(:create!).and_return(@fake_photo)
+            allow(@fake_album).to receive(:update).and_return(true)
+            allow(@fake_photo).to receive(:id).and_return(1)
+            put :update, :id => 1, :pic => "test", :album => {:title => 'title', :description => "description"}
             expect(response).to redirect_to(album_path("test"))
         end
     end

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
       
       if @current_user
         @friend_requests = Array.new
-        
+        @conversations = Conversation.involving(@current_user).order("created_at DESC")
         @current_user.inverse_friends.each do |inverse_friend|
           if !@current_user.friends.find_by_user_id(inverse_friend.user_id)
             @friend_requests << inverse_friend

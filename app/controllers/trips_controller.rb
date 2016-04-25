@@ -23,8 +23,7 @@ class TripsController < ApplicationController
             @legs << leg
             @legNames << leg.name
         end
-        @legNames << "Chicago"
-        @legNames << "New York"
+
         @legNames << "New Leg"
     end
     
@@ -41,4 +40,14 @@ class TripsController < ApplicationController
             redirect_to trips_path
         end
     end
+    
+    def edit
+        @trip = Trip.find(params[:id])
+    end
+    
+    def update
+        Trip.find(params[:id]).update(name: params[:trip][:name], description: params[:trip][:description], start_date: params[:start_date], end_date: params[:end_date])
+        redirect_to trips_path
+    end
+        
 end

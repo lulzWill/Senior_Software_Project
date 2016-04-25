@@ -14,10 +14,10 @@
 //= require jquery_ujs
 //= require private_pub
 //= require chat
+//= require social-share-button
 //= require turbolinks
 //= require homepage.js
 //= require autocomplete.js
 //= require jquery-ui
 //= require_tree .
 //= require bootstrap-sprockets
-//= require social-share-button

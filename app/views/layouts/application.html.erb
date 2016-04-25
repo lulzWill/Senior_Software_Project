@@ -15,7 +15,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -119,8 +119,8 @@
           <% @current_user.friends.each do |friend| %>
               <tr>
                 <% if @current_user.inverse_friends.find_by_user_id(friend.user_id) %>
-                  <td>
-                    <%= link_to "#{friend.first_name} #{friend.last_name}", "#", class: "start-conversation",
+                  <td style="padding-left: 2px;">
+                    <%= link_to "#{friend.first_name} #{friend.last_name}", "#", class: "start-conversation", 
                               "data-sid" => @current_user.id, "data-rip" => friend.id %>
                   </td>
                 <% end %>
@@ -137,8 +137,14 @@
     <div id="main">
       <%= yield %> 
     </div>
-<%= link_to image_tag('/images/FaceBookIcon.png'), 'http://www.facebook.com/sharer.php?u='+request.fullpath, :target => :blank %>
-  </body>
+<%= link_to('Share on Facebook', 'https://www.facebook.com/dialog/feed?
+                                  link=https://developers.facebook.com/docs/reference/dialogs/&
+                                  picture=http://fbrell.com/f8.jpg&
+                                  name=Facebook%20Dialogs&
+                                  caption=Reference%20Documentation&
+                                  description=Using%20Dialogs%20to%20interact%20with%20users.&
+                                  redirect_uri=https://shrouded-scrubland-88770.herokuapp.com/',
+                                  :target => :blank %>
 </html>
 
 

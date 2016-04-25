@@ -18,5 +18,5 @@
 /public/uploads/tmp
 /public/uploads/user/*
 /public/uploads/photo/*
-
+/config/enviroments/development.rb
 /coverage/*

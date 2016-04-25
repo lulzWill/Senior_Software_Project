@@ -20,3 +20,4 @@
 //= require jquery-ui
 //= require_tree .
 //= require bootstrap-sprockets
+//= require social-share-button

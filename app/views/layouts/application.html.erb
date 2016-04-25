@@ -137,14 +137,5 @@
     <div id="main">
       <%= yield %> 
     </div>
-<%= link_to 'Share on Facebook', 'https://www.facebook.com/dialog/feed?
-                                  link=https://developers.facebook.com/docs/reference/dialogs/&
-                                  picture=http://fbrell.com/f8.jpg&
-                                  name=Facebook%20Dialogs&
-                                  caption=Reference%20Documentation&
-                                  description=Using%20Dialogs%20to%20interact%20with%20users.&
-                                  redirect_uri=https://shrouded-scrubland-88770.herokuapp.com/',
-                                  :target => :blank %>
-</html>
-
+<%= social_share_button_tag("Title", :url => "https://shrouded-scrubland-88770.herokuapp.com/") %>
 

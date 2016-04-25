@@ -12,10 +12,12 @@
  *
  *= require_tree .
  *= require_self
+ *= require social-share-button
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "social-share-button";
 
 #notice {
     margin: 1em 0;

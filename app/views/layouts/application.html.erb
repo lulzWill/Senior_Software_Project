@@ -137,7 +137,17 @@
     <div id="main">
       <%= yield %> 
     </div>
-<%= social_share_button_tag("title", :popup => "true", :url => "shrouded-scrubland-88770.herokuapp.com/") %>
+<%= social_share_button_tag(:popup => "true", :url => "shrouded-scrubland-88770.herokuapp.com/") %>
+
 <a href="https://www.facebook.com/sharer/sharer.php
      ?u=shrouded-scrubland-88770.herokuapp.com/"
-   target="_blank">Share on Facebook</a>
+   target="_blank"><img src="/images/facebookimage.png"></a>
+<a href="https://twitter.com/intent/tweet/
+     ?text=Check%20out%20this%20website!
+     &url=https%3A%2F%2Fshrouded-scrubland-88770.herokuapp.com%2F
+     &via=jonsuh" 
+   target="_blank"<img src="/images/twitterimage.png"></a>
+   
+<a href="https://www.pinterest.com/pin/create/button/
+     ?url=https%3A%2F%2Fshrouded-scrubland-88770.herokuapp.com%2F
+   target="_blank">Share on Pinterest</a>

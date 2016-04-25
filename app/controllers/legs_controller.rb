@@ -32,7 +32,7 @@ class LegsController < ApplicationController
         @trip = @leg.trip
         Leg.find(params[:id]).destroy!
         flash[:notice] = "You deleted #{@leg.name}"
-        redirect_to trips_path(@trip.id)
+        redirect_to :back
     end
 
     def update

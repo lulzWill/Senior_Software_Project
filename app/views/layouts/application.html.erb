@@ -102,7 +102,7 @@
   <%if @current_user != nil%>
     <div class="row">
   <!-- Not implemented on tutorial -->
-  <div style="width=10%; float:right; position: fixed; margin: 0 auto;">
+  <div style="width=15%; float:right; position: fixed; margin: 0 auto;">
     <div style="position: fixed;">
       <div class="panel panel-default">
         <!-- Default panel contents -->
@@ -120,7 +120,7 @@
               <tr>
                 <% if @current_user.inverse_friends.find_by_user_id(friend.user_id) %>
                   <td>
-                    <%= link_to "#{friend.user_id}", "#", class: "btn btn-success btn-xs start-conversation",
+                    <%= link_to "#{friend.user_id}", "#", class: "start-conversation",
                               "data-sid" => @current_user.id, "data-rip" => friend.id %>
                   </td>
                 <% end %>

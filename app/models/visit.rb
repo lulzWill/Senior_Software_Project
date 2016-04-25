@@ -1,7 +1,8 @@
 class Visit < ActiveRecord::Base
     belongs_to :user
     belongs_to :location
-
+    belongs_to :leg
+    
     def self.get_dates(id)
         visit = Visit.find(id)
         visit_dates = visit.start_date.to_s

@@ -1,0 +1,46 @@
+= javascript_include_tag 'visits'
+.container
+    .row
+        .col-md-8
+            .panel.panel-default
+                .panel-body
+                    %h3
+                        Trip Info:
+                    = form_tag trip_path(@trip.id), :method => :put, :id => 'trip_form', multipart: true do
+                        .form-group.row
+                            .col-sm-2
+                                = label :trip, :name, 'Name'
+                            .col-sm-9
+                                = text_field :trip, 'name', :id => 'name', :value => @trip.name
+                        .form-group.row
+                            .col-sm-2
+                                = label :trip, :description, 'Description'
+                            .col-sm-9
+                                = text_area :trip, 'description', :id => 'description', :value => @trip.description
+                        .form-group.row
+                            .col-sm-2
+                                = label :trip, :start_date, 'Start Date'
+                            .col-sm-9
+                                %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true, :value => @trip.start_date}
+                        .form-group.row
+                            .col-sm-2
+                                = label :trip, :end_date, 'End Date'
+                            .col-sm-9
+                                %input#start_date{:name => "end_date", :type => "date", :class => "form-control", :required => true, :value => @trip.end_date}
+                        .row{:style => "margin-left: 2%;"}     
+                            = submit_tag 'Save Changes', :id => 'edit_trip_submit', :class => 'btn btn-success'
+                -if @trip.legs != []
+                    .panel-footer
+                        %h3
+                            Legs:
+                        %hr
+                        -@trip.legs.each do |leg|
+                            %h3
+                                =leg.name 
+                            %br
+                            =leg.start_date
+                            to
+                            =leg.end_date
+                            %br
+                            = link_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}
+                            %hr

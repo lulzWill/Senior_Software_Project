@@ -79,10 +79,11 @@
                                                 %h5 Start Date: #{visit.start_date}
                                                 %h5 End Date: #{visit.end_date}
                                             .buttons
-                                                //button_to "Edit Leg",:onclick => $(#leg_edit).toggle, :class => 'btn btn-success' 
-                                                %button#leg_edit_button{:class => "btn btn-success" } Edit Leg
-                                                .div#leg_edit{:style =>"visibility: hidden"}
-                                                
+                                                %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
+                                                = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+                                                =form_tag leg_path(leg.id),:method => :put,:id => "edit_menu", :style =>"width: 50%;", :class => "edit_menu" do
+                                                    %br
+                                                    %br
                                                     = label :visit, :start_date, 'I would like to go here from:'
                                                     %br
                                                     %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
@@ -90,9 +91,11 @@
                                                     = label :visit, :end_date, 'to:'
                                                     %br
                                                     %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+                                                    %br
+                                                    //form
+                                                    = submit_tag "Submit Leg changes", :class => 'btn btn-success'
                                                     
-                                                    = button_to "Submit Leg changes", leg_path(leg.id),:method => :put, :class => 'btn btn-success'
-                                                //= button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+                                                
                                     -elsif leg.name != "New Leg"
                                         %div.tab-pane.fade{:id => "#{leg.name}_tab", :role => "tabpanel"}
                                             -leg.visits.each do |visit|
@@ -100,10 +103,11 @@
                                                 %h5 Start Date: #{visit.start_date}
                                                 %h5 End Date: #{visit.end_date}
                                             .buttons
-                                                //button_to "Edit Leg",:onclick => $(#leg_edit).toggle, :class => 'btn btn-success' 
-                                                %button#leg_edit_button{:class => "btn btn-success" } Edit Leg
-                                                .div#leg_edit{:style =>"visibility: hidden"}
-                                                
+                                                %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
+                                                = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+                                                =form_tag leg_path(leg.id),:method => :put,:id => "edit_menu", :style =>"width: 50%;visibility: hidden;", :class => "edit_menu" do
+                                                    %br
+                                                    %br
                                                     = label :visit, :start_date, 'I would like to go here from:'
                                                     %br
                                                     %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
@@ -111,9 +115,10 @@
                                                     = label :visit, :end_date, 'to:'
                                                     %br
                                                     %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+                                                    %br
+                                                    //form
+                                                    = submit_tag "Submit Leg changes", :class => 'btn btn-success'
                                                     
-                                                    = button_to "Submit Leg changes", leg_path(leg.id),:method => :put, :class => 'btn btn-success'
-                                                //= button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
                                                 
     -if @current_user.profile_pic.url == nil
         = hidden_field_tag :profile_pic, (asset_path "missing.png")

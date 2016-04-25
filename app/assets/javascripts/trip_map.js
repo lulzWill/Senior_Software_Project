@@ -260,6 +260,15 @@ $(document).mouseup(function (e)
 });
 
 $(document).ready(function(){
+    $('#edit_menu').hide();
+    $('.leg_edit_button').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      //console.log('click');
+      $('#edit_menu').toggle();
+    });
+    
     $('#addLeg').hide();
     if($("#trip_legs option:selected" ).text() == "New Leg") {
       $('#addLeg').show();
@@ -279,6 +288,6 @@ $(document).ready(function(){
     });
 });
 
-$('#leg_edit_button').click(function(e) {
-  $('leg_edit').toggle;
-});
+
+
+

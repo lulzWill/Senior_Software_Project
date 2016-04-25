@@ -38,8 +38,8 @@ class LegsController < ApplicationController
     def update
         @leg = Leg.find(params[:id]) 
         @trip = @leg.trip
-        @leg.update(name: params[name], start_date: params[start_date], end_date: params[end_date])
+        @leg.update(start_date: params[:start_date], end_date: params[:end_date])
         flash[:notice] = "You edited #{@leg.name}"
-        redirect_to trips_path(@trip.id)
+        redirect_to :back
     end
 end

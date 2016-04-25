@@ -120,7 +120,6 @@
           <% @current_user.friends.each do |friend| %>
               <tr>
                 <% if @current_user.inverse_friends.find_by_user_id(friend.user_id) %>
-                  <td><%= friend.user_id %></td>
                   <td>
                     <%= link_to "#{friend.user_id}", "#", class: "btn btn-success btn-xs start-conversation",
                               "data-sid" => @current_user.id, "data-rip" => friend.id %>

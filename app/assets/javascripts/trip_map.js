@@ -24,7 +24,7 @@ var trip_markers = [];
 
 function initAutocomplete() 
 {
-  map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map2'), {
     center: {lat: -34.397, lng: 150.644},
     zoom: 14,
     mapTypeControl: true,
@@ -84,7 +84,7 @@ function initAutocomplete()
   }
 
   // Create the search box and link it to the UI element.
-  var input = document.getElementById('pac-input');
+  var input = document.getElementById('pac-input2');
   var searchBox = new google.maps.places.SearchBox(input);
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
   

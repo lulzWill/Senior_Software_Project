@@ -14,6 +14,11 @@
         .buttons{:style => "padding: 5px;"}    
             = button_to 'Edit photo info', edit_photo_path(@photo.id), :method => "get", :class => 'btn btn-success'
             = button_to 'Delete photo', photo_path(@photo.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+    -if @photo.photo_flags.where(user_id: @current_user.id) == nil
+        = button_to 'Flag Photo', flag_photo, :class => 'btn btn-danger', :id => 'flag_photo_button'
+
+    -else
+        = button_to 'Photo Flagged'
     - if (@photo.album_id)   
         = button_to 'Return to Album', album_path(@photo.album_id), :method => "get", :class => 'btn btn-success'
             

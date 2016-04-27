@@ -15,4 +15,5 @@ Rails.application.config.assets.precompile += %w( edit_scripts.js )
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( homepage.js )
+Rails.application.config.assets.precompile += %w( trip_map.js )
 Rails.application.config.assets.precompile += %w( full_staff.png )

@@ -6,7 +6,7 @@ class CreateReviews < ActiveRecord::Migration
       t.string :visit_id
       t.integer :rating
       t.string :comment
-      t.integer :flags
+      t.boolean :flagged
       t.boolean :allowed
       t.timestamps null: false
     end

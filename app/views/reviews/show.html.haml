@@ -5,3 +5,8 @@
     %p Rated by #{@user.user_id}
     -if @current_user.id == @user.id
         =link_to "Edit Review", edit_review_path(@review)
+    -if @review.review_flags.where(user_id: @current_user.id) == nil
+        = button_to 'Flag Review', flag_review, :class => 'btn btn-danger', :id => 'flag_review_button'
+
+    -else
+        = button_to 'Review Flagged'

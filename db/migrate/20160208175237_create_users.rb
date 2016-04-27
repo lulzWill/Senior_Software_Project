@@ -10,6 +10,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :gender
       t.string :profile_pic
       t.string :session_token
+      t.boolean :admin
+      t.boolean :moderator
       
       t.timestamps null: false
     end

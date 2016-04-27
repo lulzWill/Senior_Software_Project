@@ -36,7 +36,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.2.0'
 # Use Haml as the templating library
 gem 'haml'
-gem 'carrierwave'
+gem 'carrierwave', '~> 0.11.0'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'selenium-webdriver'

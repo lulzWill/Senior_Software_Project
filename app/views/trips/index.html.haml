@@ -1,5 +1,4 @@
 .container
-    
     .row
         .col-md-12
             .panel.panel-default
@@ -16,7 +15,7 @@
                             .trip-info
                                 from #{trip.start_date} to #{trip.end_date}
                                 .row
-                                =link_to "Edit Trip", edit_trip_path(trip), class: "btn btn-success"
+                                =link_to "Edit Trip Details", edit_trip_path(trip)
                             %hr
     .row
         .col-md-12
@@ -32,7 +31,7 @@
                                 =link_to trip.name, trip_path(trip)
                             from #{trip.start_date} to #{trip.end_date}
                             %br
-                            =link_to "Edit Trip", edit_trip_path(trip), class: "btn btn-success"
+                            =link_to "Edit Trip Details", edit_trip_path(trip)
                             %hr
     .row
         .col-md-12

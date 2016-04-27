@@ -19,7 +19,7 @@ var latitude;
 var searchTerm;
 var address;
 var trip_markers = [];
-//var current_maker;
+var current_maker;
 
 
 function initAutocomplete() 
@@ -56,8 +56,7 @@ function initAutocomplete()
         lng: position.coords.longitude
       };
       loc_of_me = pos;
-      loc_me = new google.maps.InfoWindow({map: map});
-      loc_me.close(map);
+      
       var person_icon = {
         url: url,
         size: new google.maps.Size(80, 80),
@@ -127,6 +126,7 @@ function initAutocomplete()
       };
       var address = places[i].formatted_address;
       // Create a marker for each place.
+      //alert(address);
       if(places[i].rating)
       {
         var rating = places[i].rating;
@@ -148,27 +148,32 @@ function initAutocomplete()
         latitude: places[i].geometry.location.lat(),
         longitude: places[i].geometry.location.lng()
       }));
-      
+      //console.log(markers[0].address);
       var markerCount = 0;
       markers.forEach(function(marker) 
       {
         google.maps.event.addListener(marker, 'click', function() 
         {
           //incase passing marker doesnt work
-          //current_marker = marker;
+          current_marker = marker;
           searchTerm = document.getElementById("pac-input").value;
           title = marker.title;
           longitude = marker.longitude;
           latitude = marker.latitude;
           address = marker.address;
+          //console.log(marker.address);
           infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"
             +marker.address+"</div><br/>Rating of "+marker.review+"/5 from Google<br/><br/>"
-            +"<a onclick =\"form_function(marker)\" id=\"visit\" href = \"\"  >Add Visit to Trip</a><br/><br/>"+
+            +"<a onclick =\"form_function()\" id=\"visit\">Add Visit to Trip</a><br/><br/>"+
             "<a onclick = \"yelpSearch()\"href = \"#\" >Yelp details</a>"
             );
+          document.getElementById("visit_header").innerHTML = current_marker.title;  
+          document.getElementById("location_name").value = current_marker.title;
+          document.getElementById("location_lat").value = current_marker.latitude;
+          document.getElementById("location_long").value = current_marker.longitude;
           infoWindow.open(map,marker);
         });
-        markerCount++;
+        //markerCount++;
       });
       
       
@@ -188,24 +193,24 @@ function initAutocomplete()
   // [END region_getplaces]
 }
 //function to populate form
-function form_function(marker)
+function form_function()
 {
     //use current_marker if passingmarker doesnt work uncomment 
     //the lines with current marker and change this function 
     //to use that global variable
     
     //create new marker for visit
-    var new_trip_marker = new google.maps.Marker({
-        map: map,
-        title: marker.name,
-        id: marker.name,
-        icon: marker.icon,
-        address: marker.address,
-        review: marker.rating,
-        position: marker.geometry.location,
-        latitude: marker.geometry.location.lat(),
-        longitude: marker.geometry.location.lng()
-      });
+    //var new_trip_marker = new google.maps.Marker({
+    //    map: map,
+    //    title: current_marker.name,
+    //    id: current_marker.name,
+    //    icon: current_marker.icon,
+    //    address: current_marker.address,
+    //    review: current_marker.rating,
+    //    position: current_marker.posistion,
+    //    latitude: current_marker.latitude,
+    //    longitude: current_marker.longitude
+    //  });
       
     //add marker to marker array for visit locations
     trip_markers.push(new_trip_marker);
@@ -229,6 +234,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos)
 //clicking on yelp link 
 function yelpSearch()
 {
+  //console.log(address);
   $.ajax({
     type: "GET",
     url: "/users/_yelp_results?name="+title+"&longitude="+longitude+"&latitude="+latitude+"&term="+searchTerm+"&address="+address,
@@ -252,4 +258,36 @@ $(document).mouseup(function (e)
         container.hide();
     }
 });
+
+$(document).ready(function(){
+    $('#edit_menu').hide();
+    $('.leg_edit_button').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      //console.log('click');
+      $('#edit_menu').toggle();
+    });
+    
+    $('#addLeg').hide();
+    if($("#trip_legs option:selected" ).text() == "New Leg") {
+      $('#addLeg').show();
+    }
+    
+    $('#trip_legs').change(function(e) {
+      if($("#trip_legs option:selected" ).text() == "New Leg") {
+        $('#addLeg').show();
+      } else {
+        $('#addLeg').hide();
+        $("#trip_legs option:selected" ).text() == ""
+      }
+    });
+    
+    $('#add_to_leg_form').on('submit', function(e){
+      
+    });
+});
+
+
+
 

@@ -17,3 +17,4 @@ Rails.application.config.assets.precompile += %w( edit_scripts.js )
 Rails.application.config.assets.precompile += %w( homepage.js )
 Rails.application.config.assets.precompile += %w( trip_map.js )
 Rails.application.config.assets.precompile += %w( full_staff.png )
+

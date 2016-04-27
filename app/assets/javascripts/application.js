@@ -15,6 +15,8 @@
 //= require private_pub
 //= require chat
 //= require turbolinks
+//= require homepage.js
+//= require trip_map.js
 //= require autocomplete.js
 //= require jquery-ui
 //= require_tree .

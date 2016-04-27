@@ -46,6 +46,7 @@ Rails.application.configure do
     domain: 'sandboxa5ebf777c04948e2983b0cb2e7de3ca4.mailgun.org'
   }
   
+
   ENV['AWS_ACCESS_KEY_ID'] = "AKIAIAI7FEBFJITIMKRA"
   ENV['AWS_SECRET_ACCESS_KEY'] = "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"
 end

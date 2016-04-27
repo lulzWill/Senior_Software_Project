@@ -1,4 +1,5 @@
 require 'simplecov'
+#require 'carrierwave'
 SimpleCov.start 'rails'
 
 

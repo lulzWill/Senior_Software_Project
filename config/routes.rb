@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   
   resources :trips
   resources :legs
-  
+  match '/trips/legs/addVisit', to: 'legs#addVisitToLeg', via: :post
   resources :conversations do
     resources :messages
   end

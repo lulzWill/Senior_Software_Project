@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20160427162837) do
   create_table "visits", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "location_id"
+    t.integer  "leg_id"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at",  null: false

@@ -57,4 +57,8 @@ class PhotosController < ApplicationController
         redirect_to users_homepage_path
     end
     
+    def flag_review
+        PhotoFlag.create!(user_id: @current_user.id, photo_id: params[:photo_id])
+        render :nothing => true
+    end
 end

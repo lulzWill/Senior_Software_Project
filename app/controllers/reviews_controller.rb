@@ -35,7 +35,7 @@ class ReviewsController < ApplicationController
             if !Visit.overlap?(params[:user_id], location.id, params[:start_date], params[:end_date])
                 #visit = Visit.create!(user_id: params[:user_id], location_id: location.id, start_date: params[:start_date], end_date: params[:end_date])
                 visit = Visit.create!(user_id: params[:user_id], location_id: location.id, start_date: params[:start_date])
-                review = Review.create!(user_id: params[:user_id], visit_id: visit.id, location_id: location.id, rating: params[:review][:rating], comment: params[:review][:comment], flags:0, allowed:true)
+                review = Review.create!(user_id: params[:user_id], visit_id: visit.id, location_id: location.id, rating: params[:review][:rating], comment: params[:review][:comment], flagged: false, allowed:true)
                 data_hash = {review_id: review.id, rating: review.rating, location_id: location.id, location_name: location.name}
                 Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic.url, activity_type: "review", data: data_hash)
                 flash[:notice] = "Review added!"
@@ -45,7 +45,7 @@ class ReviewsController < ApplicationController
         else
             location = Location.find(params[:location_id])
             visit = Visit.find(params[:visit_id])
-            review = Review.create!(user_id: params[:user_id], visit_id: visit.id, location_id: location.id, rating: params[:review][:rating], comment: params[:review][:comment], flags:0, allowed:true)
+            review = Review.create!(user_id: params[:user_id], visit_id: visit.id, location_id: location.id, rating: params[:review][:rating], comment: params[:review][:comment], flagged: false, allowed:true)
             data_hash = {review_id: review.id, rating: review.rating, location_id: location.id, location_name: location.name}
             Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic.url, activity_type: "review", data: data_hash)
             flash[:notice] = "Review added!"
@@ -68,4 +68,10 @@ class ReviewsController < ApplicationController
         flash[:notice] = "Review updated!"
         redirect_to visit_path(@review.visit_id)
     end
+    
+    def flag_review
+        ReviewFlag.create!(user_id: @current_user.id, review_id: params[:review_id])
+        render :nothing => true
+    end
+    
 end

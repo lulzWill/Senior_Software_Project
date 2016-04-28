@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   match '/chat', to: 'users#index', via: :get
   resources :users
   resources :sessions
+  get 'reviews/flag_review/:review_id', to: 'reviews#flag_review', as: :flag_review
   resources :reviews
   post 'locations/location_reviews'
   post 'locations/location_visits'
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
   resources :locations
   resources :visits
   resources :albums
+  get 'photos/flag_photo/:photo_id', to: 'photos#flag_photo', as: :flag_photo
   resources :photos
   resources :friendships
   

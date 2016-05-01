@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   get 'users/user_search'
   post 'users/newsfeed'
   post 'users/profile_newsfeed'
-  resources :users 
   match '/users/:user_id/update', to: 'users#update', via: :post
   match '/chat', to: 'users#index', via: :get
+  post 'users/toggle_moderator/:id', to: 'users#toggle_moderator', as: :toggle_moderator
   resources :users
   resources :sessions
   get 'reviews/flag_review/:review_id', to: 'reviews#flag_review', as: :flag_review

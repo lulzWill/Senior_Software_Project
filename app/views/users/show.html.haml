@@ -18,7 +18,15 @@
                                 = form_tag friendships_path, :id => 'add_friend' do
                                     = text_field :friend, 'user_id', :id => 'user_id', :hidden => true, :value => @user_view.id
                                     = submit_tag 'Add Friend', :id => 'add_friend_submit', :class => 'btn btn-success'
-                                
+                            -if @current_user.admin && @current_user.id != @user_view.id
+                                %hr
+                                .admin-buttons
+                                    -if @user_view.moderator
+                                        = button_to 'Revoke moderator status', toggle_moderator_path(@user_view.id), :class => 'btn btn-success', :style => "margin-bottom: 5px;"
+                                    -else
+                                        = button_to 'Add moderator status', toggle_moderator_path(@user_view.id), :class => 'btn btn-success', :style => "margin-bottom: 5px;"
+                                    = button_to 'Delete user', user_path(@user_view.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+                                %hr
                     %div.row
                         %div.col-sm-12
                             %br

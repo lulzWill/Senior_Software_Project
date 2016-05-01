@@ -214,5 +214,17 @@ class UsersController < ApplicationController
         end
     end
     
+    def toggle_moderator
+        user = User.find(params[:id])
+        if user.moderator
+            user.update(moderator: false)
+            flash[:notice] = "Moderator removed!"
+        else
+            user.update(moderator: true)
+            flash[:notice] = "Moderator added!"
+        end
+        redirect_to users_homepage_path
+    end
+    
 end
 

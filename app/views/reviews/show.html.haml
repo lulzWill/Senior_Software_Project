@@ -17,3 +17,10 @@
                         = button_to 'Flag Review', flag_review_path(@review.id), :method => :get, :remote => true, class: 'btn btn-success', id: 'flag_review_button'
                     -else
                         = button_to 'Review Flagged', flag_review_path(@review.id), class: 'btn btn-danger', disabled: 'true'
+                -if @current_user.admin || @current_user.moderator
+                    %hr
+                    %p Review flagged #{@review.review_flags.count} times
+                    .buttons.admin-buttons
+                        = button_to 'Delete review', review_path(@review.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+                    
+                    

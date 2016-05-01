@@ -226,5 +226,10 @@ class UsersController < ApplicationController
         redirect_to users_homepage_path
     end
     
+    def mod_index
+        @flagged_photos = Photo.where(flagged: true)
+        @flagged_reviews = Review.where(flagged: true)
+    end
+    
 end
 

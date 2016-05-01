@@ -1,0 +1,15 @@
+.container
+    .panel.panel-default
+        .panel-body
+            .row
+                .col-sm-12
+                    %h1 Flagged Photos
+                    .row
+                        -@flagged_photos.each do |photo|
+    .panel.panel-default
+        .panel-body
+            .row
+                .col-sm-12
+                    %h1 Flagged Reviews
+                    .row
+                        -@flagged_reviews.each do |review|

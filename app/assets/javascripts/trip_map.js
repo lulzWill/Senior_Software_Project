@@ -27,6 +27,9 @@ var visitId;
 var datahash;
 var directionsDisplayArray = [];
 var directionsService;
+var route_markers = [];
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var labelIndex = 0;
 
 function initAutocomplete() 
 {
@@ -281,6 +284,16 @@ $(document).mouseup(function (e)
     }
 });
 
+function showEditDialogue(tripId, visitId) {
+  $('#'+visitId).hide();
+  $('#'+visitId+'_edit').show();
+}
+
+function cancelChange(tripId, visitId) {
+  $('#'+visitId).show();
+  $('#'+visitId+'_edit').hide();
+}
+
 $(document).ready(function(){
     $('#edit_menu').hide();
     $('#addvisitform').hide();
@@ -313,7 +326,7 @@ $(document).ready(function(){
 });
 
 
-function calcRoute(latStart,langStart,latEnd,langEnd) {
+function calcRoute(latStart,langStart,latEnd,langEnd,last,markerNumber) {
   var directionsDisplay = new google.maps.DirectionsRenderer();
   directionsDisplayArray.push(directionsDisplay);
   var start = new google.maps.LatLng(latStart, langStart);
@@ -332,6 +345,30 @@ function calcRoute(latStart,langStart,latEnd,langEnd) {
       if (status == google.maps.DirectionsStatus.OK) {
           directionsDisplay.setDirections(response);
           directionsDisplay.setMap(map);
+          directionsDisplay.setOptions( { suppressMarkers: true } );
+          
+          var pos = new google.maps.LatLng(latStart, langStart);
+          var marker = new google.maps.Marker({
+            position: pos,
+            label: labels[labelIndex++ % labels.length],
+            latitude: latStart,
+            longitude: langStart,
+            map: map
+          });
+          route_markers.push(marker);
+          
+          var pos = new google.maps.LatLng(latEnd, langEnd);
+          if(last) {
+            var marker = new google.maps.Marker({
+              position: pos,
+              label: labels[labelIndex++ % labels.length],
+              latitude: latEnd,
+              longitude: langEnd,
+              map: map
+            });
+            route_markers.push(marker);
+          }
+          
       } else {
           var request = {
             origin: start,
@@ -343,6 +380,29 @@ function calcRoute(latStart,langStart,latEnd,langEnd) {
              if (status == google.maps.DirectionsStatus.OK) {
                directionsDisplay.setDirections(response);
                directionsDisplay.setMap(map);
+               
+               var pos = new google.maps.LatLng(latStart, langStart);
+               var marker = new google.maps.Marker({
+                position: pos,
+                label: labels[labelIndex++ % labels.length],
+                latitude: latStart,
+                longitude: langStart,
+                map: map
+              });
+              
+              route_markers.push(marker);
+              var pos = new google.maps.LatLng(latEnd, langEnd);
+              if(last) {
+                var marker = new google.maps.Marker({
+                  position: pos,
+                  label: labels[labelIndex++ % labels.length],
+                  latitude: latEnd,
+                  longitude: langEnd,
+                  map: map
+                });
+                
+                route_markers.push(marker);
+              }
              } else {
                console.log("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
              }
@@ -350,11 +410,29 @@ function calcRoute(latStart,langStart,latEnd,langEnd) {
       }
   });
 }
-    
+
+function setMapOnAll(map) {
+  for (var i = 0; i < route_markers.length; i++) {
+    route_markers[i].setMap(map);
+  }
+}
+
+function hideRouteMarkers() {
+  if(document.getElementById('hide_show_btn').innerHTML == "Hide Route Markers") {
+    setMapOnAll(null);
+    document.getElementById('hide_show_btn').innerHTML = "Show Route Markers";
+  } else {
+    setMapOnAll(map);
+    document.getElementById('hide_show_btn').innerHTML = "Hide Route Markers";
+  }
+}
 //toggel for past map locations button
 
 function togglePastmap(locations) 
 {
+  setMapOnAll(null);
+  route_markers = [];
+  labelIndex = 0;
   datahash = locations;
   for(var i = 0; i < directionsDisplayArray.length; i++) {
     directionsDisplayArray[i].setMap(null);
@@ -369,11 +447,17 @@ function putRoutes()
   for(var i=0;i<datahash.length;i++)
   {
     if(i != datahash.length - 1) {
-       calcRoute(datahash[i][0], datahash[i][1], datahash[i+1][0], datahash[i+1][1]);
+      if(i == datahash.length - 2) {
+        calcRoute(datahash[i][0], datahash[i][1], datahash[i+1][0], datahash[i+1][1],true,i+1);
+      } else {
+        calcRoute(datahash[i][0], datahash[i][1], datahash[i+1][0], datahash[i+1][1],false,i+1);
+      }
     }
   }
 }
 
+//These two functions with AJAX requests were done in an effort to potentially allow the page to operate without refreshing.
+//TODO: rather than just reloading the page on AJAX Success, make sure that the UI is updated appropriately. The challenge here lies in the google maps routing. View will have to be changed to accomodate as well.
 function removeVisit(legId,visitId)
 {
   $.ajax({
@@ -388,8 +472,12 @@ function removeVisit(legId,visitId)
   }); 
 }
 
-function changeVisitTime(legId,visitId,date,time)
+function changeVisitTime(legId,visitId)
 {
+  document.getElementById(visitId+'_confirm').disabled = true;
+  var date = $('#'+visitId+'_start_date').val();
+  var time = $('#'+visitId+'_visit_time').val();
+  
   $.ajax({
     type: "POST",
     url: "/legs/updateLegVisit?leg_id="+legId+"&visit_id="+visitId+"&start_date="+date+"&visit_time="+time,
@@ -397,7 +485,24 @@ function changeVisitTime(legId,visitId,date,time)
       //alert("got success condition");
       window.location.reload(true);
     }, failure: function(error) {
+      document.getElementById(visitId+'_confirm').disabled = false;
       alert("Was not able to update visit " + error);
+    }
+  }); 
+}
+
+function removeLeg(legId)
+{
+  document.getElementById(legId+'_remove').disabled = true;
+  $.ajax({
+    type: "DELETE",
+    url: "/legs/"+legId+"?ajaxCall=true",
+    success: function(result) {
+      //alert("got success condition");
+      window.location.reload(true);
+    }, failure: function(error) {
+      document.getElementById(legId+'_remove').disabled = false;
+      alert("Was not able to delete Leg " + error);
     }
   }); 
 }

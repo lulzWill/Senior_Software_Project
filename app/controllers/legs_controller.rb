@@ -42,8 +42,13 @@ class LegsController < ApplicationController
         @leg = Leg.find(params[:id])
         @trip = @leg.trip
         Leg.find(params[:id]).destroy!
-        flash[:notice] = "You deleted #{@leg.name}"
-        redirect_to :back
+        
+        if(!params[:ajaxCall])
+            flash[:notice] = "You deleted #{@leg.name}"
+            redirect_to :back
+        else
+            render :nothing => true
+        end
     end
 
     def update

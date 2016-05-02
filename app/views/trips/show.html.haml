@@ -17,6 +17,7 @@
                             %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
                             #map{:style => "width: 100%;height: 500px;border-radius: 1%; border: 1px #5cb85c;"}
                             %button{:onclick => "togglePastmap(#{@locations})", :class => "btn btn-info"} Show Trip Route
+                            %button#hide_show_btn{:onclick => "hideRouteMarkers()", :class => "btn btn-info"} Hide Route Markers
                 %div.col-sm-6.pull-right
                     %div.panel.panel-default{:style => "border: 0;"}
                         %div.panel-body
@@ -88,26 +89,21 @@
                                                         %button{:onclick => "removeVisit(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-remove btn btn-link", "aria-hidden" => "true"}
                                                         =link_to "#{location.name} ", location_path(visit.location_id, name: location.name, latitude: location.latitude, longitude: location.longitude)
                                                         #{visit.start_date.strftime("%B %d, %Y")} - #{visit.visit_time.strftime('%I:%M %p')}
+                                                        %button{:onclick => "showEditDialogue(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-pencil btn btn-link", "aria-hidden" => "true"}
+                                                %div.row{:style => "margin-left: 2%;", :id => "#{visit.id}_edit", :hidden => true}
+                                                    %h4 Change time and date for #{visit.location.name}
+                                                    %div.col-sm-4
+                                                        %input{:id => "#{visit.id}_start_date", :type => "date", :class => "form-control", :required => true, :value => "#{visit.start_date}"}
+                                                    %div.col-sm-4
+                                                        %input{:id => "#{visit.id}_visit_time", :type => "time", :class => "form-control", :required => true, :value => "#{visit.visit_time.strftime('%H:%M')}"}
+                                                    %div.col-sm-4
+                                                        %button{:id => "#{visit.id}_confirm", :onclick => "changeVisitTime(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-ok btn btn-success", "aria-hidden" => "true"}
+                                                        %button{:onclick => "cancelChange(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-remove btn btn-danger", "aria-hidden" => "true"}
+                                            %br
                                             %div.row{:style => "margin-left: 1%;"}
                                                 %button{:class => "btn btn-info", :onclick => "setMapPos(#{leg.visits.first.location.latitude},#{leg.visits.first.location.longitude})"} Show on Map 
                                                 %button{:class => "btn btn-info", :onclick => "togglePastmap(#{legLocations})"} Show Leg Route 
-                                            // .buttons.row{:style => "margin-left: 1%;"}
-                                            //     %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
-                                            //     = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
-                                            //     =form_tag leg_path(leg.id),:method => :put,:id => "edit_menu", :style =>"width: 50%;", :class => "edit_menu" do
-                                            //         %br
-                                            //         %br
-                                            //         = label :visit, :start_date, 'I would like to go here from:'
-                                            //         %br
-                                            //         %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
-                                            //         = label :visit, :end_date, 'to:'
-                                            //         %br
-                                            //         %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
-                                            //         %br
-                                            //         //form
-                                            //         = submit_tag "Submit Leg changes", :class => 'btn btn-success'
-                                                    
-                                                
+                                                %button{:id => "#{leg.id}_remove", :class => "btn btn-danger", :onclick => "removeLeg(#{leg.id})"} Remove Leg
                                     -elsif leg.name != "New Leg"
                                         %div.tab-pane.fade{:id => "#{leg.name}_tab", :role => "tabpanel"}
                                             %div.row{:style => "margin-left: 1%;"}
@@ -120,26 +116,21 @@
                                                         %button{:onclick => "removeVisit(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-remove btn btn-link", "aria-hidden" => "true"}
                                                         =link_to "#{location.name} ", location_path(visit.location_id, name: location.name, latitude: location.latitude, longitude: location.longitude)
                                                         #{visit.start_date.strftime("%B %d, %Y")} - #{visit.visit_time.strftime('%I:%M %p')}
+                                                        %button{:onclick => "showEditDialogue(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-pencil btn btn-link", "aria-hidden" => "true"}
+                                                %div.row{:style => "margin-left: 2%;", :id => "#{visit.id}_edit", :hidden => true}
+                                                    %h4 Change time and date for #{visit.location.name}
+                                                    %div.col-sm-4
+                                                        %input{:id => "#{visit.id}_start_date", :type => "date", :class => "form-control", :required => true, :value => "#{visit.start_date}"}
+                                                    %div.col-sm-4
+                                                        %input{:id => "#{visit.id}_visit_time", :type => "time", :class => "form-control", :required => true, :value => "#{visit.visit_time.strftime('%H:%M')}"}
+                                                    %div.col-sm-4
+                                                        %button{:id => "#{visit.id}_confirm", :onclick => "changeVisitTime(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-ok btn btn-success", "aria-hidden" => "true"}
+                                                        %button{:onclick => "cancelChange(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-remove btn btn-danger", "aria-hidden" => "true"}
+                                            %br
                                             %div.row{:style => "margin-left: 1%;"}
                                                 %button{:class => "btn btn-info", :onclick => "setMapPos(#{leg.visits.order("start_date","visit_time").first.location.latitude},#{leg.visits.order("start_date","visit_time").first.location.longitude})"} Show on Map 
                                                 %button{:class => "btn btn-info", :onclick => "togglePastmap(#{legLocations})"} Show Leg Route 
-                                            // .buttons.row{:style => "margin-left: 1%;"}
-                                            //     %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
-                                            //     = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
-                                            //     =form_tag leg_path(leg.id),:method => :put,:id => "edit_menu", :style =>"width: 50%;visibility: hidden;", :class => "edit_menu" do
-                                            //         %br
-                                            //         %br
-                                            //         = label :visit, :start_date, 'I would like to go here from:'
-                                            //         %br
-                                            //         %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
-                                            //         = label :visit, :end_date, 'to:'
-                                            //         %br
-                                            //         %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
-                                            //         %br
-                                            //         //form
-                                            //         = submit_tag "Submit Leg changes", :class => 'btn btn-success'
-                                            
-                                                
+                                                %button{:id => "#{leg.id}_remove", :class => "btn btn-danger", :onclick => "removeLeg(#{leg.id})"} Remove Leg
     -if @current_user.profile_pic.url == nil
         = hidden_field_tag :profile_pic, (asset_path "missing.png")
     -else

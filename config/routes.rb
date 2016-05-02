@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :trips
   resources :legs
   match '/trips/legs/addVisit', to: 'legs#addVisitToLeg', via: :post
+  match '/legs/deleteLegVisit', to: 'legs#deleteVisit', via: :post
   resources :conversations do
     resources :messages
   end

@@ -20,15 +20,11 @@ class TripsController < ApplicationController
         @legNames = Array.new
         
         @locations = []
-        @locations_id =[]
-        @visits_id =[]
         
         @trip.legs.order("start_date").each do |leg|
             leg.visits.order("start_date", "visit_time").each do |visit|
                 @location = Location.find_by_id(visit.location_id)
                 @locations.push([@location.latitude, @location.longitude])
-                @locations_id.push([@location.id])
-                @visits_id.push([visit.id])
              end
             @legs << leg
             @legNames << leg.name

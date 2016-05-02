@@ -16,7 +16,7 @@
                         %div.panel-body
                             %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
                             #map{:style => "width: 100%;height: 500px;border-radius: 1%; border: 1px #5cb85c;"}
-                            %a{:href => "#",:onclick => "togglePastmap(#{@locations},#{@locations_id},#{@visits_id})"} Show Walking Route Between Locations
+                            %button{:onclick => "togglePastmap(#{@locations})", :class => "btn btn-info"} Show Trip Route
                 %div.col-sm-6.pull-right
                     %div.panel.panel-default{:style => "border: 0;"}
                         %div.panel-body
@@ -74,17 +74,23 @@
                             %div.tab-content
                                 -a = 0
                                 -@legs.each do |leg|
+                                    -legLocations = []
                                     -if leg.name != "New Leg" && a == 0
                                         -a = 1
                                         %div.tab-pane.fade.in.active{:id => "#{leg.name}_tab", :role => "tabpanel"}
                                             %div.row{:style => "margin-left: 1%;"}
                                                 %h3 #{leg.start_date.strftime("%B %d, %Y")} to #{leg.end_date.strftime("%B %d, %Y")}
                                             -leg.visits.order("start_date","visit_time").each do |visit|
-                                                %div.row{:style => "margin-left: 2%;"}
+                                                -legLocations.push([visit.location.latitude, visit.location.longitude])
+                                                %div.row{:style => "margin-left: 2%;", :id => "#{visit.id}"}
                                                     %h4 
                                                         -location = visit.location
+                                                        %button{:onclick => "removeVisit(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-remove btn btn-link", "aria-hidden" => "true"}
                                                         =link_to "#{location.name} ", location_path(visit.location_id, name: location.name, latitude: location.latitude, longitude: location.longitude)
                                                         #{visit.start_date.strftime("%B %d, %Y")} - #{visit.visit_time.strftime('%I:%M %p')}
+                                            %div.row{:style => "margin-left: 1%;"}
+                                                %button{:class => "btn btn-info", :onclick => "setMapPos(#{leg.visits.first.location.latitude},#{leg.visits.first.location.longitude})"} Show on Map 
+                                                %button{:class => "btn btn-info", :onclick => "togglePastmap(#{legLocations})"} Show Leg Route 
                                             // .buttons.row{:style => "margin-left: 1%;"}
                                             //     %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
                                             //     = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
@@ -107,11 +113,16 @@
                                             %div.row{:style => "margin-left: 1%;"}
                                                 %h3 #{leg.start_date.strftime("%B %d, %Y")} to #{leg.end_date.strftime("%B %d, %Y")}
                                             -leg.visits.order("start_date","visit_time").each do |visit|
-                                                %div.row{:style => "margin-left: 2%;"}
+                                                -legLocations.push([visit.location.latitude, visit.location.longitude])
+                                                %div.row{:style => "margin-left: 2%;", :id => "#{visit.id}"}
                                                     %h4 
                                                         -location = visit.location
+                                                        %button{:onclick => "removeVisit(#{leg.id},#{visit.id})", :class => "glyphicon glyphicon-remove btn btn-link", "aria-hidden" => "true"}
                                                         =link_to "#{location.name} ", location_path(visit.location_id, name: location.name, latitude: location.latitude, longitude: location.longitude)
                                                         #{visit.start_date.strftime("%B %d, %Y")} - #{visit.visit_time.strftime('%I:%M %p')}
+                                            %div.row{:style => "margin-left: 1%;"}
+                                                %button{:class => "btn btn-info", :onclick => "setMapPos(#{leg.visits.order("start_date","visit_time").first.location.latitude},#{leg.visits.order("start_date","visit_time").first.location.longitude})"} Show on Map 
+                                                %button{:class => "btn btn-info", :onclick => "togglePastmap(#{legLocations})"} Show Leg Route 
                                             // .buttons.row{:style => "margin-left: 1%;"}
                                             //     %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
                                             //     = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'

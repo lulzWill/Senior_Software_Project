@@ -8,8 +8,8 @@ class LegsController < ApplicationController
             #leg name cannot contain spaces or else the tabs get broken
             if(@trip.start_date <= DateTime.parse(params[:leg_start_date]) && @trip.end_date >= DateTime.parse(params[:leg_end_date]) && DateTime.parse(params[:leg_start_date]) <= DateTime.parse(params[:leg_end_date]))
                 @trip.legs.each do |leg|
-                    if((leg.start_date <= DateTime.parse(params[:leg_start_date]) && leg.end_date >= DateTime.parse(params[:leg_end_date])) || (leg.start_date >= DateTime.parse(params[:leg_start_date]) && leg.end_date >= DateTime.parse(params[:leg_end_date])) || (leg.start_date <= DateTime.parse(params[:leg_start_date]) && leg.end_date <= DateTime.parse(params[:leg_end_date])))
-                        flash[:notice] = "Could not add leg: Dates overlap another existing leg"
+                    if((leg.start_date <= DateTime.parse(params[:leg_start_date]) && leg.end_date > DateTime.parse(params[:leg_start_date])) || (leg.start_date < DateTime.parse(params[:leg_end_date]) && leg.end_date >= DateTime.parse(params[:leg_end_date])))
+                        flash[:notice] = "Could not add leg: Dates overlap with #{leg.name}"
                         redirect_to :back and return
                     end
                 end
@@ -23,14 +23,19 @@ class LegsController < ApplicationController
             @leg = @trip.legs.find_by_name(params[:trip][:legs])
         end
         
-        @location = Location.find_or_create_by!(name: params[:name], latitude: params[:latitude], longitude: params[:longitude])
-
-        #@visit = Visit.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[:start_date], end_date: params[:end_date])
-        @visit = @leg.visits.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[:start_date], visit_time: params[:visit_time])
-        #data_hash = {location_name: @location.name, location_id: @location.id}
-        #Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic.url, activity_type: "visit", data: data_hash)
-        flash[:notice] = "You added #{@location.name} to your trip!"
-        redirect_to :back
+        if DateTime.parse(params[:start_date]) >= @leg.start_date && DateTime.parse(params[:start_date]) <= @leg.end_date
+            @location = Location.find_or_create_by!(name: params[:name], latitude: params[:latitude], longitude: params[:longitude])
+    
+            #@visit = Visit.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[:start_date], end_date: params[:end_date])
+            @visit = @leg.visits.create!(user_id: @current_user.id, location_id: @location.id, start_date: params[:start_date], visit_time: params[:visit_time])
+            #data_hash = {location_name: @location.name, location_id: @location.id}
+            #Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic.url, activity_type: "visit", data: data_hash)
+            flash[:notice] = "You added #{@location.name} to your trip!"
+            redirect_to :back
+        else
+            flash[:notice] = "Could not add #{params[:name]} to trip. Date does not fall within the leg dates."
+            redirect_to :back
+        end
     end
     
     def destroy
@@ -47,5 +52,18 @@ class LegsController < ApplicationController
         @leg.update(start_date: params[:start_date], end_date: params[:end_date])
         flash[:notice] = "You edited #{@leg.name}"
         redirect_to :back
+    end
+    
+    def deleteLegVisit
+        @leg = Leg.find(params[:leg_id])
+        @leg.visits.delete(params[:visit_id])
+        render :nothing => true
+    end
+    
+    def updateLegVisit
+        @leg = Leg.find(params[:leg_id])
+        @visit = @leg.visits.find(params[:visit_id])
+        @visit.update!(:start_date => params[:start_date], :visit_time => params[:visit_time])
+        render :nothing => true
     end
 end

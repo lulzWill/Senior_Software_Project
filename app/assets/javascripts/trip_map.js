@@ -25,7 +25,7 @@ var pastmarkers;
 var datahash_id;
 var visitId;
 var datahash;
-var directionsDisplay;
+var directionsDisplayArray = [];
 var directionsService;
 
 function initAutocomplete() 
@@ -199,6 +199,16 @@ function initAutocomplete()
     
   // [END region_getplaces]
 }
+
+function setMapPos(lat,lang) {
+   var pos = {
+      lat: lat,
+      lng: lang
+    };
+    
+    map.setCenter(pos);
+    map.setZoom(14);
+}
 //function to populate form
 function form_function()
 {
@@ -305,6 +315,7 @@ $(document).ready(function(){
 
 function calcRoute(latStart,langStart,latEnd,langEnd) {
   var directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplayArray.push(directionsDisplay);
   var start = new google.maps.LatLng(latStart, langStart);
   //var end = new google.maps.LatLng(38.334818, -181.884886);
   var end = new google.maps.LatLng(latEnd, langEnd);
@@ -342,16 +353,13 @@ function calcRoute(latStart,langStart,latEnd,langEnd) {
     
 //toggel for past map locations button
 
-function togglePastmap(locations,locations_id,visits_id) 
+function togglePastmap(locations) 
 {
   datahash = locations;
-  datahash_id = locations_id;
-  visitId = visits_id;
-  if (paststate==0)
-  {
-    putRoutes();
-    paststate = 1;
+  for(var i = 0; i < directionsDisplayArray.length; i++) {
+    directionsDisplayArray[i].setMap(null);
   }
+  putRoutes();
 }
 
 //getting past map points
@@ -366,4 +374,30 @@ function putRoutes()
   }
 }
 
+function removeVisit(legId,visitId)
+{
+  $.ajax({
+    type: "POST",
+    url: "/legs/deleteLegVisit?leg_id="+legId+"&visit_id="+visitId,
+    success: function(result) {
+      //alert("got success condition");
+      window.location.reload(true);
+    }, failure: function(error) {
+      alert("Was not able to update visit: " + error);
+    }
+  }); 
+}
 
+function changeVisitTime(legId,visitId,date,time)
+{
+  $.ajax({
+    type: "POST",
+    url: "/legs/updateLegVisit?leg_id="+legId+"&visit_id="+visitId+"&start_date="+date+"&visit_time="+time,
+    success: function(result) {
+      //alert("got success condition");
+      window.location.reload(true);
+    }, failure: function(error) {
+      alert("Was not able to update visit " + error);
+    }
+  }); 
+}

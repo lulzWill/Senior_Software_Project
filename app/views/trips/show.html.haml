@@ -8,6 +8,7 @@
                 %div.panel.panel-default{:style => "border: 0;"}
                     %dib.panel-body
                         %h1{:style => "margin-left: 2%;"} #{@trip.name}
+                        %h3{:style => "margin-left: 2%;"} #{@trip.start_date.strftime("%B %d, %Y")} - #{@trip.end_date.strftime("%B %d, %Y")} 
                         %h3{:style => "margin-left: 2%;"} #{@trip.description}
             %div.row
                 %div.col-sm-6
@@ -15,21 +16,22 @@
                         %div.panel-body
                             %input#pac-input{:placeholder => "Search Box", :type => "text",:style => "width: 35%;height: 4%;"}
                             #map{:style => "width: 100%;height: 500px;border-radius: 1%; border: 1px #5cb85c;"}
+                            %a{:href => "#",:onclick => "togglePastmap(#{@locations},#{@locations_id},#{@visits_id})"} Show Walking Route Between Locations
                 %div.col-sm-6.pull-right
                     %div.panel.panel-default{:style => "border: 0;"}
                         %div.panel-body
                             %div.row
                                 %h2{:id => "visit_header"} Select a Place on the Map!
-                                %div.col-sm-6
+                                #addvisitform.col-sm-6
                                     = form_tag '/trips/legs/addVisit',:id => 'add_to_leg_form', multipart: true do
                                         %div.form-group.row
-                                            = label :visit, :start_date, 'I would like to go here from:'
+                                            = label :visit, :start_date, 'I would like to go here on:'
                                             %br
                                             %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
                                         %div.form-group.row
-                                            = label :visit, :end_date, 'to:'
+                                            = label :visit, :end_date, 'at:'
                                             %br
-                                            %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+                                            %input#visit_time{:name => "visit_time", :type => "time", :class => "form-control", :required => true}
                                             = hidden_field_tag :trip_id, @trip.id, :id => "trip_id"
                                             = hidden_field_tag :name, "", :id => "location_name"
                                             = hidden_field_tag :latitude, "", :id => "location_lat"
@@ -61,64 +63,71 @@
                             %ul.nav.nav-tabs{"data-tabs" => "tabs", "data-tabs" => "tabs", :role => "tablist", :id => "myTabs"}
                                 -a = 0
                                 -@legNames.each do |leg|
+                                    -leg_name = leg.gsub("_"," ")
                                     -if leg != "New Leg" && a == 0
                                         -a = 1
                                         %li.active{"data-toggle" => "tab", :role => "presentation"}
-                                            %a{"aria-controls" => "#{leg}_tab", "data-toggle" => "tab", :href => "##{leg}_tab", :role => "tab"} #{leg}
+                                            %a{"aria-controls" => "#{leg}_tab", "data-toggle" => "tab", :href => "##{leg}_tab", :role => "tab"} #{leg_name}
                                     -elsif leg != "New Leg"
                                         %li{"data-toggle" => "tab", :role => "presentation"}
-                                            %a{"aria-controls" => "#{leg}_tab", "data-toggle" => "tab", :href => "##{leg}_tab", :role => "tab"} #{leg}
+                                            %a{"aria-controls" => "#{leg}_tab", "data-toggle" => "tab", :href => "##{leg}_tab", :role => "tab"} #{leg_name}
                             %div.tab-content
                                 -a = 0
                                 -@legs.each do |leg|
                                     -if leg.name != "New Leg" && a == 0
                                         -a = 1
                                         %div.tab-pane.fade.in.active{:id => "#{leg.name}_tab", :role => "tabpanel"}
-                                            -leg.visits.each do |visit|
-                                                %h4 #{visit.location.name}
-                                                %h5 Start Date: #{visit.start_date}
-                                                %h5 End Date: #{visit.end_date}
-                                            .buttons
-                                                %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
-                                                = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
-                                                =form_tag leg_path(leg.id),:method => :put,:id => "edit_menu", :style =>"width: 50%;", :class => "edit_menu" do
-                                                    %br
-                                                    %br
-                                                    = label :visit, :start_date, 'I would like to go here from:'
-                                                    %br
-                                                    %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
-                                                    
-                                                    = label :visit, :end_date, 'to:'
-                                                    %br
-                                                    %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
-                                                    %br
-                                                    //form
-                                                    = submit_tag "Submit Leg changes", :class => 'btn btn-success'
+                                            %div.row{:style => "margin-left: 1%;"}
+                                                %h3 #{leg.start_date.strftime("%B %d, %Y")} to #{leg.end_date.strftime("%B %d, %Y")}
+                                            -leg.visits.order("start_date","visit_time").each do |visit|
+                                                %div.row{:style => "margin-left: 2%;"}
+                                                    %h4 
+                                                        -location = visit.location
+                                                        =link_to "#{location.name} ", location_path(visit.location_id, name: location.name, latitude: location.latitude, longitude: location.longitude)
+                                                        #{visit.start_date.strftime("%B %d, %Y")} - #{visit.visit_time.strftime('%I:%M %p')}
+                                            // .buttons.row{:style => "margin-left: 1%;"}
+                                            //     %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
+                                            //     = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+                                            //     =form_tag leg_path(leg.id),:method => :put,:id => "edit_menu", :style =>"width: 50%;", :class => "edit_menu" do
+                                            //         %br
+                                            //         %br
+                                            //         = label :visit, :start_date, 'I would like to go here from:'
+                                            //         %br
+                                            //         %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
+                                            //         = label :visit, :end_date, 'to:'
+                                            //         %br
+                                            //         %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+                                            //         %br
+                                            //         //form
+                                            //         = submit_tag "Submit Leg changes", :class => 'btn btn-success'
                                                     
                                                 
                                     -elsif leg.name != "New Leg"
                                         %div.tab-pane.fade{:id => "#{leg.name}_tab", :role => "tabpanel"}
-                                            -leg.visits.each do |visit|
-                                                %h4 #{visit.location.name}
-                                                %h5 Start Date: #{visit.start_date}
-                                                %h5 End Date: #{visit.end_date}
-                                            .buttons
-                                                %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
-                                                = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
-                                                =form_tag leg_path(leg.id),:method => :put,:id => "edit_menu", :style =>"width: 50%;visibility: hidden;", :class => "edit_menu" do
-                                                    %br
-                                                    %br
-                                                    = label :visit, :start_date, 'I would like to go here from:'
-                                                    %br
-                                                    %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
-                                                    
-                                                    = label :visit, :end_date, 'to:'
-                                                    %br
-                                                    %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
-                                                    %br
-                                                    //form
-                                                    = submit_tag "Submit Leg changes", :class => 'btn btn-success'
-                                                    
+                                            %div.row{:style => "margin-left: 1%;"}
+                                                %h3 #{leg.start_date.strftime("%B %d, %Y")} to #{leg.end_date.strftime("%B %d, %Y")}
+                                            -leg.visits.order("start_date","visit_time").each do |visit|
+                                                %div.row{:style => "margin-left: 2%;"}
+                                                    %h4 
+                                                        -location = visit.location
+                                                        =link_to "#{location.name} ", location_path(visit.location_id, name: location.name, latitude: location.latitude, longitude: location.longitude)
+                                                        #{visit.start_date.strftime("%B %d, %Y")} - #{visit.visit_time.strftime('%I:%M %p')}
+                                            // .buttons.row{:style => "margin-left: 1%;"}
+                                            //     %button{:id => "#{leg.name}_edit",:class => "btn btn-success leg_edit_button" } Edit Leg
+                                            //     = button_to 'Delete Leg', leg_path(leg.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+                                            //     =form_tag leg_path(leg.id),:method => :put,:id => "edit_menu", :style =>"width: 50%;visibility: hidden;", :class => "edit_menu" do
+                                            //         %br
+                                            //         %br
+                                            //         = label :visit, :start_date, 'I would like to go here from:'
+                                            //         %br
+                                            //         %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
+                                            //         = label :visit, :end_date, 'to:'
+                                            //         %br
+                                            //         %input#end_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+                                            //         %br
+                                            //         //form
+                                            //         = submit_tag "Submit Leg changes", :class => 'btn btn-success'
+                                            
                                                 
     -if @current_user.profile_pic.url == nil
         = hidden_field_tag :profile_pic, (asset_path "missing.png")

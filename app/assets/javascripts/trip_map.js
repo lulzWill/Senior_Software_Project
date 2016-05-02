@@ -20,10 +20,20 @@ var searchTerm;
 var address;
 var trip_markers = [];
 var current_maker;
-
+var paststate;
+var pastmarkers;
+var datahash_id;
+var visitId;
+var datahash;
+var directionsDisplay;
+var directionsService;
 
 function initAutocomplete() 
 {
+  paststate = 0;
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsService = new google.maps.DirectionsService();
+  
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -34.397, lng: 150.644},
     zoom: 14,
@@ -167,10 +177,7 @@ function initAutocomplete()
             +"<a onclick =\"form_function()\" id=\"visit\">Add Visit to Trip</a><br/><br/>"+
             "<a onclick = \"yelpSearch()\"href = \"#\" >Yelp details</a>"
             );
-          document.getElementById("visit_header").innerHTML = current_marker.title;  
-          document.getElementById("location_name").value = current_marker.title;
-          document.getElementById("location_lat").value = current_marker.latitude;
-          document.getElementById("location_long").value = current_marker.longitude;
+
           infoWindow.open(map,marker);
         });
         //markerCount++;
@@ -195,6 +202,11 @@ function initAutocomplete()
 //function to populate form
 function form_function()
 {
+    $('#addvisitform').show();
+    document.getElementById("visit_header").innerHTML = current_marker.title; 
+    document.getElementById("location_name").value = current_marker.title;
+    document.getElementById("location_lat").value = current_marker.latitude;
+    document.getElementById("location_long").value = current_marker.longitude;
     //use current_marker if passingmarker doesnt work uncomment 
     //the lines with current marker and change this function 
     //to use that global variable
@@ -261,6 +273,8 @@ $(document).mouseup(function (e)
 
 $(document).ready(function(){
     $('#edit_menu').hide();
+    $('#addvisitform').hide();
+    
     $('.leg_edit_button').click(function(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -289,5 +303,67 @@ $(document).ready(function(){
 });
 
 
+function calcRoute(latStart,langStart,latEnd,langEnd) {
+  var directionsDisplay = new google.maps.DirectionsRenderer();
+  var start = new google.maps.LatLng(latStart, langStart);
+  //var end = new google.maps.LatLng(38.334818, -181.884886);
+  var end = new google.maps.LatLng(latEnd, langEnd);
+  var bounds = new google.maps.LatLngBounds();
+  bounds.extend(start);
+  bounds.extend(end);
+  map.fitBounds(bounds);
+  var request = {
+      origin: start,
+      destination: end,
+      travelMode: google.maps.TravelMode.WALKING
+  };
+  directionsService.route(request, function (response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+          directionsDisplay.setMap(map);
+      } else {
+          var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING
+          };
+          
+          directionsService.route(request, function (response, status) {
+             if (status == google.maps.DirectionsStatus.OK) {
+               directionsDisplay.setDirections(response);
+               directionsDisplay.setMap(map);
+             } else {
+               console.log("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+             }
+          });
+      }
+  });
+}
+    
+//toggel for past map locations button
+
+function togglePastmap(locations,locations_id,visits_id) 
+{
+  datahash = locations;
+  datahash_id = locations_id;
+  visitId = visits_id;
+  if (paststate==0)
+  {
+    putRoutes();
+    paststate = 1;
+  }
+}
+
+//getting past map points
+function putRoutes()
+{
+  pastmarkers = [];
+  for(var i=0;i<datahash.length;i++)
+  {
+    if(i != datahash.length - 1) {
+       calcRoute(datahash[i][0], datahash[i][1], datahash[i+1][0], datahash[i+1][1]);
+    }
+  }
+}
 
 

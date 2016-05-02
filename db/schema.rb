@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20160415154221) do
     t.integer  "user_id"
     t.integer  "location_id"
     t.integer  "leg_id"
+    t.time     "visit_time"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at",  null: false

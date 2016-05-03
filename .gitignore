@@ -20,3 +20,6 @@
 /public/uploads/photo/*
 /config/enviroments/development.rb
 /coverage/*
+
+ENV['AWS_ACCESS_KEY_ID']="AKIAJZ37C4VKFOUGXTOA"
+ENV['AWS_SECRET_ACCESS_KEY']="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"

@@ -4,32 +4,32 @@
   %div.row
     %div.panel.panel-default
       %div.panel-body{:style => 'height: 40%;'}
-        = form_tag users_path, :id => 'signup_form', multipart: true do
+        = form_tag users_path, :id => 'signup_form', :class => 'form-group', multipart: true do
           %div.row
             %h1{:style => 'margin-left: 2%;'} Sign-Up
           %div.row
             %div.col-sm-6
               %div.form-group.row
                 = label :user, :user_id, 'User-ID', :class => 'col-sm-2'
-                = text_field :user, 'user_id', :id => 'signup_id', :class => 'col-sm-9'
+                = text_field :user, 'user_id', :id => 'signup_id', :style => "width: 60%;", :class => 'form-control col-sm-9'
               %div.form-group.row
                 = label :user, :email, 'Email', :class => 'col-sm-2'
-                = text_field :user, 'email', :id => 'signup_email', :class => 'col-sm-9'
+                = text_field :user, 'email', :id => 'signup_email', :style => "width: 60%;", :class => 'form-control col-sm-9'
               %div.form-group.row
                 = label :user, :password, 'Password', :class => 'col-sm-2'
-                = password_field :user, 'password', :id => 'signup_pass', :class => 'col-sm-9'
+                = password_field :user, 'password', :id => 'signup_pass', :style => "width: 60%;", :class => 'form-control col-sm-9'
               %div.form-group.row
                 = label :user, :password_conf, 'Confirm Password', :class => 'col-sm-2'
-                = password_field :user, 'password_conf', :id => 'signup_pass_conf', :class => 'col-sm-9'
+                = password_field :user, 'password_conf', :id => 'signup_pass_conf', :style => "width: 60%;",  :class => 'form-control col-sm-9'
               %div.form-group.row
                 = label :user, :first_name, 'First Name', :class => 'col-sm-2'
-                = text_field :user, 'first_name', :id => 'first_name', :class => 'col-sm-9'
+                = text_field :user, 'first_name', :id => 'first_name', :style => "width: 60%;", :class => 'form-control col-sm-9'
               %div.form-group.row
                 = label :user, :last_name, 'Last Name', :class => 'col-sm-2'
-                = text_field :user, 'last_name', :id => 'last_name', :class => 'col-sm-9'
+                = text_field :user, 'last_name', :id => 'last_name', :style => "width: 60%;", :class => 'form-control col-sm-9'
               %div.form-group.row
                 = label :user, :gender, 'Gender', :class => 'col-sm-2'
-                = text_field :user, 'gender', :id => 'gender', :class => 'col-sm-9'
+                = text_field :user, 'gender', :id => 'gender', :style => "width: 60%;", :class => 'form-control col-sm-9'
               %div.form-group.row
                 = label :user, :profile_pic, 'Profile Picture', :class => 'col-sm-2'
                 = file_field_tag 'profile_pic', :id => 'profile_pic', accept: 'image/png,image/gif,image/jpeg', :onchange => "displayImage(this)" 

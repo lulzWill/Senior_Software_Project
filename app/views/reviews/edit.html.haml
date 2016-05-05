@@ -10,7 +10,7 @@
           .form-group.row
             = label :review, :comment, 'Comment'
             %br
-            = text_area :review, :comment, :value => @review.comment
+            = text_area :review, :comment, :value => @review.comment, :class => 'form-control'
           .row
             = submit_tag 'Update Review', :id => 'review_submit', :class => 'btn btn-success'
       .panel-footer

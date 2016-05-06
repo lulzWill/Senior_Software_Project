@@ -71,8 +71,11 @@ class ReviewsController < ApplicationController
     
     def flag_review
         ReviewFlag.create!(user_id: @current_user.id, review_id: params[:review_id])
-        if review = Review.find(params[:review_id]).review_flags.count >= 3
-            review.flagged = true
+        review = Review.find(params[:review_id])
+        puts "----------------"
+        puts review.review_flags.count >= 3
+        if review.review_flags.count >= 3
+            review.update(flagged: true)
         end
         render :nothing => true
     end

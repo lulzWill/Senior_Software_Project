@@ -1,15 +1,38 @@
 .container
     .panel.panel-default
+        .panel-heading
+            %h1 Flagged Photos
         .panel-body
-            .row
-                .col-sm-12
-                    %h1 Flagged Photos
-                    .row
-                        -@flagged_photos.each do |photo|
+            -if @flagged_photos != []
+                -@flagged_photos.each do |photo|
+                    .row.col-sm-12
+                        %p
+                            Uploaded by
+                            = link_to photo.user.user_id,'/users/' + photo.user.user_id
+                        %p
+                            -@photo = photo
+                            = render :partial => 'photos/photo'
+                            = link_to "Photo Info", photo_path(photo)
+                        = button_to 'Delete photo', photo_path(photo.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+                        %hr
+            -else
+                No photos
     .panel.panel-default
+        .panel-heading
+            %h1 Flagged Reviews
         .panel-body
-            .row
-                .col-sm-12
-                    %h1 Flagged Reviews
-                    .row
-                        -@flagged_reviews.each do |review|
+            -if @flagged_reviews != []
+                -@flagged_reviews.each do |review|
+                    .row.col-sm-12
+                        %p
+                            Rated by
+                            = link_to review.user.user_id,'/users/' + review.user.user_id
+                        %p
+                            -@review = review
+                            = render :partial => 'reviews/review'
+                            = link_to "Review Info", review_path(review)
+                        = button_to 'Delete review', review_path(review.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+                        %hr
+            -else
+                No reviews
+                        

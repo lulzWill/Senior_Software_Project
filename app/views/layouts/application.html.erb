@@ -66,7 +66,8 @@
                 <li><a href= <%=visits_path %> >Visits</a></li>
                 <li><a href= <%=reviews_path %> >Reviews</a></li>
                 <% if @current_user.moderator || @current_user.admin %>
-                  <li><a href= <%=mod_index_path %> >Flagged Items</a></li>
+                  <li><a href= <%= mod_index_path %> >Flagged Items</a></li>
+                <% end %>
               </ul>
             </li>
             <li class="dropdown">

@@ -47,6 +47,6 @@ Rails.application.configure do
   }
   
 
-  ENV['AWS_ACCESS_KEY_ID'] = "AKIAIAI7FEBFJITIMKRA"
-  ENV['AWS_SECRET_ACCESS_KEY'] = "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"
+  #ENV['AWS_ACCESS_KEY_ID'] = "AKIAIAI7FEBFJITIMKRA"
+  #ENV['AWS_SECRET_ACCESS_KEY'] = "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"
 end

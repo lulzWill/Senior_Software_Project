@@ -158,4 +158,16 @@ RSpec.describe ReviewsController, type: :controller do
         end
     end
 
+    describe "DESTROY destroy" do
+        it "should delete reviews when selected" do
+            @fake_review = double('review')
+            allow(Review).to receive(:find).and_return(@fake_review)
+            allow(@fake_review).to receive(:destroy!)
+            delete :destroy, :id => 1
+        end
+        it 'should redirect to homepage' do
+            expect(response).to redirect_to('homepage')
+        end
+    end
+
 end

@@ -48,7 +48,7 @@ describe SessionsController do
        end
        
        it 'notifies user' do
-          expect(flash[:warning]).to eq "invalid User-ID/Password combination" 
+          expect(flash[:warning]).to eq "Invalid User-ID/Password combination" 
        end
     end
     

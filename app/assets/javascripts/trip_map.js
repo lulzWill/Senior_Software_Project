@@ -177,6 +177,7 @@ function initAutocomplete()
           //console.log(marker.address);
           infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"
             +marker.address+"</div><br/>Rating of "+marker.review+"/5 from Google<br/><br/>"+
+            "<a onclick =\"form_function()\" id=\"visit\">Add Visit to Trip</a><br/><br/>"+
             "<a onclick = \"yelpSearch()\"href = \"#\" >Yelp details</a>"
             );
 

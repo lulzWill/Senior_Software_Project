@@ -2,10 +2,10 @@
     = form_tag albums_path, :id => 'album_form', multipart: true do
         %div.form-group.row
             = label :album, :title, 'Title', :class => 'col-sm-2'
-            = text_field :album, 'title', :id => 'title', :class => 'col-sm-9'
+            = text_field :album, 'title', :id => 'title', :style => "width: 60%;", :class => 'form-control col-sm-9'
         %div.form-group.row
             = label :album, :description, 'Description', :class => 'col-sm-2'
-            = text_field :album, 'description', :id => 'description', :class => 'col-sm-9'
+            = text_field :album, 'description', :id => 'description', :style => "width: 60%;", :class => 'form-control col-sm-9'
         %div.form-group.row
             = label :album, :pic, 'New Album Cover', :class => 'col-sm-2'
             = file_field_tag 'pic', :id => 'pic', accept: 'image/png,image/gif,image/jpeg', :onchange => "displayImage(this)" 

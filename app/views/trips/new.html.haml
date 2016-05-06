@@ -6,17 +6,15 @@
                 = form_tag trips_path, :id => 'trip_form', multipart: true do
                     %div.form-group.row
                         = label :trip, :name, 'Name', :class => 'col-sm-2'
-                        = text_field :trip, 'name', :id => 'name', :class => 'col-sm-9'
+                        = text_field :trip, 'name', :id => 'name', :style => "width: 60%;", :class => 'form-control col-sm-9'
                     %div.form-group.row
                         = label :trip, :description, 'Description', :class => 'col-sm-2'
-                        = text_field :trip, 'description', :id => 'description', :class => 'col-sm-9'
+                        = text_field :trip, 'description', :id => 'description', :style => "width: 60%;", :class => 'form-control col-sm-9'
                     %div.form-group.row
-                        = label :trip, :start_date, 'Start Date'
-                        %br
-                        %input#start_date{:name => "start_date", :type => "date", :class => "form-control", :required => true}
+                        = label :trip, :start_date, 'Start Date', :class => 'col-sm-2'
+                        %input#start_date{:name => "start_date", :type => "date", :style => "width: 60%;", :class => "form-control col-sm-9", :required => true}
                     %div.form-group.row
-                        = label :trip, :end_date, 'End Date'
-                        %br
-                        %input#start_date{:name => "end_date", :type => "date", :class => "form-control", :required => true}
+                        = label :trip, :end_date, 'End Date', :class => 'col-sm-2'
+                        %input#start_date{:name => "end_date", :type => "date", :style => "width: 60%;", :class => "form-control", :required => true}
                     %div.row{:style => "margin-left: 2%;"}     
                         = submit_tag 'Add Trip', :id => 'trip_submit', :class => 'btn btn-success'

@@ -59,7 +59,8 @@ class PhotosController < ApplicationController
     
     def flag_photo
         PhotoFlag.create!(user_id: @current_user.id, photo_id: params[:photo_id])
-        if photo = Photo.find(params[:review_id]).photo_flags.count >= 3
+        photo = Photo.find(params[:review_id])
+        if photo.photo_flags.count >= 3
             photo.update(flagged: true)
         end
         render :nothing => true

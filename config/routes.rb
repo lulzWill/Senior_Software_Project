@@ -14,11 +14,13 @@ Rails.application.routes.draw do
   get 'users/user_search'
   post 'users/newsfeed'
   post 'users/profile_newsfeed'
-  resources :users 
   match '/users/:user_id/update', to: 'users#update', via: :post
   match '/chat', to: 'users#index', via: :get
+  post 'users/toggle_moderator/:id', to: 'users#toggle_moderator', as: :toggle_moderator
+  get 'users/mod_index', to: 'users#mod_index', as: :mod_index
   resources :users
   resources :sessions
+  get 'reviews/flag_review/:review_id', to: 'reviews#flag_review', as: :flag_review
   resources :reviews
   post 'locations/location_reviews'
   post 'locations/location_visits'
@@ -26,6 +28,7 @@ Rails.application.routes.draw do
   resources :locations
   resources :visits
   resources :albums
+  get 'photos/flag_photo/:photo_id', to: 'photos#flag_photo', as: :flag_photo
   resources :photos
   resources :friendships
   

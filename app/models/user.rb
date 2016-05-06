@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
     has_many :albums
     has_many :activities
     has_many :conversations, :foreign_key => :sender_id
+    has_many :review_flags
+    has_many :photo_flags
     
     has_many :trips, :foreign_key => :main_user_id
     

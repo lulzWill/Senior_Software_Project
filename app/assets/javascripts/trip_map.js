@@ -96,7 +96,7 @@ function initAutocomplete()
   }
 
   // Create the search box and link it to the UI element.
-  var input = document.getElementById('pac-input');
+  var input = document.getElementById('pac-input2');
   var searchBox = new google.maps.places.SearchBox(input);
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
   
@@ -169,15 +169,14 @@ function initAutocomplete()
         {
           //incase passing marker doesnt work
           current_marker = marker;
-          searchTerm = document.getElementById("pac-input").value;
+          searchTerm = document.getElementById("pac-input2").value;
           title = marker.title;
           longitude = marker.longitude;
           latitude = marker.latitude;
           address = marker.address;
           //console.log(marker.address);
           infoWindow.setContent("<div id=\"title\">"+marker.title+"</div><br/><div id=\"address\">"
-            +marker.address+"</div><br/>Rating of "+marker.review+"/5 from Google<br/><br/>"
-            +"<a onclick =\"form_function()\" id=\"visit\">Add Visit to Trip</a><br/><br/>"+
+            +marker.address+"</div><br/>Rating of "+marker.review+"/5 from Google<br/><br/>"+
             "<a onclick = \"yelpSearch()\"href = \"#\" >Yelp details</a>"
             );
 

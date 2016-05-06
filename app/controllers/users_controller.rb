@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete', 'newsfeed', 'user_search']
+    before_filter :set_current_user, :only => ['index', 'show', 'homepage', 'edit', 'update', 'delete', 'newsfeed', 'user_search', 'mod_index']
 
 
 
@@ -212,6 +212,23 @@ class UsersController < ApplicationController
         respond_to do |format|
             format.js {}
         end
+    end
+    
+    def toggle_moderator
+        user = User.find(params[:id])
+        if user.moderator
+            user.update(moderator: false)
+            flash[:notice] = "Moderator removed!"
+        else
+            user.update(moderator: true)
+            flash[:notice] = "Moderator added!"
+        end
+        redirect_to users_homepage_path
+    end
+    
+    def mod_index
+        @flagged_photos = Photo.where(flagged: true)
+        @flagged_reviews = Review.where(flagged: true)
     end
     
 end

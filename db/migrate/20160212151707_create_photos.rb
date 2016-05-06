@@ -8,6 +8,7 @@ class CreatePhotos < ActiveRecord::Migration
       t.string :description
       t.integer :album_id
       t.string :privacy
+      t.boolean :flagged
       t.timestamps null: false
     end
   end

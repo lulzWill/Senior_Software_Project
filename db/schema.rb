@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415154221) do
+ActiveRecord::Schema.define(version: 20160427162837) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -78,6 +78,13 @@ ActiveRecord::Schema.define(version: 20160415154221) do
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
   add_index "messages", ["user_id"], name: "index_messages_on_user_id"
 
+  create_table "photo_flags", force: :cascade do |t|
+    t.integer  "photo_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "photos", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "location_id"
@@ -86,8 +93,16 @@ ActiveRecord::Schema.define(version: 20160415154221) do
     t.string   "description"
     t.integer  "album_id"
     t.string   "privacy"
+    t.boolean  "flagged"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "review_flags", force: :cascade do |t|
+    t.integer  "review_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -96,7 +111,7 @@ ActiveRecord::Schema.define(version: 20160415154221) do
     t.string   "visit_id"
     t.integer  "rating"
     t.string   "comment"
-    t.integer  "flags"
+    t.boolean  "flagged"
     t.boolean  "allowed"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -123,6 +138,8 @@ ActiveRecord::Schema.define(version: 20160415154221) do
     t.string   "gender"
     t.string   "profile_pic"
     t.string   "session_token"
+    t.boolean  "admin"
+    t.boolean  "moderator"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

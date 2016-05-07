@@ -4,6 +4,8 @@ RSpec.describe MessagesController, type: :controller do
     before :each do
         @fake_user = double('user')
         allow(User).to receive(:find_by_session_token).and_return(@fake_user) 
+        allow(@fake_user).to receive(:user_id).and_return("testid")
+        allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
     end
     describe 'POST create' do
         before :each do

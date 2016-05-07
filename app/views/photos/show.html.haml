@@ -10,20 +10,20 @@
     %div.photo_resized   
         = image_tag @photo.data
     %br
-    -if @photo.user_id == @current_user.user_id
-        .buttons{:style => "padding: 5px;"}    
+    .buttons{:style => "padding: 5px;"}  
+        -if @photo.user_id == @current_user.id
             = button_to 'Edit photo info', edit_photo_path(@photo.id), :method => "get", :class => 'btn btn-success'
             = button_to 'Delete photo', photo_path(@photo.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
-            -if @current_user.id != @user.id
-                -if @review.review_flags.where(user_id: @current_user.id) == []
-                    = button_to 'Flag Photo', flag_photo_path(@photo.id), :method => :get, :remote => true, class: 'btn btn-success', id: 'flag_photo_button'
-                -else
-                    = button_to 'Photo Flagged', flag_photo_path(@photo.id), class: 'btn btn-danger', disabled: 'true'
-        -if @current_user.admin || @current_user.moderator
-            %hr
-            %p Photo flagged #{@photo.photo_flags.count} times
-            .buttons.admin-buttons
-                = button_to 'Delete photo', photo_path(@photo.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
+        -if @current_user.id != @photo.user_id
+            -if @photo.photo_flags.where(user_id: @current_user.id) == []
+                = button_to 'Flag Photo', flag_photo_path(@photo.id), :method => :get, :remote => true, class: 'btn btn-success', id: 'flag_photo_button'
+            -else
+                = button_to 'Photo Flagged', flag_photo_path(@photo.id), class: 'btn btn-danger', disabled: 'true'
+    -if @current_user.admin || @current_user.moderator
+        %hr
+        %p Photo flagged #{@photo.photo_flags.count} times
+        .buttons.admin-buttons
+            = button_to 'Delete photo', photo_path(@photo.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => 'btn btn-danger'
     - if (@photo.album_id)   
         = button_to 'Return to Album', album_path(@photo.album_id), :method => "get", :class => 'btn btn-success'
             

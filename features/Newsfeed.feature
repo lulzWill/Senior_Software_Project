@@ -41,4 +41,5 @@ Scenario: View next 10 friend activities on homepage newsfeed
     | 2         | 1         |
   And I have logged in
   When I click the "More news..." button
+  And I wait for "3" seconds
   Then I should be shown "fake_user2 added a review"

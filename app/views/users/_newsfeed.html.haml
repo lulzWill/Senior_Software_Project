@@ -7,7 +7,7 @@
                 .news-row.row
                     .news-user.col-md-3
                         = link_to '/users/' + activity.username do
-                            -if activity.user.profile_pic.url != nil
+                            -if activity.user.profile_pic != nil
                                 = image_tag activity.user.profile_pic.url, class:"img img-rounded"
                             -else
                                 = image_tag (asset_path "missing.png"), class:"img img-rounded"

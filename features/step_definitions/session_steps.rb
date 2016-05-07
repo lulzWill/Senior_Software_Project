@@ -26,6 +26,8 @@ When /^I navigate to the "(.*?)" page$/ do |page|
         visit visits_path
     elsif page == "Trips"
         visit trips_path
+    elsif page == "Review of UIowa"
+        visit review_path(1)
     else
         click_link page
     end

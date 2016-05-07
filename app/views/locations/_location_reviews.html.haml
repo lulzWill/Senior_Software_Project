@@ -10,7 +10,7 @@
                     .panel-body
                         .news-user-location
                             = link_to '/users/' + review.user.user_id do
-                                -if review.user.profile_pic.url != nil
+                                -if review.user.profile_pic != nil
                                     = image_tag review.user.profile_pic, class:"img img-rounded"
                                 -else
                                     = image_tag (asset_path "missing.png"), class:"img img-rounded"

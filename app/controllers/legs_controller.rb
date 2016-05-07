@@ -17,7 +17,7 @@ class LegsController < ApplicationController
                 @leg = @trip.legs.find_or_create_by!(name: leg_name, start_date: params[:leg_start_date], end_date: params[:leg_end_date])
             else
                 flash[:notice] = "Could not add leg: Dates are outside of trip bounds."
-                redirect_to :back
+                redirect_to :back and return
             end
         else
             @leg = @trip.legs.find_by_name(params[:trip][:legs])
@@ -31,10 +31,10 @@ class LegsController < ApplicationController
             #data_hash = {location_name: @location.name, location_id: @location.id}
             #Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic.url, activity_type: "visit", data: data_hash)
             flash[:notice] = "You added #{@location.name} to your trip!"
-            redirect_to :back
+            redirect_to :back and return
         else
             flash[:notice] = "Could not add #{params[:name]} to trip. Date does not fall within the leg dates."
-            redirect_to :back
+            redirect_to :back and return
         end
     end
     
@@ -42,13 +42,9 @@ class LegsController < ApplicationController
         @leg = Leg.find(params[:id])
         @trip = @leg.trip
         Leg.find(params[:id]).destroy!
-        
-        if(!params[:ajaxCall])
-            flash[:notice] = "You deleted #{@leg.name}"
-            redirect_to :back
-        else
-            render :nothing => true
-        end
+
+        flash[:notice] = "You deleted #{@leg.name}"
+        redirect_to :back
     end
 
     def update

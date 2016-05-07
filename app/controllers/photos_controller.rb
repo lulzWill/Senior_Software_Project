@@ -34,7 +34,7 @@ class PhotosController < ApplicationController
             @photo = Photo.create!(user_id: @current_user.id, album_id: params[:album_id], description: params[:photo][:description], title: params[:photo][:title], data: params[:pic], privacy: params[:photo][:privacy])
             data_hash = {url: @photo.data.url, title: @photo.title, photo_id: @photo.id}
 
-            Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic.url, activity_type: "photo", data: data_hash)
+            Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic, activity_type: "photo", data: data_hash)
             flash[:notice] = "Photo added to album!"
             redirect_to album_path(params[:album_id])
         end
@@ -57,9 +57,10 @@ class PhotosController < ApplicationController
         redirect_to users_homepage_path
     end
     
-    def flag_review
+    def flag_photo
         PhotoFlag.create!(user_id: @current_user.id, photo_id: params[:photo_id])
-        if photo = Photo.find(params[:review_id]).photo_flags.count >= 3
+        photo = Photo.find(params[:review_id])
+        if photo.photo_flags.count >= 3
             photo.update(flagged: true)
         end
         render :nothing => true

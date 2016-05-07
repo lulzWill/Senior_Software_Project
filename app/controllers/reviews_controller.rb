@@ -47,7 +47,7 @@ class ReviewsController < ApplicationController
             visit = Visit.find(params[:visit_id])
             review = Review.create!(user_id: params[:user_id], visit_id: visit.id, location_id: location.id, rating: params[:review][:rating], comment: params[:review][:comment], flagged: false, allowed:true)
             data_hash = {review_id: review.id, rating: review.rating, location_id: location.id, location_name: location.name}
-            Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic.url, activity_type: "review", data: data_hash)
+            Activity.create!(user_id: @current_user.id, username: @current_user.user_id, profile_pic: @current_user.profile_pic, activity_type: "review", data: data_hash)
             flash[:notice] = "Review added!"
         end
         redirect_to users_homepage_path
@@ -78,8 +78,6 @@ class ReviewsController < ApplicationController
     def flag_review
         ReviewFlag.create!(user_id: @current_user.id, review_id: params[:review_id])
         review = Review.find(params[:review_id])
-        puts "----------------"
-        puts review.review_flags.count >= 3
         if review.review_flags.count >= 3
             review.update(flagged: true)
         end

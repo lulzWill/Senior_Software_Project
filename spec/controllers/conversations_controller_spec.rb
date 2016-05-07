@@ -6,6 +6,8 @@ RSpec.describe ConversationsController, type: :controller do
         @fake_mes = double('message')
         @fake_con = double('conversation')
         allow(User).to receive(:find_by_session_token).and_return(@fake_user) 
+        allow(@fake_user).to receive(:user_id).and_return("testid")
+        allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
         allow(@fake_user).to receive(:id).and_return(1)
         allow(@fake_con).to receive(:id).and_return(1)
         allow(@fake_con).to receive(:recipient_id).and_return(1)

@@ -1,3 +1,9 @@
+Given /the following photos are in the database:/ do |photos_table|
+    photos_table.hashes.each do |photo|
+        Photo.create(photo)
+    end
+end
+
 When /^I add a new photo with title "(.*?)" and description "(.*?)" from "(.*?)" page$/ do |title, description, page|
     if page == 'new photo'
         visit new_photo_path
@@ -15,13 +21,13 @@ When /^I add a new photo with title "(.*?)" and description "(.*?)" from "(.*?)"
 end
 
 When /^I edit the photo with title "(.*?)" to have new title "(.*?)"$/ do |title, new_title|
-    click_link 'Edit photo info'
+    click_button 'Edit photo info'
     fill_in 'title', :with => new_title 
     click_button 'picture_submit'
     
 end
 
 When /^I delete a photo with title "(.*?)"$/ do |title|
-    click_link 'Delete photo'
+    click_button 'Delete photo'
     page.driver.browser.switch_to.alert.accept
 end

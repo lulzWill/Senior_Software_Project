@@ -2,8 +2,8 @@ class UserMailer < ActionMailer::Base
   default from: "no-reply@backpacktraveler.com"
   
   def welcome_email(user)
-	  @user = user
-	  mail(:to => user.email, :subject => "Thank you for signing up!")
+	  #@user = user
+	  #mail(:to => user.email, :subject => "Thank you for signing up!")
   end
   
   

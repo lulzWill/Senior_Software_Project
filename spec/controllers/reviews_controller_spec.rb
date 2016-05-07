@@ -158,16 +158,36 @@ RSpec.describe ReviewsController, type: :controller do
         end
     end
 
-    describe "DESTROY destroy" do
-        it "should delete reviews when selected" do
+    describe "DELETE destroy" do
+        before :each do
             @fake_review = double('review')
             allow(Review).to receive(:find).and_return(@fake_review)
             allow(@fake_review).to receive(:destroy!)
             delete :destroy, :id => 1
         end
+        it "should delete reviews when selected" do
+            expect(flash[:notice]).to eq "Review deleted!"
+        end
         it 'should redirect to homepage' do
-            expect(response).to redirect_to('homepage')
+            expect(response).to redirect_to(users_homepage_path)
         end
     end
 
+
+    describe 'GET flag_review' do
+        before :each do
+            allow(ReviewFlag).to receive(:create!)
+            allow(@fake_user).to receive(:id)
+        end
+        it "set review as flagged if >=3 flags and render nothing" do
+            fake_review = double('fake_review')
+            flags = double('flags')
+            allow(Review).to receive(:find).and_return(fake_review)
+            allow(fake_review).to receive(:review_flags).and_return(flags)
+            allow(flags).to receive(:count).and_return(3)
+            expect(fake_review).to receive(:update)
+            expect(response.body).to be_blank
+            get :flag_review, :review_id =>1
+        end
+    end
 end

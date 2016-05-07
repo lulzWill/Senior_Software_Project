@@ -127,6 +127,7 @@ RSpec.describe PhotosController, type: :controller do
     describe 'GET flag_photo' do
         before :each do
             allow(PhotoFlag).to receive(:create!)
+            allow(@fake_user).to receive(:id)
         end
         it "set photo as flagged if >=3 flags and render nothing" do
             fake_photo = double('fake_photo')
@@ -136,6 +137,7 @@ RSpec.describe PhotosController, type: :controller do
             allow(flags).to receive(:count).and_return(3)
             expect(fake_photo).to receive(:update)
             expect(response.body).to be_blank
+            get :flag_photo, :photo_id =>1
         end
     end
 end

@@ -42,8 +42,8 @@
    
     
     #individual2{:style=> "background-color: white; display: none;border-radius: 2%; border: 1px solid black;"}
-
-  -if @current_user.profile_pic.url == nil
+  -# change for testing # if @current_user.profile_pic.url == nil
+  -if @current_user.profile_pic == nil
     = hidden_field_tag :profile_pic, (asset_path "missing.png")
     
   -else

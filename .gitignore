@@ -19,4 +19,3 @@
 /public/uploads/user/*
 /public/uploads/photo/*
 /config/enviroments/development.rb
-/coverage/*

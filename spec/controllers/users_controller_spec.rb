@@ -342,12 +342,27 @@ describe UsersController do
         @fake_user = double('user')
         @fake_reviews = double('review')
         @fake_review = double('review')
+        @fake_rating1 = "4"
+        @fake_rating2 = "4"
+        @fake_location = double('location') 
+        @fake_locations = double('location')
         allow(User).to receive(:find_by_session_token).and_return(@fake_user) 
         allow(@fake_user).to receive(:user_id).and_return("testid")
         allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
         allow(@fake_user).to receive(:reviews).and_return(@fake_reviews)
         allow(@fake_reviews).to receive(:each).and_return(@fake_review)
-        allow(@fake_review).to receive(:rating).and_return(@fake_review)
+        allow(@fake_reviews).to receive(:where).and_return(@fake_review)
+        allow(@fake_review).to receive(:rating).and_return(@fake_rating)
+        allow(@fake_review).to receive(:user).and_return(@fake_user)
+        allow(@fake_user). to receive(:id).and_return("1")
+        allow(@fake_user).to receive(:reviews).and_return(@fake_reviews)
+        allow(@fake_review).to receive(:location).and_return(@fake_location)
+        allow(@fake_location).to receive(:reviews).and_return(@fake_reviews)
+        allow(@fake_location).to receive(:id).and_return("1")
+      end
+      it 'should do something for recommendations' do
+        get :homepage
       end
     end
+    
 end

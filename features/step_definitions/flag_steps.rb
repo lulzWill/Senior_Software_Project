@@ -7,5 +7,9 @@ When /^I navigate to that photo page$/ do
 end
 
 Then /^flag button should have text "(.*?)"$/ do |text|
-   expect(find('#flag_review_button').value).to eq(text) 
+    if text == "Review Flagged"
+        expect(find('#flag_review_button').value).to eq(text) 
+    elsif text == "Photo Flagged"
+        expect(find('#flag_photo_button').value).to eq(text) 
+    end
 end

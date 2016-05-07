@@ -145,6 +145,7 @@ describe UsersController do
       end
       it "should supply past locations to map for markers w/ reviews" do
         allow(Review).to receive(:find_by). and_return(@fake_review)
+        
         get :_past_results,:loc_id => "1",:visit_id => "1"
         expect(assigns(:location)).to eq(@fake_location)
         expect(assigns(:visit)).to eq(@fake_visit)
@@ -165,6 +166,14 @@ describe UsersController do
         friendships = [@fake_friendship]
         allow(@fake_user).to receive(:friendships).and_return(friendships)
         allow(@fake_friendship).to receive(:friend_id)
+        #@fake_review_array = [@fake_review]
+        allow(@fake_user).to receive(:reviews).and_return(@fake_review)
+        allow(@fake_review).to receive(:rating).and_return(4)
+        allow(@fake_review).to receive(:location).and_return(@fake_location)
+        allow(@fake_location).to receive(:reviews).and_return(@fake_review)
+        allow(@fake_review).to receive(:user).and_return(@fake_user)
+        allow(@fake_review).to receive(:where).and_return(@fake_review)
+        allow(@fake_review).to receive(:each)
         get :homepage
         expect(assigns(:locations)).to eq([["test4","test5"]])
         expect(assigns(:visits)).to eq([@fake_visit])
@@ -286,6 +295,59 @@ describe UsersController do
         post :profile_newsfeed, :format => 'js'
         expect(assigns(:activities)).to eq([])
         expect(response).to render_template('profile_newsfeed')
+      end
+    end
+    
+    describe 'POST toggle_moderator' do
+      before :each do
+        @user = double('user')
+        allow(User).to receive(:find).and_return(@user)
+        allow(@user).to receive(:update)
+      end
+      it "should make user a moderator" do
+        allow(@user).to receive(:moderator).and_return false
+        post :toggle_moderator, :id => 1
+        expect(flash[:notice]).to eq("Moderator added!")
+        expect(response).to redirect_to(users_homepage_path)
+      end
+      it "should revoke moderator status" do
+        allow(@user).to receive(:moderator).and_return true
+        post :toggle_moderator, :id => 1
+        expect(flash[:notice]).to eq("Moderator removed!")
+        expect(response).to redirect_to(users_homepage_path)
+      end
+    end
+    
+    describe "GET mod_index" do
+      before :each do
+        @fake_user = double('user')
+        allow(User).to receive(:find_by_session_token).and_return(@fake_user) 
+        allow(@fake_user).to receive(:user_id).and_return("testid")
+        allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
+    end
+      it "should make info available and redirect to mod_index page" do
+        @flagged_photos = double('photos')
+        @flagged_reviews = double('reviews')
+        allow(Photo).to receive(:where).and_return(@flagged_photos)
+        allow(Review).to receive(:where).and_return(@flagged_reviews)
+        get :mod_index
+        expect(assigns(:flagged_photos)).to eq(@flagged_photos)
+        expect(assigns(:flagged_reviews)).to eq(@flagged_reviews)
+        expect(response).to render_template("mod_index")
+      end
+    end
+    
+    describe "Homepage Rcommendations" do
+      before :each do
+        @fake_user = double('user')
+        @fake_reviews = double('review')
+        @fake_review = double('review')
+        allow(User).to receive(:find_by_session_token).and_return(@fake_user) 
+        allow(@fake_user).to receive(:user_id).and_return("testid")
+        allow(@fake_user).to receive(:inverse_friends).and_return(Array.new)
+        allow(@fake_user).to receive(:reviews).and_return(@fake_reviews)
+        allow(@fake_reviews).to receive(:each).and_return(@fake_review)
+        allow(@fake_review).to receive(:rating).and_return(@fake_review)
       end
     end
 end

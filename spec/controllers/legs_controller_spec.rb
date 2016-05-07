@@ -182,9 +182,10 @@ RSpec.describe LegsController, type: :controller do
             allow(@fake_leg).to receive(:visits).and_return(@fake_visits)
             allow(@fake_visits).to receive(:delete).and_return(true)
             
-            post '/legs/deleteLegVisit', :leg_id => 1, :visit_id => 2
+            post :deleteLegVisit, :leg_id => 1, :visit_id => 2
             
-            expect(response).to render(:nothing)
+            #expect(response).to render_template(:nothing => true)
+            expect(response.body).to be_blank
         end
     end
     
@@ -198,9 +199,10 @@ RSpec.describe LegsController, type: :controller do
             allow(@fake_visits).to receive(:find).and_return(@fake_visits)
             allow(@fake_visits).to receive(:update!).and_return(true)
             
-            post '/legs/deleteLegVisit', :leg_id => 1, :visit_id => 2, :start_date => "31-2-2011", :visit_time => "31-2-2011"
+            post :updateLegVisit, :leg_id => 1, :visit_id => 2, :start_date => "31-2-2011", :visit_time => "31-2-2011"
             
-            expect(response).to render(:nothing)
+            #expect(response).to render_template(:nothing => true)
+            expect(response.body).to be_blank
         end
     end
 end
